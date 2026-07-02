@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import { AuthProvider } from './context/AuthContext'
 import ProtectedRoute from './components/ProtectedRoute'
+import ErrorBoundary from './components/ErrorBoundary'
 
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
@@ -37,6 +38,7 @@ function PublicLayout({ children }) {
 
 export default function App() {
   return (
+    <ErrorBoundary>
     <AuthProvider>
       <Routes>
         {/* Sito pubblico */}
@@ -83,5 +85,6 @@ export default function App() {
         />
       </Routes>
     </AuthProvider>
+    </ErrorBoundary>
   )
 }

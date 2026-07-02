@@ -66,12 +66,36 @@ export default function EntityManager({
 
   const handleChange = (name, value) => setEditing((prev) => ({ ...prev, [name]: value }))
 
+  // Gli errori di validazione di FastAPI (422) arrivano come lista di oggetti, non come stringa.
+  // Senza questa conversione, provare a mostrare direttamente l'oggetto mandava in crash la pagina.
+  const extractErrorMessage = (err) => {
+    const detail = err.response?.data?.detail
+    if (!detail) return 'Salvataggio non riuscito. Controlla i dati inseriti.'
+    if (typeof detail === 'string') return detail
+    if (Array.isArray(detail)) {
+      return detail.map((d) => d.msg || String(d)).join(' — ')
+    }
+    return 'Salvataggio non riuscito. Controlla i dati inseriti.'
+  }
+
+  // Converte i campi facoltativi lasciati vuoti in null, invece di mandare una stringa vuota:
+  // per alcuni campi (es. email) una stringa vuota non è un valore valido e il backend la rifiuta.
+  const buildPayload = () => {
+    const base = { ...editing }
+    fields.forEach((f) => {
+      if (!f.required && base[f.name] === '') {
+        base[f.name] = null
+      }
+    })
+    return transformSubmit ? transformSubmit(base) : base
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     setSaving(true)
     setFormError('')
     try {
-      const payload = transformSubmit ? transformSubmit(editing) : editing
+      const payload = buildPayload()
       if (editing.id) {
         await api.patch(`${endpoint}/${editing.id}`, payload)
       } else {
@@ -80,7 +104,7 @@ export default function EntityManager({
       closeForm()
       load()
     } catch (err) {
-      setFormError(err.response?.data?.detail || 'Salvataggio non riuscito. Controlla i dati inseriti.')
+      setFormError(extractErrorMessage(err))
     } finally {
       setSaving(false)
     }
