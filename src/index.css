@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #FAF7F1;
+  color: #14213D;
+  font-family: 'Inter', sans-serif;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Focus visibile per accessibilità da tastiera */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 3px solid #F2A93B;
+  outline-offset: 2px;
+}
+
+/* Elemento firma: traiettoria a tre punti crescenti, come i cerchi del logo
+   che disegnano l'arco di una schiacciata. Usato come separatore tra sezioni. */
+.trajectory-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  margin: 0 auto;
+}
+
+.trajectory-divider .dot {
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.trajectory-divider .dot:nth-child(1) { width: 8px; height: 8px; opacity: 0.5; }
+.trajectory-divider .dot:nth-child(2) { width: 13px; height: 13px; opacity: 0.75; }
+.trajectory-divider .dot:nth-child(3) { width: 19px; height: 19px; }
+
+/* Linea tratteggiata a curva, usata come sfondo decorativo di sezione */
+.arc-line {
+  stroke-dasharray: 2 10;
+  stroke-linecap: round;
+}
+
+.scoreboard {
+  font-family: 'Space Mono', monospace;
+  letter-spacing: 0.02em;
+}
+
+.input {
+  width: 100%;
+  border: 2px solid rgba(20, 33, 61, 0.12);
+  border-radius: 0.75rem;
+  padding: 0.65rem 0.9rem;
+  background: white;
+  color: #14213D;
+  font-family: 'Inter', sans-serif;
+  transition: border-color 0.15s ease;
+}
+
+.input:focus {
+  border-color: #F2A93B;
+  outline: none;
+}
