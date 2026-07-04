@@ -1,6 +1,8 @@
 import { Routes, Route } from 'react-router-dom'
 import { AuthProvider } from './context/AuthContext'
+import { GuardianAuthProvider } from './context/GuardianAuthContext'
 import ProtectedRoute from './components/ProtectedRoute'
+import GuardianProtectedRoute from './components/GuardianProtectedRoute'
 import ErrorBoundary from './components/ErrorBoundary'
 
 import Navbar from './components/Navbar'
@@ -26,6 +28,11 @@ import AdminNews from './pages/admin/AdminNews'
 import AdminRegistrations from './pages/admin/AdminRegistrations'
 import AdminSponsors from './pages/admin/AdminSponsors'
 
+import GuardianLogin from './pages/guardian/GuardianLogin'
+import ActivateAccount from './pages/guardian/ActivateAccount'
+import GuardianLayout from './pages/guardian/GuardianLayout'
+import GuardianDashboard from './pages/guardian/GuardianDashboard'
+
 function PublicLayout({ children }) {
   return (
     <div className="flex flex-col min-h-screen">
@@ -40,6 +47,7 @@ export default function App() {
   return (
     <ErrorBoundary>
     <AuthProvider>
+    <GuardianAuthProvider>
       <Routes>
         {/* Sito pubblico */}
         <Route path="/" element={<PublicLayout><Home /></PublicLayout>} />
@@ -50,6 +58,22 @@ export default function App() {
         <Route path="/iscriviti" element={<PublicLayout><Registration /></PublicLayout>} />
         <Route path="/sponsor" element={<PublicLayout><Sponsors /></PublicLayout>} />
         <Route path="/contatti" element={<PublicLayout><Contact /></PublicLayout>} />
+
+        {/* Attivazione account genitore (link ricevuto via email) */}
+        <Route path="/attiva-account" element={<ActivateAccount />} />
+
+        {/* Area riservata famiglie */}
+        <Route path="/area-riservata/login" element={<GuardianLogin />} />
+        <Route
+          path="/area-riservata"
+          element={
+            <GuardianProtectedRoute>
+              <GuardianLayout />
+            </GuardianProtectedRoute>
+          }
+        >
+          <Route index element={<GuardianDashboard />} />
+        </Route>
 
         {/* Pannello admin */}
         <Route path="/admin/login" element={<Login />} />
@@ -84,6 +108,7 @@ export default function App() {
           }
         />
       </Routes>
+    </GuardianAuthProvider>
     </AuthProvider>
     </ErrorBoundary>
   )
