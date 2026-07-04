@@ -32,11 +32,7 @@ export default function Login() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-navy-dark px-5">
       <form onSubmit={handleSubmit} className="bg-cream rounded-2xl p-8 w-full max-w-sm">
-        <div className="flex gap-1.5 items-end mb-6">
-          <span className="w-2.5 h-2.5 rounded-full bg-navy-light" />
-          <span className="w-3.5 h-3.5 rounded-full bg-amber" />
-          <span className="w-5 h-5 rounded-full bg-amber-dark" />
-        </div>
+        <img src="/logo.jpg" alt="Magic Volley Adelfia" className="h-16 w-auto mb-5" />
         <h1 className="font-display font-bold text-xl text-navy-dark">Pannello gestionale</h1>
         <p className="text-sm text-navy-dark/60 mt-1 mb-6">Magic Volley Adelfia</p>
 
