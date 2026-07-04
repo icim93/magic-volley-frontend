@@ -15,9 +15,9 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 bg-cream/95 backdrop-blur border-b-2 border-navy-dark/10">
-      <div className="max-w-6xl mx-auto px-5 flex items-center justify-between h-20">
-        <NavLink to="/" className="flex items-center gap-2.5 group" onClick={() => setOpen(false)}>
-          <img src="/logo.jpg" alt="Magic Volley Adelfia" className="h-12 w-auto" />
+      <div className="max-w-6xl mx-auto px-5 flex items-center justify-between h-28">
+        <NavLink to="/" className="flex items-center gap-2.5 group shrink-0" onClick={() => setOpen(false)}>
+          <img src="/logo.jpg" alt="Magic Volley Adelfia" className="h-24 w-auto py-2" />
         </NavLink>
 
         <nav className="hidden md:flex items-center gap-7">

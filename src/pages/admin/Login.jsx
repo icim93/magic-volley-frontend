@@ -32,7 +32,7 @@ export default function Login() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-navy-dark px-5">
       <form onSubmit={handleSubmit} className="bg-cream rounded-2xl p-8 w-full max-w-sm">
-        <img src="/logo.jpg" alt="Magic Volley Adelfia" className="h-16 w-auto mb-5" />
+        <img src="/logo.jpg" alt="Magic Volley Adelfia" className="h-24 w-auto mb-5" />
         <h1 className="font-display font-bold text-xl text-navy-dark">Pannello gestionale</h1>
         <p className="text-sm text-navy-dark/60 mt-1 mb-6">Magic Volley Adelfia</p>
 

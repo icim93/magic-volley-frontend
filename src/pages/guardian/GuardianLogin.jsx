@@ -33,7 +33,7 @@ export default function GuardianLogin() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-cream px-5">
       <form onSubmit={handleSubmit} className="bg-white border-2 border-navy-dark/10 rounded-2xl p-8 w-full max-w-sm">
-        <img src="/logo.jpg" alt="Magic Volley Adelfia" className="h-16 w-auto mb-5" />
+        <img src="/logo.jpg" alt="Magic Volley Adelfia" className="h-24 w-auto mb-5" />
         <h1 className="font-display font-bold text-xl text-navy-dark">Area riservata famiglie</h1>
         <p className="text-sm text-navy-dark/60 mt-1 mb-6">Magic Volley Adelfia</p>
 
