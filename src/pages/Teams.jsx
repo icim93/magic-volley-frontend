@@ -1,6 +1,42 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import api from '../lib/api'
 import { Loading, EmptyState, ErrorState } from '../components/Feedback'
+
+function PlayerCard({ player }) {
+  return (
+    <Link
+      to={`/giocatrici/${player.id}`}
+      className="group bg-white border-2 border-navy-dark/10 hover:border-amber rounded-xl p-4 flex items-center gap-4 transition-colors"
+    >
+      {player.photo_url ? (
+        <img
+          src={player.photo_url}
+          alt={`${player.first_name} ${player.last_name}`}
+          className="w-11 h-11 rounded-full object-cover object-top shrink-0"
+        />
+      ) : (
+        <div className="scoreboard w-11 h-11 flex items-center justify-center rounded-full bg-navy-dark text-cream font-bold text-lg shrink-0">
+          {player.jersey_number ?? '–'}
+        </div>
+      )}
+      <div className="min-w-0 flex-1">
+        <p className="font-body font-semibold text-navy-dark truncate">
+          {player.first_name} {player.last_name}
+        </p>
+        <p className="text-xs text-navy-dark/50 uppercase tracking-wide">
+          {player.photo_url && player.jersey_number != null && (
+            <span className="scoreboard text-amber-dark mr-1.5">#{player.jersey_number}</span>
+          )}
+          {player.role || 'Atleta'}
+        </p>
+      </div>
+      <span className="text-navy-dark/30 group-hover:text-amber-dark group-hover:translate-x-0.5 transition-all shrink-0" aria-hidden="true">
+        →
+      </span>
+    </Link>
+  )
+}
 
 export default function Teams() {
   const [teams, setTeams] = useState(null)
@@ -16,7 +52,8 @@ export default function Teams() {
     <div className="max-w-6xl mx-auto px-5 py-16">
       <h1 className="font-display font-bold text-4xl text-navy-dark">Le squadre</h1>
       <p className="text-navy-dark/60 mt-3 max-w-xl">
-        Il roster completo di ogni categoria, aggiornato stagione per stagione.
+        Ogni maglia ha un nome, ogni numero una storia. Apri la scheda di
+        un'atleta per conoscerla meglio.
       </p>
 
       <div className="mt-12 space-y-14">
@@ -38,20 +75,12 @@ export default function Teams() {
 
             {team.players?.length > 0 ? (
               <div className="mt-6 grid sm:grid-cols-2 md:grid-cols-3 gap-4">
-                {team.players.map((p) => (
-                  <div key={p.id} className="bg-white border-2 border-navy-dark/10 rounded-xl p-4 flex items-center gap-4">
-                    <div className="scoreboard w-11 h-11 flex items-center justify-center rounded-full bg-navy-dark text-cream font-bold text-lg shrink-0">
-                      {p.jersey_number ?? '–'}
-                    </div>
-                    <div>
-                      <p className="font-body font-semibold text-navy-dark">{p.first_name} {p.last_name}</p>
-                      {p.role && <p className="text-xs text-navy-dark/50 uppercase tracking-wide">{p.role}</p>}
-                    </div>
-                  </div>
-                ))}
+                {team.players.map((p) => <PlayerCard key={p.id} player={p} />)}
               </div>
             ) : (
-              <p className="text-sm text-navy-dark/40 mt-6">Roster in aggiornamento.</p>
+              <p className="text-sm text-navy-dark/40 mt-6">
+                Il roster è in via di definizione: i nomi arrivano con l'inizio della stagione.
+              </p>
             )}
           </div>
         ))}

@@ -3,9 +3,11 @@ import { NavLink } from 'react-router-dom'
 
 const links = [
   { to: '/', label: 'Home' },
+  { to: '/societa', label: 'Società' },
   { to: '/squadre', label: 'Squadre' },
   { to: '/calendario', label: 'Calendario' },
   { to: '/news', label: 'News' },
+  { to: '/gallery', label: 'Gallery' },
   { to: '/sponsor', label: 'Sponsor' },
   { to: '/contatti', label: 'Contatti' },
 ]
@@ -17,10 +19,10 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 bg-cream/95 backdrop-blur border-b-2 border-navy-dark/10">
       <div className="max-w-6xl mx-auto px-5 flex items-center justify-between h-28">
         <NavLink to="/" className="flex items-center gap-2.5 group shrink-0" onClick={() => setOpen(false)}>
-          <img src="/logo.jpg" alt="Magic Volley Adelfia" className="h-24 w-auto py-2" />
+          <img src="/logo.png" alt="Magic Volley Adelfia ASD" className="h-24 w-auto py-2" />
         </NavLink>
 
-        <nav className="hidden md:flex items-center gap-7">
+        <nav className="hidden md:flex items-center gap-6">
           {links.map((l) => (
             <NavLink
               key={l.to}

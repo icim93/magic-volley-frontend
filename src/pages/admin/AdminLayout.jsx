@@ -10,6 +10,7 @@ const navItems = [
   { to: '/admin/news', label: 'News' },
   { to: '/admin/iscrizioni', label: 'Iscrizioni' },
   { to: '/admin/sponsor', label: 'Sponsor' },
+  { to: '/admin/gallery', label: 'Fotogallery' },
 ]
 
 export default function AdminLayout() {
@@ -25,7 +26,8 @@ export default function AdminLayout() {
     <div className="min-h-screen flex bg-cream">
       <aside className="w-60 bg-navy-dark text-cream flex flex-col shrink-0">
         <div className="p-6">
-          <p className="font-display font-bold leading-tight">Magic Volley<br />Adelfia</p>
+          <img src="/logo-dark.jpg" alt="" className="h-20 w-auto mb-3 mix-blend-lighten" />
+          <p className="font-display font-bold leading-tight">Magic Volley<br />Adelfia ASD</p>
           <p className="text-xs text-cream/50 mt-1">Pannello gestionale</p>
         </div>
         <nav className="flex-1 px-3 space-y-1">

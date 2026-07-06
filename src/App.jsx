@@ -9,7 +9,10 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 
 import Home from './pages/Home'
+import Club from './pages/Club'
 import Teams from './pages/Teams'
+import PlayerDetail from './pages/PlayerDetail'
+import Gallery from './pages/Gallery'
 import Calendar from './pages/Calendar'
 import News from './pages/News'
 import NewsDetail from './pages/NewsDetail'
@@ -27,6 +30,7 @@ import AdminMatches from './pages/admin/AdminMatches'
 import AdminNews from './pages/admin/AdminNews'
 import AdminRegistrations from './pages/admin/AdminRegistrations'
 import AdminSponsors from './pages/admin/AdminSponsors'
+import AdminGallery from './pages/admin/AdminGallery'
 
 import GuardianLogin from './pages/guardian/GuardianLogin'
 import ActivateAccount from './pages/guardian/ActivateAccount'
@@ -51,7 +55,10 @@ export default function App() {
       <Routes>
         {/* Sito pubblico */}
         <Route path="/" element={<PublicLayout><Home /></PublicLayout>} />
+        <Route path="/societa" element={<PublicLayout><Club /></PublicLayout>} />
         <Route path="/squadre" element={<PublicLayout><Teams /></PublicLayout>} />
+        <Route path="/giocatrici/:id" element={<PublicLayout><PlayerDetail /></PublicLayout>} />
+        <Route path="/gallery" element={<PublicLayout><Gallery /></PublicLayout>} />
         <Route path="/calendario" element={<PublicLayout><Calendar /></PublicLayout>} />
         <Route path="/news" element={<PublicLayout><News /></PublicLayout>} />
         <Route path="/news/:slug" element={<PublicLayout><NewsDetail /></PublicLayout>} />
@@ -93,6 +100,7 @@ export default function App() {
           <Route path="news" element={<AdminNews />} />
           <Route path="iscrizioni" element={<AdminRegistrations />} />
           <Route path="sponsor" element={<AdminSponsors />} />
+          <Route path="gallery" element={<AdminGallery />} />
         </Route>
 
         {/* 404 semplice */}

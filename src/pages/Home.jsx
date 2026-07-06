@@ -36,6 +36,14 @@ export default function Home() {
           <path d="M -50 600 Q 400 100 1250 250" stroke="#5B85C9" strokeWidth="3" fill="none" className="arc-line" />
         </svg>
 
+        {/* Logo glow: con mix-blend-lighten il fondo scuro dell'immagine si fonde nel navy */}
+        <img
+          src="/logo-dark.jpg"
+          alt=""
+          aria-hidden="true"
+          className="hidden md:block absolute right-0 top-1/2 -translate-y-1/2 w-[520px] max-w-[45%] mix-blend-lighten opacity-90 pointer-events-none select-none"
+        />
+
         <div className="relative max-w-6xl mx-auto px-5 pt-20 pb-24 md:pt-28 md:pb-32">
           <div className="flex items-end gap-2 mb-6">
             <span className="w-3 h-3 rounded-full bg-navy-light" />
@@ -45,11 +53,12 @@ export default function Home() {
 
           <h1 className="font-display font-extrabold text-5xl sm:text-6xl md:text-7xl leading-[1.05] max-w-3xl">
             Magic Volley<br />
-            <span className="text-amber">Adelfia</span>
+            <span className="text-amber">Adelfia</span>{' '}
+            <span className="text-cream/40 text-3xl sm:text-4xl md:text-5xl align-top">ASD</span>
           </h1>
           <p className="mt-6 max-w-lg text-cream/80 text-lg font-body">
-            Squadre 2ª Divisione, U16 e U18. Passione, disciplina e schiacciate
-            che si allenano ogni settimana ad Adelfia.
+            Dal primo palleggio in U16 alla 2ª Divisione: cresciamo pallavoliste
+            — e persone — un allenamento alla volta.
           </p>
 
           <div className="mt-9 flex flex-wrap gap-4">
@@ -103,7 +112,8 @@ export default function Home() {
       <section className="max-w-6xl mx-auto px-5">
         <h2 className="font-display font-bold text-3xl text-navy-dark text-center">Le nostre squadre</h2>
         <p className="text-center text-navy-dark/60 mt-3 max-w-md mx-auto">
-          Tre categorie, un'unica maglia. Ogni squadra ha la sua storia e il suo roster.
+          Un unico percorso, tre tappe: si entra in U16, si cresce in U18
+          e si arriva a giocarsi la 2ª Divisione.
         </p>
 
         <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 mt-10">
@@ -115,7 +125,7 @@ export default function Home() {
             >
               <p className="font-display text-xs uppercase tracking-widest text-navy-light">{team.category}</p>
               <p className="font-display font-bold text-xl text-navy-dark mt-2">{team.name}</p>
-              <p className="text-sm text-navy-dark/60 mt-2">{team.players?.length || 0} giocatrici in rosa</p>
+              <p className="text-sm text-navy-dark/60 mt-2">{team.players?.length || 0} atlete in rosa</p>
               <span className="inline-block mt-4 text-sm font-semibold text-amber-dark group-hover:translate-x-1 transition-transform">
                 Vedi roster →
               </span>
@@ -129,7 +139,30 @@ export default function Home() {
         </div>
       </section>
 
-      <TrajectoryDivider className="my-20" />
+      {/* MISSION */}
+      <section className="bg-navy-dark text-cream my-20">
+        <div className="max-w-6xl mx-auto px-5 py-16 md:py-20 grid md:grid-cols-[1.4fr_1fr] gap-10 items-center">
+          <div>
+            <p className="font-display text-xs uppercase tracking-widest text-amber mb-4">La nostra missione</p>
+            <p className="font-display font-bold text-2xl md:text-3xl leading-snug">
+              «Prendere una ragazza che ama la pallavolo e restituirle, anno dopo
+              anno, una versione più forte di sé.»
+            </p>
+            <p className="text-cream/70 mt-5 max-w-xl">
+              Siamo un'associazione sportiva dilettantistica: niente scorciatoie,
+              solo palestra, tecnica e un gruppo che pretende e sostiene allo stesso tempo.
+            </p>
+          </div>
+          <div className="justify-self-start md:justify-self-end">
+            <Link
+              to="/societa"
+              className="inline-block border-2 border-amber text-amber hover:bg-amber hover:text-navy-dark font-display font-semibold px-7 py-3.5 rounded-full transition-colors"
+            >
+              Conosci la società →
+            </Link>
+          </div>
+        </div>
+      </section>
 
       {/* NEWS */}
       <section className="max-w-6xl mx-auto px-5 pb-24">
