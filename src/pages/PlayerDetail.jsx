@@ -99,6 +99,8 @@ export default function PlayerDetail() {
               <img
                 src={player.photo_url}
                 alt={`${player.first_name} ${player.last_name}`}
+                loading="lazy"
+                decoding="async"
                 className="w-56 md:w-72 max-h-96 object-cover object-top rounded-t-2xl justify-self-center md:justify-self-end"
               />
             )}

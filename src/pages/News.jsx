@@ -38,7 +38,13 @@ export default function News() {
           >
             {item.cover_image_url && (
               <div className="aspect-[16/9] overflow-hidden bg-navy-light/10">
-                <img src={item.cover_image_url} alt="" className="w-full h-full object-cover" />
+                <img
+                  src={item.cover_image_url}
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-full object-cover"
+                />
               </div>
             )}
             <div className="p-6">

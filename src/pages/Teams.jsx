@@ -14,6 +14,8 @@ function PlayerCard({ player }) {
         <img
           src={player.photo_url}
           alt={`${player.first_name} ${player.last_name}`}
+          loading="lazy"
+          decoding="async"
           className="w-11 h-11 rounded-full object-cover object-top shrink-0"
         />
       ) : (
