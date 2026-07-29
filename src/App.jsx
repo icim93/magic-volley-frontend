@@ -34,6 +34,7 @@ const AdminNews = lazy(() => import('./pages/admin/AdminNews'))
 const AdminRegistrations = lazy(() => import('./pages/admin/AdminRegistrations'))
 const AdminSponsors = lazy(() => import('./pages/admin/AdminSponsors'))
 const AdminGallery = lazy(() => import('./pages/admin/AdminGallery'))
+const AdminProfile = lazy(() => import('./pages/admin/AdminProfile'))
 
 const GuardianLogin = lazy(() => import('./pages/guardian/GuardianLogin'))
 const ActivateAccount = lazy(() => import('./pages/guardian/ActivateAccount'))
@@ -108,6 +109,7 @@ export default function App() {
           <Route path="iscrizioni" element={<AdminRegistrations />} />
           <Route path="sponsor" element={<AdminSponsors />} />
           <Route path="gallery" element={<AdminGallery />} />
+          <Route path="profilo" element={<AdminProfile />} />
         </Route>
 
         {/* 404 semplice */}

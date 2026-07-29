@@ -11,6 +11,7 @@ const navItems = [
   { to: '/admin/iscrizioni', label: 'Iscrizioni' },
   { to: '/admin/sponsor', label: 'Sponsor' },
   { to: '/admin/gallery', label: 'Fotogallery' },
+  { to: '/admin/profilo', label: 'Profilo' },
 ]
 
 export default function AdminLayout() {
