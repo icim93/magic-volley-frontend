@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { AuthProvider } from './context/AuthContext'
 import { GuardianAuthProvider } from './context/GuardianAuthContext'
@@ -7,6 +8,7 @@ import ErrorBoundary from './components/ErrorBoundary'
 
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
+import { Loading } from './components/Feedback'
 
 import Home from './pages/Home'
 import Club from './pages/Club'
@@ -20,22 +22,22 @@ import Registration from './pages/Registration'
 import Sponsors from './pages/Sponsors'
 import Contact from './pages/Contact'
 
-import Login from './pages/admin/Login'
-import AdminLayout from './pages/admin/AdminLayout'
-import Dashboard from './pages/admin/Dashboard'
-import AdminTeams from './pages/admin/AdminTeams'
-import AdminPlayers from './pages/admin/AdminPlayers'
-import AdminStaff from './pages/admin/AdminStaff'
-import AdminMatches from './pages/admin/AdminMatches'
-import AdminNews from './pages/admin/AdminNews'
-import AdminRegistrations from './pages/admin/AdminRegistrations'
-import AdminSponsors from './pages/admin/AdminSponsors'
-import AdminGallery from './pages/admin/AdminGallery'
+const Login = lazy(() => import('./pages/admin/Login'))
+const AdminLayout = lazy(() => import('./pages/admin/AdminLayout'))
+const Dashboard = lazy(() => import('./pages/admin/Dashboard'))
+const AdminTeams = lazy(() => import('./pages/admin/AdminTeams'))
+const AdminPlayers = lazy(() => import('./pages/admin/AdminPlayers'))
+const AdminStaff = lazy(() => import('./pages/admin/AdminStaff'))
+const AdminMatches = lazy(() => import('./pages/admin/AdminMatches'))
+const AdminNews = lazy(() => import('./pages/admin/AdminNews'))
+const AdminRegistrations = lazy(() => import('./pages/admin/AdminRegistrations'))
+const AdminSponsors = lazy(() => import('./pages/admin/AdminSponsors'))
+const AdminGallery = lazy(() => import('./pages/admin/AdminGallery'))
 
-import GuardianLogin from './pages/guardian/GuardianLogin'
-import ActivateAccount from './pages/guardian/ActivateAccount'
-import GuardianLayout from './pages/guardian/GuardianLayout'
-import GuardianDashboard from './pages/guardian/GuardianDashboard'
+const GuardianLogin = lazy(() => import('./pages/guardian/GuardianLogin'))
+const ActivateAccount = lazy(() => import('./pages/guardian/ActivateAccount'))
+const GuardianLayout = lazy(() => import('./pages/guardian/GuardianLayout'))
+const GuardianDashboard = lazy(() => import('./pages/guardian/GuardianDashboard'))
 
 function PublicLayout({ children }) {
   return (
@@ -52,6 +54,7 @@ export default function App() {
     <ErrorBoundary>
     <AuthProvider>
     <GuardianAuthProvider>
+      <Suspense fallback={<Loading label="Caricamento…" />}>
       <Routes>
         {/* Sito pubblico */}
         <Route path="/" element={<PublicLayout><Home /></PublicLayout>} />
@@ -116,6 +119,7 @@ export default function App() {
           }
         />
       </Routes>
+      </Suspense>
     </GuardianAuthProvider>
     </AuthProvider>
     </ErrorBoundary>
