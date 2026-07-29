@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /area-riservata
+
+Sitemap: https://www.magicvolleyadelfia.it/sitemap.xml
