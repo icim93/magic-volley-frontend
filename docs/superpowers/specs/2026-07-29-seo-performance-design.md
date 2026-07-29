@@ -77,24 +77,25 @@ aggiunto a `main.py`), risposta `Content-Type: application/xml`. Contenuto:
 - `/giocatrici/{id}` per ogni giocatrice con `is_active = true`.
 
 Tutti gli URL nel sitemap usano il dominio pubblico del frontend
-(`https://magicvolleyadelfia.it`), non l'URL del backend — servirà quindi una
-costante/config per il base URL pubblico (env var lato backend, es.
-`PUBLIC_SITE_URL`, default `https://magicvolleyadelfia.it`).
+(`https://www.magicvolleyadelfia.it`), non l'URL del backend — servirà quindi
+una costante/config per il base URL pubblico (env var lato backend, es.
+`PUBLIC_SITE_URL`, default `https://www.magicvolleyadelfia.it`).
 
-Per esporre il file alla radice del dominio frontend (dove Google/robots.txt
-lo cercano) senza duplicare la logica lato frontend, si aggiunge un
-`vercel.json` nel repo frontend con un rewrite:
+**Nota (aggiornata dopo la scrittura iniziale dello spec):** il sito è ora
+distribuito su Render (Static Site per il frontend, Web Service per il
+backend), non su Vercel come inizialmente ipotizzato. Per esporre il file
+alla radice del dominio frontend (dove Google/`robots.txt` lo cercano) senza
+duplicare la logica lato frontend, si usa il meccanismo nativo di Render per
+le Static Site: un file `public/_redirects` (sintassi in stile Netlify,
+supportata da Render) con una regola di *rewrite* (status 200, non redirect)
+che inoltra la richiesta al backend mantenendo l'URL originale nel browser:
 
-```json
-{
-  "rewrites": [
-    { "source": "/sitemap.xml", "destination": "https://<backend-url>/sitemap.xml" }
-  ]
-}
+```
+/sitemap.xml  https://magic-volley-backend.onrender.com/sitemap.xml  200
 ```
 
-Il valore reale di `<backend-url>` verrà inserito al momento del deploy (non
-ancora avvenuto); il file viene comunque aggiunto ora così è pronto.
+URL del backend confermato dal servizio Render già attivo
+(`magic-volley-backend`).
 
 ### 4. Code splitting
 
