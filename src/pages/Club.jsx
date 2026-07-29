@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import api from '../lib/api'
 import { Loading, TrajectoryDivider } from '../components/Feedback'
+import { useDocumentMeta } from '../hooks/useDocumentMeta'
 
 const VALUES = [
   {
@@ -77,6 +78,12 @@ export default function Club() {
       .then((res) => setTeams(res.data))
       .catch(() => {})
   }, [])
+
+  useDocumentMeta({
+    title: 'Società',
+    description: "Chi siamo, la nostra missione e l'organigramma di Magic Volley Adelfia ASD.",
+    path: '/societa',
+  })
 
   const playerCount = teams.reduce((sum, t) => sum + (t.players?.length || 0), 0)
 

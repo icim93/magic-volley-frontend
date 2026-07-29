@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import api from '../lib/api'
 import { Loading, ErrorState } from '../components/Feedback'
+import { useDocumentMeta } from '../hooks/useDocumentMeta'
 
 function computeAge(birthDate) {
   const birth = new Date(birthDate)
@@ -35,6 +36,16 @@ export default function PlayerDetail() {
       .then((res) => setPlayer(res.data))
       .catch(() => setError(true))
   }, [id])
+
+  useDocumentMeta({
+    title: player ? `${player.first_name} ${player.last_name}` : undefined,
+    description: player
+      ? (player.bio || `Scheda di ${player.first_name} ${player.last_name}, ${player.role || 'atleta'} di Magic Volley Adelfia ASD.`)
+      : undefined,
+    image: player?.photo_url,
+    path: `/giocatrici/${id}`,
+    type: 'profile',
+  })
 
   if (error) {
     return (

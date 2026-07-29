@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import api from '../lib/api'
 import { Loading, EmptyState, ErrorState } from '../components/Feedback'
+import { useDocumentMeta } from '../hooks/useDocumentMeta'
 
 function PlayerCard({ player }) {
   return (
@@ -47,6 +48,12 @@ export default function Teams() {
       .then((res) => setTeams(res.data))
       .catch(() => setError(true))
   }, [])
+
+  useDocumentMeta({
+    title: 'Squadre',
+    description: 'Le squadre di Magic Volley Adelfia ASD: rose, categorie e schede delle atlete.',
+    path: '/squadre',
+  })
 
   return (
     <div className="max-w-6xl mx-auto px-5 py-16">

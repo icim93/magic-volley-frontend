@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import api from '../lib/api'
 import { Loading, EmptyState, ErrorState } from '../components/Feedback'
+import { useDocumentMeta } from '../hooks/useDocumentMeta'
 
 const statusLabel = {
   scheduled: 'In programma',
@@ -55,6 +56,12 @@ export default function Calendar() {
 
     request.then((res) => setMatches(res.data)).catch(() => setError(true))
   }, [tab])
+
+  useDocumentMeta({
+    title: 'Calendario & Risultati',
+    description: 'Prossime partite e risultati delle squadre di Magic Volley Adelfia ASD.',
+    path: '/calendario',
+  })
 
   return (
     <div className="max-w-4xl mx-auto px-5 py-16">

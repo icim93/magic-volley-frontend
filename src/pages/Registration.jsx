@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import api from '../lib/api'
+import { useDocumentMeta } from '../hooks/useDocumentMeta'
 
 const categories = ['U16', 'U18', '2ª Divisione', 'Altro / non so']
 
@@ -17,6 +18,12 @@ export default function Registration() {
   const [form, setForm] = useState(emptyForm)
   const [status, setStatus] = useState('idle') // idle | sending | done | error
   const [errorMsg, setErrorMsg] = useState('')
+
+  useDocumentMeta({
+    title: 'Iscriviti',
+    description: 'Richiedi il tesseramento a Magic Volley Adelfia ASD: compila il modulo di iscrizione.',
+    path: '/iscriviti',
+  })
 
   const update = (field) => (e) => setForm((f) => ({ ...f, [field]: e.target.value }))
 

@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback } from 'react'
 import api from '../lib/api'
 import { Loading, EmptyState, ErrorState } from '../components/Feedback'
+import { useDocumentMeta } from '../hooks/useDocumentMeta'
 
 export default function Gallery() {
   const [photos, setPhotos] = useState(null)
@@ -13,6 +14,12 @@ export default function Gallery() {
       .then((res) => setPhotos(res.data))
       .catch(() => setError(true))
   }, [])
+
+  useDocumentMeta({
+    title: 'Fotogallery',
+    description: 'Foto delle partite, degli allenamenti e degli eventi di Magic Volley Adelfia ASD.',
+    path: '/gallery',
+  })
 
   const categories = [...new Set((photos || []).map((p) => p.category).filter(Boolean))]
   const visible = category ? photos.filter((p) => p.category === category) : (photos || [])

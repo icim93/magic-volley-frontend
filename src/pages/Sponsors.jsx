@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import api from '../lib/api'
 import { Loading, EmptyState, ErrorState } from '../components/Feedback'
+import { useDocumentMeta } from '../hooks/useDocumentMeta'
 
 export default function Sponsors() {
   const [sponsors, setSponsors] = useState(null)
@@ -11,6 +12,12 @@ export default function Sponsors() {
       .then((res) => setSponsors(res.data))
       .catch(() => setError(true))
   }, [])
+
+  useDocumentMeta({
+    title: 'Sponsor',
+    description: 'Gli sponsor che sostengono Magic Volley Adelfia ASD.',
+    path: '/sponsor',
+  })
 
   return (
     <div className="max-w-5xl mx-auto px-5 py-16">

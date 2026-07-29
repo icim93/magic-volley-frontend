@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import api from '../lib/api'
 import { Loading, EmptyState, ErrorState } from '../components/Feedback'
+import { useDocumentMeta } from '../hooks/useDocumentMeta'
 
 export default function News() {
   const [news, setNews] = useState(null)
@@ -12,6 +13,12 @@ export default function News() {
       .then((res) => setNews(res.data))
       .catch(() => setError(true))
   }, [])
+
+  useDocumentMeta({
+    title: 'News',
+    description: 'Tutte le novità di Magic Volley Adelfia ASD.',
+    path: '/news',
+  })
 
   return (
     <div className="max-w-5xl mx-auto px-5 py-16">

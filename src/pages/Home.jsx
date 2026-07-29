@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import api from '../lib/api'
 import { TrajectoryDivider } from '../components/Feedback'
+import { useDocumentMeta } from '../hooks/useDocumentMeta'
 
 export default function Home() {
   const [nextMatch, setNextMatch] = useState(null)
@@ -21,6 +22,11 @@ export default function Home() {
       .then((res) => setTeams(res.data))
       .catch(() => {})
   }, [])
+
+  useDocumentMeta({
+    description: 'Sito ufficiale di Magic Volley Adelfia ASD — pallavolo femminile: squadre, atlete, staff, calendario, fotogallery, news e iscrizioni.',
+    path: '/',
+  })
 
   return (
     <div>

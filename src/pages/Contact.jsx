@@ -1,4 +1,12 @@
+import { useDocumentMeta } from '../hooks/useDocumentMeta'
+
 export default function Contact() {
+  useDocumentMeta({
+    title: 'Contatti',
+    description: 'Contatti e informazioni per raggiungere Magic Volley Adelfia ASD.',
+    path: '/contatti',
+  })
+
   return (
     <div className="max-w-4xl mx-auto px-5 py-16">
       <h1 className="font-display font-bold text-4xl text-navy-dark">Contatti</h1>

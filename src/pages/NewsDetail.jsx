@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import api from '../lib/api'
 import { Loading, ErrorState } from '../components/Feedback'
+import { useDocumentMeta } from '../hooks/useDocumentMeta'
 
 export default function NewsDetail() {
   const { slug } = useParams()
@@ -14,6 +15,14 @@ export default function NewsDetail() {
       .then((res) => setItem(res.data))
       .catch(() => setError(true))
   }, [slug])
+
+  useDocumentMeta({
+    title: item?.title,
+    description: item?.summary || 'Leggi le ultime notizie di Magic Volley Adelfia ASD.',
+    image: item?.cover_image_url,
+    path: `/news/${slug}`,
+    type: 'article',
+  })
 
   if (error) {
     return (
