@@ -1,0 +1,35 @@
+import { useEffect, useRef, useState } from 'react'
+
+// Piccolo wrapper che fa comparire il contenuto (fade + slide) quando entra
+// nello schermo scorrendo la pagina. Nessuna dipendenza esterna: usa
+// IntersectionObserver, disponibile nativamente nei browser.
+export default function Reveal({ children, delay = 0, className = '' }) {
+  const ref = useRef(null)
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true)
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.15 }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
+  return (
+    <div
+      ref={ref}
+      className={`transition-all duration-700 ease-out ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'} ${className}`}
+      style={{ transitionDelay: visible ? `${delay}ms` : '0ms' }}
+    >
+      {children}
+    </div>
+  )
+}

@@ -37,6 +37,12 @@ export default function Navbar() {
             </NavLink>
           ))}
           <NavLink
+            to="/area-riservata/login"
+            className="font-body font-medium text-sm tracking-wide text-navy-dark/70 hover:text-navy-dark transition-colors"
+          >
+            Area riservata
+          </NavLink>
+          <NavLink
             to="/iscriviti"
             className="bg-amber hover:bg-amber-dark text-navy-dark font-display font-semibold text-sm px-5 py-2.5 rounded-full transition-colors"
           >
@@ -76,6 +82,13 @@ export default function Navbar() {
               {l.label}
             </NavLink>
           ))}
+          <NavLink
+            to="/area-riservata/login"
+            onClick={() => setOpen(false)}
+            className="font-body font-medium py-2.5 text-navy-dark/70"
+          >
+            Area riservata
+          </NavLink>
           <NavLink
             to="/iscriviti"
             onClick={() => setOpen(false)}
