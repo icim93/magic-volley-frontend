@@ -133,7 +133,7 @@ export default function Home() {
               <div key={team.id} className={podiumClass}>
                 <Reveal delay={i * 120}>
                   <Link
-                    to="/squadre"
+                    to={`/squadre/${team.id}`}
                     className="group bg-white rounded-2xl border-2 border-navy-dark/10 p-6 hover:border-amber hover:rotate-0 transition-all block"
                   >
                     <p className="font-display text-xs uppercase tracking-widest text-navy-light">{team.category}</p>

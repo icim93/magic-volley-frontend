@@ -13,6 +13,7 @@ import { Loading } from './components/Feedback'
 import Home from './pages/Home'
 import Club from './pages/Club'
 import Teams from './pages/Teams'
+import TeamDetail from './pages/TeamDetail'
 import PlayerDetail from './pages/PlayerDetail'
 import Gallery from './pages/Gallery'
 import Calendar from './pages/Calendar'
@@ -38,6 +39,7 @@ const GuardianLogin = lazy(() => import('./pages/guardian/GuardianLogin'))
 const ActivateAccount = lazy(() => import('./pages/guardian/ActivateAccount'))
 const GuardianLayout = lazy(() => import('./pages/guardian/GuardianLayout'))
 const GuardianDashboard = lazy(() => import('./pages/guardian/GuardianDashboard'))
+const GuardianProfile = lazy(() => import('./pages/guardian/GuardianProfile'))
 
 function PublicLayout({ children }) {
   return (
@@ -60,6 +62,7 @@ export default function App() {
         <Route path="/" element={<PublicLayout><Home /></PublicLayout>} />
         <Route path="/societa" element={<PublicLayout><Club /></PublicLayout>} />
         <Route path="/squadre" element={<PublicLayout><Teams /></PublicLayout>} />
+        <Route path="/squadre/:id" element={<PublicLayout><TeamDetail /></PublicLayout>} />
         <Route path="/giocatrici/:id" element={<PublicLayout><PlayerDetail /></PublicLayout>} />
         <Route path="/gallery" element={<PublicLayout><Gallery /></PublicLayout>} />
         <Route path="/calendario" element={<PublicLayout><Calendar /></PublicLayout>} />
@@ -83,6 +86,7 @@ export default function App() {
           }
         >
           <Route index element={<GuardianDashboard />} />
+          <Route path="profilo" element={<GuardianProfile />} />
         </Route>
 
         {/* Pannello admin */}

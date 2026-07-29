@@ -24,6 +24,7 @@ export default function GuardianLayout() {
           </Link>
           <div className="flex items-center gap-4">
             {guardian && <span className="text-xs text-cream/60 hidden sm:inline">{guardian.first_name} {guardian.last_name}</span>}
+            <Link to="/area-riservata/profilo" className="text-sm text-cream/70 hover:text-amber transition-colors">Profilo</Link>
             <button onClick={handleLogout} className="text-sm text-cream/70 hover:text-amber transition-colors">Esci</button>
           </div>
         </div>
