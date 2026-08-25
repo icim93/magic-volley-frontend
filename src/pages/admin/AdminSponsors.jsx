@@ -15,7 +15,7 @@ export default function AdminSponsors() {
       ]}
       fields={[
         { name: 'name', label: 'Nome sponsor', required: true },
-        { name: 'logo_url', label: 'URL logo', required: true },
+        { name: 'logo_url', label: 'Logo', type: 'image', required: true },
         { name: 'website_url', label: 'Sito web' },
         { name: 'tier', label: 'Livello (es. main, gold, standard)' },
         { name: 'display_order', label: 'Ordine di visualizzazione', type: 'number' },

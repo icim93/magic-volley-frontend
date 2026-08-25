@@ -23,7 +23,7 @@ export default function AdminGallery() {
         { key: 'is_active', label: 'Visibile', render: (item) => (item.is_active ? 'Sì' : 'No') },
       ]}
       fields={[
-        { name: 'image_url', label: 'URL immagine', required: true },
+        { name: 'image_url', label: 'Immagine', type: 'image', required: true },
         { name: 'caption', label: 'Didascalia' },
         { name: 'category', label: 'Categoria (es. Partite, Allenamenti, Eventi)' },
         { name: 'display_order', label: 'Ordine di visualizzazione', type: 'number' },

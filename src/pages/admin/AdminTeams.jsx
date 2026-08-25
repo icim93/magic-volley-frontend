@@ -18,7 +18,7 @@ export default function AdminTeams() {
         { name: 'category', label: 'Categoria (es. U16, U18, 2ª Divisione)', required: true },
         { name: 'season', label: 'Stagione (es. 2025/2026)', required: true },
         { name: 'description', label: 'Descrizione', type: 'textarea' },
-        { name: 'photo_url', label: 'URL foto squadra' },
+        { name: 'photo_url', label: 'Foto squadra', type: 'image' },
         { name: 'is_active', label: 'Squadra attiva', type: 'checkbox' },
       ]}
       emptyItem={{ name: '', category: '', season: '', description: '', photo_url: '', is_active: true }}

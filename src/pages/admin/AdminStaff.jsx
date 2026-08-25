@@ -26,7 +26,7 @@ export default function AdminStaff() {
         { name: 'bio', label: 'Bio', type: 'textarea' },
         { name: 'email', label: 'Email' },
         { name: 'phone', label: 'Telefono' },
-        { name: 'photo_url', label: 'URL foto' },
+        { name: 'photo_url', label: 'Foto', type: 'image' },
       ]}
       emptyItem={{ first_name: '', last_name: '', role: '', team_ids: [], bio: '', email: '', phone: '', photo_url: '' }}
       transformSubmit={(v) => ({

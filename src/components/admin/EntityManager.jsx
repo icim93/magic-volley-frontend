@@ -16,6 +16,7 @@ import api from '../../lib/api'
  * - emptyItem: valori di default per il form di creazione
  * - transformSubmit: (values) => payload  (es. per convertire stringhe in numeri)
  * - hideDelete: nasconde l'azione "Elimina" (es. utenti: si disattivano, non si cancellano)
+ * - uploadFolder: sottocartella su Supabase Storage per i campi type "image" (default: ricavata da endpoint)
  */
 export default function EntityManager({
   title,
@@ -27,6 +28,7 @@ export default function EntityManager({
   emptyItem,
   transformSubmit,
   hideDelete,
+  uploadFolder,
 }) {
   const [items, setItems] = useState(null)
   const [error, setError] = useState('')
@@ -34,6 +36,9 @@ export default function EntityManager({
   const [optionsCache, setOptionsCache] = useState({})
   const [saving, setSaving] = useState(false)
   const [formError, setFormError] = useState('')
+  const [uploading, setUploading] = useState({})
+
+  const folder = uploadFolder || endpoint.replace(/^\/api\//, '').replace(/\//g, '-')
 
   const load = useCallback(() => {
     setError('')
@@ -67,6 +72,22 @@ export default function EntityManager({
   const closeForm = () => setEditing(null)
 
   const handleChange = (name, value) => setEditing((prev) => ({ ...prev, [name]: value }))
+
+  const handleImageUpload = async (name, file) => {
+    if (!file) return
+    setUploading((prev) => ({ ...prev, [name]: true }))
+    setFormError('')
+    try {
+      const form = new FormData()
+      form.append('file', file)
+      const { data } = await api.post('/api/uploads', form, { params: { folder } })
+      handleChange(name, data.url)
+    } catch (err) {
+      setFormError(extractErrorMessage(err))
+    } finally {
+      setUploading((prev) => ({ ...prev, [name]: false }))
+    }
+  }
 
   // Gli errori di validazione di FastAPI (422) arrivano come lista di oggetti, non come stringa.
   // Senza questa conversione, provare a mostrare direttamente l'oggetto mandava in crash la pagina.
@@ -248,6 +269,31 @@ export default function EntityManager({
                             </label>
                           )
                         })}
+                      </div>
+                    ) : f.type === 'image' ? (
+                      <div className="space-y-2">
+                        {editing[f.name] && (
+                          <img
+                            src={editing[f.name]}
+                            alt=""
+                            className="h-20 w-auto rounded-lg border-2 border-navy-dark/10 object-cover"
+                          />
+                        )}
+                        <input
+                          type="text"
+                          required={f.required}
+                          value={editing[f.name] ?? ''}
+                          onChange={(e) => handleChange(f.name, e.target.value)}
+                          className="input"
+                          placeholder="URL immagine, oppure carica un file qui sotto"
+                        />
+                        <input
+                          type="file"
+                          accept="image/jpeg,image/png,image/webp,image/gif"
+                          onChange={(e) => handleImageUpload(f.name, e.target.files?.[0])}
+                          className="text-sm text-navy-dark/70"
+                        />
+                        {uploading[f.name] && <p className="text-xs text-navy-dark/50">Caricamento…</p>}
                       </div>
                     ) : f.type === 'checkbox' ? (
                       <input

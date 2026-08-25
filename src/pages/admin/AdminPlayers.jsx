@@ -28,7 +28,7 @@ export default function AdminPlayers() {
         { name: 'birth_date', label: 'Data di nascita', type: 'date' },
         { name: 'height_cm', label: 'Altezza (cm)', type: 'number' },
         { name: 'bio', label: 'Presentazione (mostrata nella scheda pubblica)', type: 'textarea' },
-        { name: 'photo_url', label: 'URL foto' },
+        { name: 'photo_url', label: 'Foto', type: 'image' },
         { name: 'is_active', label: 'In rosa attualmente', type: 'checkbox' },
       ]}
       emptyItem={{ first_name: '', last_name: '', team_id: '', jersey_number: '', role: '', birth_date: '', height_cm: '', bio: '', photo_url: '', is_active: true }}

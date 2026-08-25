@@ -25,7 +25,7 @@ export default function AdminNews() {
         { name: 'slug', label: 'Slug (URL, es. "torneo-primavera")', required: true },
         { name: 'summary', label: 'Riassunto breve' },
         { name: 'content', label: 'Contenuto completo', type: 'textarea', required: true },
-        { name: 'cover_image_url', label: 'URL immagine di copertina' },
+        { name: 'cover_image_url', label: 'Immagine di copertina', type: 'image' },
         { name: 'published', label: 'Pubblicato (visibile sul sito)', type: 'checkbox' },
       ]}
       emptyItem={{ title: '', slug: '', summary: '', content: '', cover_image_url: '', published: false }}
