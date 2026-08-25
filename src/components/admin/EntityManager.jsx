@@ -15,6 +15,7 @@ import api from '../../lib/api'
  *     type: text | textarea | number | date | datetime | select | checkbox
  * - emptyItem: valori di default per il form di creazione
  * - transformSubmit: (values) => payload  (es. per convertire stringhe in numeri)
+ * - hideDelete: nasconde l'azione "Elimina" (es. utenti: si disattivano, non si cancellano)
  */
 export default function EntityManager({
   title,
@@ -25,6 +26,7 @@ export default function EntityManager({
   fields,
   emptyItem,
   transformSubmit,
+  hideDelete,
 }) {
   const [items, setItems] = useState(null)
   const [error, setError] = useState('')
@@ -168,9 +170,11 @@ export default function EntityManager({
                     <button onClick={() => openEdit(item)} className="text-navy-light hover:text-navy-dark font-semibold mr-4">
                       Modifica
                     </button>
-                    <button onClick={() => handleDelete(item)} className="text-amber-dark hover:text-red-600 font-semibold">
-                      Elimina
-                    </button>
+                    {!hideDelete && (
+                      <button onClick={() => handleDelete(item)} className="text-amber-dark hover:text-red-600 font-semibold">
+                        Elimina
+                      </button>
+                    )}
                   </td>
                 </tr>
               ))}

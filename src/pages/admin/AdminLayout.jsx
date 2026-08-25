@@ -23,6 +23,10 @@ export default function AdminLayout() {
     navigate('/admin/login')
   }
 
+  const items = user?.role === 'superadmin'
+    ? [...navItems, { to: '/admin/utenti', label: 'Utenti' }]
+    : navItems
+
   return (
     <div className="min-h-screen flex bg-cream">
       <aside className="w-60 bg-navy-dark text-cream flex flex-col shrink-0">
@@ -32,7 +36,7 @@ export default function AdminLayout() {
           <p className="text-xs text-cream/50 mt-1">Pannello gestionale</p>
         </div>
         <nav className="flex-1 px-3 space-y-1">
-          {navItems.map((item) => (
+          {items.map((item) => (
             <NavLink
               key={item.to}
               to={item.to}
