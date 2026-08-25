@@ -21,7 +21,7 @@ export default function Login() {
     } catch (err) {
       setError(
         err.response?.status === 401
-          ? 'Email o password non corretti.'
+          ? 'Username o password non corretti.'
           : 'Non riesco a contattare il server. Riprova più tardi.'
       )
     } finally {
@@ -37,14 +37,15 @@ export default function Login() {
         <p className="text-sm text-navy-dark/60 mt-1 mb-6">Magic Volley Adelfia ASD</p>
 
         <label className="block mb-4">
-          <span className="text-sm font-semibold text-navy-dark">Email</span>
+          <span className="text-sm font-semibold text-navy-dark">Username</span>
           <input
-            type="email"
+            type="text"
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="input mt-1.5"
             autoFocus
+            autoComplete="username"
           />
         </label>
 

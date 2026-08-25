@@ -28,6 +28,7 @@ export default function Footer() {
             <li><Link to="/iscriviti" className="hover:text-amber transition-colors">Iscrizioni</Link></li>
             <li><Link to="/sponsor" className="hover:text-amber transition-colors">Sponsor</Link></li>
             <li><Link to="/area-riservata/login" className="hover:text-amber transition-colors">Area riservata famiglie</Link></li>
+            <li><Link to="/admin/login" className="hover:text-amber transition-colors">Area staff</Link></li>
           </ul>
         </div>
 
