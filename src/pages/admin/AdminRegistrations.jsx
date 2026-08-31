@@ -65,7 +65,7 @@ function ApproveModal({ registration, onClose, onDone }) {
   }
 
   return (
-    <div className="fixed inset-0 bg-navy-dark/40 flex items-center justify-center p-5 z-50" onClick={onClose}>
+    <div className="fixed inset-0 bg-navy-dark/40 flex items-center justify-center p-5 z-50">
       <div onClick={(e) => e.stopPropagation()} className="bg-cream rounded-2xl p-7 w-full max-w-lg max-h-[85vh] overflow-y-auto">
         {result ? (
           <div>

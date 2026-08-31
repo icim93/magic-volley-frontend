@@ -9,6 +9,7 @@ const navItems = [
   { to: '/admin/partite', label: 'Partite' },
   { to: '/admin/news', label: 'News' },
   { to: '/admin/iscrizioni', label: 'Iscrizioni' },
+  { to: '/admin/genitori', label: 'Genitori', minRole: 'admin' },
   { to: '/admin/sponsor', label: 'Sponsor' },
   { to: '/admin/gallery', label: 'Fotogallery' },
   { to: '/admin/documenti', label: 'Documenti' },
@@ -24,9 +25,11 @@ export default function AdminLayout() {
     navigate('/admin/login')
   }
 
-  const items = user?.role === 'superadmin'
-    ? [...navItems, { to: '/admin/utenti', label: 'Utenti' }]
-    : navItems
+  const canSeeAdminOnly = user?.role === 'admin' || user?.role === 'superadmin'
+  const items = [
+    ...navItems.filter((item) => item.minRole !== 'admin' || canSeeAdminOnly),
+    ...(user?.role === 'superadmin' ? [{ to: '/admin/utenti', label: 'Utenti' }] : []),
+  ]
 
   return (
     <div className="min-h-screen flex bg-cream">

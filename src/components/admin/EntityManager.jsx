@@ -138,8 +138,8 @@ export default function EntityManager({
     try {
       await api.delete(`${endpoint}/${item.id}`)
       load()
-    } catch {
-      setError('Non riesco a eliminare questo elemento.')
+    } catch (err) {
+      setError(err.response?.data?.detail || 'Non riesco a eliminare questo elemento.')
     }
   }
 
@@ -205,15 +205,27 @@ export default function EntityManager({
       </div>
 
       {editing && (
-        <div className="fixed inset-0 bg-navy-dark/40 flex items-center justify-center p-5 z-50" onClick={closeForm}>
+        <div className="fixed inset-0 bg-navy-dark/40 flex items-center justify-center p-5 z-50">
           <form
             onSubmit={handleSubmit}
             onClick={(e) => e.stopPropagation()}
             className="bg-cream rounded-2xl p-7 w-full max-w-lg max-h-[85vh] overflow-y-auto"
           >
-            <h2 className="font-display font-bold text-lg text-navy-dark mb-5">
-              {editing.id ? 'Modifica' : 'Nuovo'} — {title}
-            </h2>
+            <div className="flex items-start justify-between gap-4 mb-5">
+              <h2 className="font-display font-bold text-lg text-navy-dark">
+                {editing.id ? 'Modifica' : 'Nuovo'} — {title}
+              </h2>
+              <button
+                type="button"
+                onClick={closeForm}
+                aria-label="Chiudi"
+                className="text-navy-dark/40 hover:text-navy-dark shrink-0"
+              >
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M6 6L18 18M6 18L18 6" strokeLinecap="round" />
+                </svg>
+              </button>
+            </div>
 
             <div className="space-y-4">
               {fields.map((f) => (

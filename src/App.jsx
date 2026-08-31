@@ -33,6 +33,7 @@ const AdminStaff = lazy(() => import('./pages/admin/AdminStaff'))
 const AdminMatches = lazy(() => import('./pages/admin/AdminMatches'))
 const AdminNews = lazy(() => import('./pages/admin/AdminNews'))
 const AdminRegistrations = lazy(() => import('./pages/admin/AdminRegistrations'))
+const AdminGuardians = lazy(() => import('./pages/admin/AdminGuardians'))
 const AdminSponsors = lazy(() => import('./pages/admin/AdminSponsors'))
 const AdminGallery = lazy(() => import('./pages/admin/AdminGallery'))
 const AdminDocuments = lazy(() => import('./pages/admin/AdminDocuments'))
@@ -111,6 +112,7 @@ export default function App() {
           <Route path="partite" element={<AdminMatches />} />
           <Route path="news" element={<AdminNews />} />
           <Route path="iscrizioni" element={<AdminRegistrations />} />
+          <Route path="genitori" element={<AdminGuardians />} />
           <Route path="sponsor" element={<AdminSponsors />} />
           <Route path="gallery" element={<AdminGallery />} />
           <Route path="documenti" element={<AdminDocuments />} />

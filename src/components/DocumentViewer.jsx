@@ -34,7 +34,7 @@ export function DocumentModal({ doc, onClose, onScrolledToBottom }) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 bg-navy-dark/50 flex items-center justify-center p-4" onClick={onClose}>
+    <div className="fixed inset-0 z-50 bg-navy-dark/50 flex items-center justify-center p-4">
       <div
         onClick={(e) => e.stopPropagation()}
         className="bg-white rounded-2xl w-full max-w-2xl max-h-[85vh] flex flex-col overflow-hidden"
