@@ -1,27 +1,29 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import api from '../lib/api'
-import { TrajectoryDivider } from '../components/Feedback'
+import { TrajectoryDivider, Loading } from '../components/Feedback'
 import { useDocumentMeta } from '../hooks/useDocumentMeta'
 import Reveal from '../components/Reveal'
 
 export default function Home() {
   const [nextMatch, setNextMatch] = useState(null)
-  const [news, setNews] = useState([])
-  const [teams, setTeams] = useState([])
+  const [matchLoading, setMatchLoading] = useState(true)
+  const [news, setNews] = useState(null)
+  const [teams, setTeams] = useState(null)
 
   useEffect(() => {
     api.get('/api/matches', { params: { upcoming_only: true } })
       .then((res) => setNextMatch(res.data[0] || null))
       .catch(() => {})
+      .finally(() => setMatchLoading(false))
 
     api.get('/api/news', { params: { published_only: true } })
       .then((res) => setNews(res.data.slice(0, 3)))
-      .catch(() => {})
+      .catch(() => setNews([]))
 
     api.get('/api/teams')
       .then((res) => setTeams(res.data))
-      .catch(() => {})
+      .catch(() => setTeams([]))
   }, [])
 
   useDocumentMeta({
@@ -90,7 +92,9 @@ export default function Home() {
             <p className="font-display text-xs uppercase tracking-widest text-amber-dark mb-3">
               Prossima partita
             </p>
-            {nextMatch ? (
+            {matchLoading ? (
+              <p className="text-navy-dark/40 font-body text-sm">Caricamento…</p>
+            ) : nextMatch ? (
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div className="scoreboard text-xl md:text-2xl text-navy-dark">
                   {nextMatch.home_team_name} <span className="text-navy-light">vs</span> {nextMatch.away_team_name}
@@ -121,8 +125,10 @@ export default function Home() {
           <h2 className="font-display font-bold text-3xl text-navy-dark text-center">Le nostre squadre</h2>
         </Reveal>
 
+        {teams === null && <Loading label="Carico le squadre…" />}
+
         <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 mt-10 md:items-center">
-          {teams.slice(0, 3).map((team, i) => {
+          {teams?.slice(0, 3).map((team, i) => {
             const podiumClass =
               i === 1
                 ? 'md:-translate-y-4 md:scale-105 relative z-10'
@@ -147,7 +153,7 @@ export default function Home() {
               </div>
             )
           })}
-          {teams.length === 0 && (
+          {teams?.length === 0 && (
             <p className="text-navy-dark/50 text-sm col-span-full text-center py-10">
               Le squadre verranno mostrate qui non appena saranno inserite nel pannello gestionale.
             </p>
@@ -193,8 +199,10 @@ export default function Home() {
           </div>
         </Reveal>
 
+        {news === null && <Loading label="Carico le news…" />}
+
         <div className="grid md:grid-cols-3 gap-6">
-          {news.map((item, i) => (
+          {news?.map((item, i) => (
             <Reveal key={item.id} delay={i * 120}>
               <Link
                 to={`/news/${item.slug}`}
@@ -222,7 +230,7 @@ export default function Home() {
               </Link>
             </Reveal>
           ))}
-          {news.length === 0 && (
+          {news?.length === 0 && (
             <p className="text-navy-dark/50 text-sm col-span-full text-center py-10">
               Nessuna news pubblicata ancora.
             </p>
