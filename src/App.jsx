@@ -22,6 +22,7 @@ import NewsDetail from './pages/NewsDetail'
 import Registration from './pages/Registration'
 import Sponsors from './pages/Sponsors'
 import Contact from './pages/Contact'
+import Documents from './pages/Documents'
 
 const Login = lazy(() => import('./pages/admin/Login'))
 const AdminLayout = lazy(() => import('./pages/admin/AdminLayout'))
@@ -72,6 +73,7 @@ export default function App() {
         <Route path="/news" element={<PublicLayout><News /></PublicLayout>} />
         <Route path="/news/:slug" element={<PublicLayout><NewsDetail /></PublicLayout>} />
         <Route path="/iscriviti" element={<PublicLayout><Registration /></PublicLayout>} />
+        <Route path="/documenti" element={<PublicLayout><Documents /></PublicLayout>} />
         <Route path="/sponsor" element={<PublicLayout><Sponsors /></PublicLayout>} />
         <Route path="/contatti" element={<PublicLayout><Contact /></PublicLayout>} />
 

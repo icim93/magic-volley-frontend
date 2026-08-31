@@ -16,7 +16,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(false)
 
   return (
-    <header className="bg-cream/95 backdrop-blur border-b-2 border-navy-dark/10">
+    <header className="bg-cream/95 backdrop-blur border-b-2 border-navy-dark/10 print:hidden">
       <div className="max-w-6xl mx-auto px-5 flex items-center justify-between h-28">
         <NavLink to="/" className="flex items-center gap-2.5 group shrink-0" onClick={() => setOpen(false)}>
           <img src="/logo.png" alt="Magic Volley Adelfia ASD" className="h-24 w-auto py-2" />

@@ -10,12 +10,32 @@
 //   stile GDPR standard, in assenza di un documento ufficiale della società —
 //   falla verificare da un consulente/legale prima di considerarla definitiva.
 // Le assicurazioni CSEN/FIPAV non sono documenti a sé in questo step: restano
-// referenziate all'interno del Regolamento (condizioni polizza su federvolley.it).
+// referenziate all'interno del Regolamento, con link diretto alle polizze caricate.
+
+// URL dei PDF originali su Supabase Storage (caricati con upload_source_documents.py
+// dalla cartella backend, che scrive gli URL reali — con nome file casuale — in
+// Statuti/document_urls.json). Valorizzati subito dopo l'upload.
+export const ORIGINAL_DOCUMENT_URLS = {
+  regolamento: null,
+  statuto: null,
+  safeguarding: null,
+}
+
+export const INSURANCE_URLS = {
+  csen: null,
+  fipav: null,
+}
 
 export const REGISTRATION_DOCUMENTS = [
   {
     key: 'regolamento',
     title: 'Regolamento interno',
+    description: 'Iscrizione, quote, assicurazione, comportamento in palestra e in trasferta.',
+    links: [
+      { label: 'Documento originale (PDF)', url: ORIGINAL_DOCUMENT_URLS.regolamento },
+      { label: 'Polizza infortuni CSEN (PDF)', url: INSURANCE_URLS.csen },
+      { label: 'Polizza infortuni FIPAV (PDF)', url: INSURANCE_URLS.fipav },
+    ],
     text: `Regolamento Associativo
 
 Obiettivo della Magic Volley Adelfia Associazione Sportiva Dilettantistica è quello di diffondere la pratica della pallavolo sia sotto l'aspetto ludico e agonistico, ma soprattutto quello di consentire ai propri associati uno sviluppo della personalità armonico ed equilibrato.
@@ -63,6 +83,8 @@ Il rispetto del prossimo e di noi stessi`,
   {
     key: 'statuto',
     title: 'Statuto della società',
+    description: 'Denominazione, scopi, organi sociali, assemblea, patrimonio.',
+    links: [{ label: 'Documento originale (PDF)', url: ORIGINAL_DOCUMENT_URLS.statuto }],
     text: `STATUTO di "MAGIC VOLLEY ADELFIA Associazione Sportiva Dilettantistica"
 
 Articolo 1
@@ -307,9 +329,8 @@ Per quanto non espressamente previsto dal presente statuto si applicano le dispo
   {
     key: 'privacy',
     title: 'Informativa Privacy (GDPR) e Autorizzazione all\'utilizzo delle immagini',
-    text: `[Bozza scritta in assenza di un documento ufficiale della società — farla verificare da un consulente/legale prima della pubblicazione definitiva]
-
-INFORMATIVA SUL TRATTAMENTO DEI DATI PERSONALI (Regolamento UE 2016/679 – GDPR) E AUTORIZZAZIONE ALL'UTILIZZO DELLE IMMAGINI
+    description: 'Dati trattati, finalità, autorizzazione foto/video, diritti dell\'interessato.',
+    text: `INFORMATIVA SUL TRATTAMENTO DEI DATI PERSONALI (Regolamento UE 2016/679 – GDPR) E AUTORIZZAZIONE ALL'UTILIZZO DELLE IMMAGINI
 
 Titolare del trattamento
 Il titolare del trattamento dei dati è Magic Volley Adelfia Associazione Sportiva Dilettantistica, con sede in Adelfia (BA), Via Guido Rossa n. 4C. Per qualsiasi richiesta relativa al trattamento dei dati personali è possibile scrivere a info@magicvolleyadelfia.it.
@@ -342,6 +363,8 @@ L'interessato (o chi esercita la responsabilità genitoriale, per i minori) può
   {
     key: 'safeguarding',
     title: 'Documento di Safe Guarding (Modello Organizzativo e di Controllo)',
+    description: 'Tutela dei minori, prevenzione abusi, responsabile safeguarding, segnalazioni.',
+    links: [{ label: 'Documento originale (PDF)', url: ORIGINAL_DOCUMENT_URLS.safeguarding }],
     text: `MODELLO ORGANIZZATIVO E DI CONTROLLO DELL'ATTIVITÀ SPORTIVA
 
 Il presente modello organizzativo e di controllo dell'attività sportiva è redatto dalla Magic Volley Adelfia Associazione Sportiva Dilettantistica (di seguito, l'Associazione), come previsto dal comma 2 dell'articolo 16 del d.lgs. n. 39 del 28 febbraio 2021 e utilizzando le linee guida pubblicate dalla FIPAV e dal CSEN APS.

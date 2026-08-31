@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 
 export default function Footer() {
   return (
-    <footer className="bg-navy-dark text-cream/90 mt-24">
+    <footer className="bg-navy-dark text-cream/90 mt-24 print:hidden">
       <div className="max-w-6xl mx-auto px-5 py-12 grid grid-cols-1 md:grid-cols-3 gap-10">
         <div>
           <img
@@ -26,6 +26,7 @@ export default function Footer() {
             <li><Link to="/news" className="hover:text-amber transition-colors">News</Link></li>
             <li><Link to="/gallery" className="hover:text-amber transition-colors">Fotogallery</Link></li>
             <li><Link to="/iscriviti" className="hover:text-amber transition-colors">Iscrizioni</Link></li>
+            <li><Link to="/documenti" className="hover:text-amber transition-colors">Documenti</Link></li>
             <li><Link to="/sponsor" className="hover:text-amber transition-colors">Sponsor</Link></li>
             <li><Link to="/area-riservata/login" className="hover:text-amber transition-colors">Area riservata famiglie</Link></li>
             <li><Link to="/admin/login" className="hover:text-amber transition-colors">Area staff</Link></li>

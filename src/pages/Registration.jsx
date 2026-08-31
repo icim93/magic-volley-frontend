@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import api from '../lib/api'
 import { useDocumentMeta } from '../hooks/useDocumentMeta'
 import { REGISTRATION_DOCUMENTS } from '../data/registrationDocuments'
+import { DocumentCard, DocumentModal } from '../components/DocumentViewer'
 
 const emptyForm = {
   first_name: '',
@@ -156,6 +157,7 @@ export default function Registration() {
   const [form, setForm] = useState(emptyForm)
   const [categories, setCategories] = useState([])
   const [docsRead, setDocsRead] = useState({})
+  const [openDoc, setOpenDoc] = useState(null)
   const [status, setStatus] = useState('idle') // idle | sending | done | error
   const [errorMsg, setErrorMsg] = useState('')
 
@@ -189,12 +191,7 @@ export default function Registration() {
 
   const allDocsRead = REGISTRATION_DOCUMENTS.every((d) => docsRead[d.key])
 
-  const handleDocScroll = (key) => (e) => {
-    const el = e.target
-    if (el.scrollTop + el.clientHeight >= el.scrollHeight - 12) {
-      setDocsRead((prev) => (prev[key] ? prev : { ...prev, [key]: true }))
-    }
-  }
+  const markRead = (key) => setDocsRead((prev) => (prev[key] ? prev : { ...prev, [key]: true }))
 
   const handleSubmit = async () => {
     setStatus('sending')
@@ -317,32 +314,28 @@ export default function Registration() {
         <div>
           <h1 className="font-display font-bold text-3xl text-navy-dark">Documenti da leggere</h1>
           <p className="text-navy-dark/60 mt-3 text-sm">
-            Passo 2 di 3 — scorri ogni documento fino in fondo per confermarne la lettura.
+            Passo 2 di 3 — apri ogni documento e scorrilo fino in fondo per confermarne la lettura. Per Statuto e
+            Safe Guarding puoi anche consultare il PDF originale.
           </p>
 
-          <div className="mt-4 bg-amber/15 border-2 border-amber/40 rounded-xl p-3 text-xs text-navy-dark/70">
-            ⚠️ L'Informativa Privacy è una bozza in attesa di verifica legale — gli altri documenti sono i
-            testi ufficiali della società.
-          </div>
-
-          <div className="mt-6 space-y-5">
+          <div className="mt-6 space-y-3">
             {REGISTRATION_DOCUMENTS.map((doc) => (
-              <div key={doc.key} className="border-2 border-navy-dark/10 rounded-xl overflow-hidden">
-                <div className="flex items-center justify-between px-4 py-2.5 bg-navy-dark/5">
-                  <p className="font-display font-semibold text-sm text-navy-dark">{doc.title}</p>
-                  <span className={`text-xs font-semibold ${docsRead[doc.key] ? 'text-green-700' : 'text-navy-dark/40'}`}>
-                    {docsRead[doc.key] ? '✓ Letto' : 'Scorri per confermare'}
-                  </span>
-                </div>
-                <div
-                  onScroll={handleDocScroll(doc.key)}
-                  className="h-40 overflow-y-auto px-4 py-3 text-xs text-navy-dark/70 whitespace-pre-line leading-relaxed bg-white"
-                >
-                  {doc.text}
-                </div>
-              </div>
+              <DocumentCard
+                key={doc.key}
+                doc={doc}
+                read={!!docsRead[doc.key]}
+                onOpen={() => setOpenDoc(doc)}
+              />
             ))}
           </div>
+
+          {openDoc && (
+            <DocumentModal
+              doc={openDoc}
+              onClose={() => setOpenDoc(null)}
+              onScrolledToBottom={() => markRead(openDoc.key)}
+            />
+          )}
 
           <div className="flex gap-3 mt-8">
             <button type="button" onClick={() => setStep(1)} className="text-navy-dark/60 hover:text-navy-dark font-semibold px-3">

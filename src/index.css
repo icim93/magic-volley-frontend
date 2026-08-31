@@ -76,3 +76,17 @@ select:focus-visible {
   border-color: #F2A93B;
   outline: none;
 }
+
+/* Stampa (usato dal modulo di iscrizione): foglio pulito, bianco e nero,
+   senza gli sfondi/colori pensati per lo schermo. Navbar/footer sono
+   nascosti con print:hidden sui rispettivi componenti. */
+@media print {
+  @page {
+    margin: 1.5cm;
+  }
+
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+}
