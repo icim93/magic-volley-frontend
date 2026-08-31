@@ -16,14 +16,14 @@
 // dalla cartella backend, che scrive gli URL reali — con nome file casuale — in
 // Statuti/document_urls.json). Valorizzati subito dopo l'upload.
 export const ORIGINAL_DOCUMENT_URLS = {
-  regolamento: null,
-  statuto: null,
-  safeguarding: null,
+  regolamento: 'https://uqhbujsirvupfdcdiesa.supabase.co/storage/v1/object/public/media/documenti-originali/1fa9b858fe6a4983a1cd0c7778ba9a01.pdf',
+  statuto: 'https://uqhbujsirvupfdcdiesa.supabase.co/storage/v1/object/public/media/documenti-originali/d134be0938c5463f83c2eca8f6b3daff.pdf',
+  safeguarding: 'https://uqhbujsirvupfdcdiesa.supabase.co/storage/v1/object/public/media/documenti-originali/11d5718bef58492aabd2a9d11807376e.pdf',
 }
 
 export const INSURANCE_URLS = {
-  csen: null,
-  fipav: null,
+  csen: 'https://uqhbujsirvupfdcdiesa.supabase.co/storage/v1/object/public/media/documenti-originali/6ba498bcbd64427f936d8620bc72d7ee.pdf',
+  fipav: 'https://uqhbujsirvupfdcdiesa.supabase.co/storage/v1/object/public/media/documenti-originali/4bda4bd6ec7f4057b14beeba3422134f.pdf',
 }
 
 export const REGISTRATION_DOCUMENTS = [
