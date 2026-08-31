@@ -3,6 +3,7 @@ import api from '../lib/api'
 import { useDocumentMeta } from '../hooks/useDocumentMeta'
 import { REGISTRATION_DOCUMENTS } from '../data/registrationDocuments'
 import { DocumentCard, DocumentModal } from '../components/DocumentViewer'
+import { generateRegistrationPdf } from '../lib/registrationPdf'
 
 const emptyForm = {
   first_name: '',
@@ -39,7 +40,7 @@ function Field({ label, hint, required, children }) {
 
 function StepDots({ step }) {
   return (
-    <div className="flex gap-2 mb-8 print:hidden">
+    <div className="flex gap-2 mb-8">
       {[1, 2, 3].map((n) => (
         <div key={n} className={`flex-1 h-1.5 rounded-full ${n <= step ? 'bg-amber' : 'bg-navy-dark/10'}`} />
       ))}
@@ -56,101 +57,23 @@ function Row({ label, value }) {
   )
 }
 
-function SignatureLine({ label }) {
-  return (
-    <div>
-      <div className="h-16 border-b-2 border-navy-dark/30" />
-      <p className="text-xs text-navy-dark/50 mt-1.5">{label}</p>
-    </div>
-  )
-}
-
-// Riepilogo stampabile: mostrato sia in anteprima (step 3) sia dopo l'invio,
-// così chi si dimentica di stampare prima può farlo comunque dopo.
-// Struttura ricalcata sul modulo cartaceo già in uso dalla società (QUADRO A
-// per la richiesta dell'atleta, QUADRO B per l'autorizzazione del genitore).
+// Riepilogo a schermo di quanto inserito: il vero modulo da firmare è il PDF
+// generato da generateRegistrationPdf, non questa vista (che qui serve solo
+// da controllo prima dell'invio).
 function SummaryDoc({ form, isMinor }) {
   const fullName = `${form.first_name} ${form.last_name}`.trim()
-  const birthDateLabel = form.birth_date ? new Date(form.birth_date).toLocaleDateString('it-IT') : '__/__/____'
+  const birthDateLabel = form.birth_date ? new Date(form.birth_date).toLocaleDateString('it-IT') : ''
 
   return (
-    <div className="border-2 border-navy-dark/10 rounded-2xl p-6 print:border print:border-navy-dark/20 print:rounded-none print:p-10">
-      <div className="print:flex print:flex-col print:items-center">
-        <img src="/logo.png" alt="" className="hidden print:block h-16 w-auto mb-3" />
-        <p className="font-display font-bold text-lg text-navy-dark print:text-xl print:text-center">
-          Modulo di richiesta tesseramento
-        </p>
-        <p className="text-xs text-navy-dark/40 print:text-sm print:text-center print:mb-8">Magic Volley Adelfia ASD</p>
-      </div>
-
-      <dl className="mt-4 space-y-1">
+    <div className="border-2 border-navy-dark/10 rounded-2xl p-6">
+      <dl className="space-y-1">
         <Row label="Nome e cognome" value={fullName} />
-        <Row label="Data di nascita" value={form.birth_date ? birthDateLabel : ''} />
+        <Row label="Data di nascita" value={birthDateLabel} />
         {isMinor && <Row label="Genitore/tutore" value={form.parent_name} />}
         <Row label="Email" value={form.email} />
         <Row label="Telefono" value={form.phone} />
         <Row label="Categoria di interesse" value={form.requested_team_category} />
       </dl>
-
-      {isMinor ? (
-        <>
-          <div className="mt-8 pt-6 border-t-2 border-navy-dark/10">
-            <p className="font-display font-bold text-sm text-navy-dark uppercase tracking-wide">Quadro A</p>
-            <p className="text-sm text-navy-dark/80 mt-2 leading-relaxed">
-              Io sottoscritto/a <strong>{fullName || '_______________'}</strong>, nato/a il <strong>{birthDateLabel}</strong>,
-              CHIEDO l'ammissione a Magic Volley Adelfia Associazione Sportiva Dilettantistica in qualità di tesserato/a.
-            </p>
-            <div className="mt-6">
-              <SignatureLine label="Firma dell'atleta" />
-            </div>
-          </div>
-
-          <div className="mt-8 pt-6 border-t-2 border-navy-dark/10">
-            <p className="font-display font-bold text-sm text-navy-dark uppercase tracking-wide">Quadro B</p>
-            <p className="text-sm text-navy-dark/80 mt-2 leading-relaxed">
-              Io sottoscritto/a <strong>{form.parent_name || '_______________'}</strong>, in qualità di genitore/tutore
-              esercente la responsabilità genitoriale su {fullName || "l'atleta sopra indicato/a"}, AUTORIZZO E ACCONSENTO
-              all'ammissione di mio figlio/a a Magic Volley Adelfia Associazione Sportiva Dilettantistica, nel rispetto
-              delle norme e dei regolamenti statutari.
-            </p>
-            <p className="text-sm text-navy-dark/80 mt-3 font-semibold">DICHIARO:</p>
-            <ul className="text-sm text-navy-dark/80 mt-1 space-y-1 list-disc pl-5">
-              <li>Di aver preso visione e di accettare lo Statuto e il Regolamento Associativo.</li>
-              <li>Di impegnarmi al pagamento della quota di iscrizione annuale e delle quote mensili a seconda dell'attività scelta.</li>
-              <li>
-                Di autorizzare Magic Volley Adelfia ASD al trattamento dei dati personali e all'utilizzo delle
-                immagini/video/fotografie del minore sopra indicato, ai sensi del Regolamento UE 2016/679 come
-                modificato dal D.Lgs. 101 del 10/08/2018.
-              </li>
-              <li>Di aver preso visione e di accettare il Modello Organizzativo e di Controllo dell'Attività Sportiva (Safe Guarding).</li>
-            </ul>
-            <div className="mt-6">
-              <SignatureLine label="Firma del genitore/tutore" />
-            </div>
-          </div>
-        </>
-      ) : (
-        <div className="mt-8 pt-6 border-t-2 border-navy-dark/10">
-          <p className="text-sm text-navy-dark/80 leading-relaxed">
-            Io sottoscritto/a <strong>{fullName || '_______________'}</strong>, nato/a il <strong>{birthDateLabel}</strong>,
-            CHIEDO l'ammissione a Magic Volley Adelfia Associazione Sportiva Dilettantistica in qualità di tesserato/a e DICHIARO:
-          </p>
-          <ul className="text-sm text-navy-dark/80 mt-2 space-y-1 list-disc pl-5">
-            <li>Di aver preso visione e di accettare lo Statuto e il Regolamento Associativo.</li>
-            <li>Di impegnarmi al pagamento della quota di iscrizione annuale e delle quote mensili a seconda dell'attività scelta.</li>
-            <li>
-              Di autorizzare Magic Volley Adelfia ASD al trattamento dei miei dati personali e all'utilizzo delle mie
-              immagini/video/fotografie, ai sensi del Regolamento UE 2016/679 come modificato dal D.Lgs. 101 del 10/08/2018.
-            </li>
-            <li>Di aver preso visione e di accettare il Modello Organizzativo e di Controllo dell'Attività Sportiva (Safe Guarding).</li>
-          </ul>
-          <div className="mt-6">
-            <SignatureLine label="Firma" />
-          </div>
-        </div>
-      )}
-
-      <p className="text-xs text-navy-dark/40 mt-8">Adelfia, lì _______________</p>
     </div>
   )
 }
@@ -196,6 +119,8 @@ export default function Registration() {
 
   const markRead = (key) => setDocsRead((prev) => (prev[key] ? prev : { ...prev, [key]: true }))
 
+  const downloadPdf = () => generateRegistrationPdf(form, isMinor)
+
   const handleSubmit = async () => {
     setStatus('sending')
     setErrorMsg('')
@@ -220,15 +145,15 @@ export default function Registration() {
   }
 
   return (
-    <div className="max-w-lg mx-auto px-5 py-16 print:py-0">
+    <div className="max-w-lg mx-auto px-5 py-16">
       {status !== 'done' && <StepDots step={step} />}
 
       {status === 'done' ? (
         <div>
-          <div className="print:hidden bg-green-50 border-2 border-green-200 rounded-2xl p-5 mb-8 text-center">
+          <div className="bg-green-50 border-2 border-green-200 rounded-2xl p-5 mb-8 text-center">
             <p className="font-display font-bold text-navy-dark">Richiesta inviata ✓</p>
             <p className="text-sm text-navy-dark/60 mt-1">
-              Se non l'hai ancora fatto, stampa il modulo qui sotto, firmalo e portalo in palestra.
+              Se non l'hai ancora fatto, scarica il modulo qui sotto, firmalo e portalo in palestra.
               Lo staff esaminerà la richiesta e ti risponderà via email o telefono a breve.
             </p>
             <button onClick={resetAll} className="mt-4 text-amber-dark font-semibold text-sm">
@@ -236,13 +161,13 @@ export default function Registration() {
             </button>
           </div>
           <SummaryDoc form={form} isMinor={isMinor} />
-          <div className="print:hidden text-center mt-6">
+          <div className="text-center mt-6">
             <button
               type="button"
-              onClick={() => window.print()}
+              onClick={downloadPdf}
               className="border-2 border-navy-dark/20 hover:border-navy-dark text-navy-dark font-display font-semibold px-6 py-3 rounded-full transition-colors"
             >
-              Stampa il modulo
+              Scarica il modulo da firmare (PDF)
             </button>
           </div>
         </div>
@@ -356,27 +281,27 @@ export default function Registration() {
         </div>
       ) : (
         <div>
-          <h1 className="font-display font-bold text-3xl text-navy-dark print:hidden">Riepilogo</h1>
-          <p className="text-navy-dark/60 mt-3 text-sm print:hidden">
-            Passo 3 di 3 — controlla i dati, stampa il modulo, firmalo e portalo in palestra. Poi invia la richiesta.
+          <h1 className="font-display font-bold text-3xl text-navy-dark">Riepilogo</h1>
+          <p className="text-navy-dark/60 mt-3 text-sm">
+            Passo 3 di 3 — controlla i dati, scarica il modulo, firmalo e portalo in palestra. Poi invia la richiesta.
           </p>
 
-          <div className="mt-6 print:mt-0">
+          <div className="mt-6">
             <SummaryDoc form={form} isMinor={isMinor} />
           </div>
 
-          {errorMsg && <p className="text-sm text-amber-dark font-medium mt-4 print:hidden">{errorMsg}</p>}
+          {errorMsg && <p className="text-sm text-amber-dark font-medium mt-4">{errorMsg}</p>}
 
-          <div className="flex flex-wrap gap-3 mt-8 print:hidden">
+          <div className="flex flex-wrap gap-3 mt-8">
             <button type="button" onClick={() => setStep(2)} className="text-navy-dark/60 hover:text-navy-dark font-semibold px-3">
               ← Indietro
             </button>
             <button
               type="button"
-              onClick={() => window.print()}
+              onClick={downloadPdf}
               className="border-2 border-navy-dark/20 hover:border-navy-dark text-navy-dark font-display font-semibold px-6 py-3 rounded-full transition-colors"
             >
-              Stampa il modulo
+              Scarica il modulo (PDF)
             </button>
             <button
               type="button"
