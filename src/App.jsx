@@ -34,6 +34,7 @@ const AdminNews = lazy(() => import('./pages/admin/AdminNews'))
 const AdminRegistrations = lazy(() => import('./pages/admin/AdminRegistrations'))
 const AdminSponsors = lazy(() => import('./pages/admin/AdminSponsors'))
 const AdminGallery = lazy(() => import('./pages/admin/AdminGallery'))
+const AdminDocuments = lazy(() => import('./pages/admin/AdminDocuments'))
 const AdminProfile = lazy(() => import('./pages/admin/AdminProfile'))
 const AdminUsers = lazy(() => import('./pages/admin/AdminUsers'))
 
@@ -110,6 +111,7 @@ export default function App() {
           <Route path="iscrizioni" element={<AdminRegistrations />} />
           <Route path="sponsor" element={<AdminSponsors />} />
           <Route path="gallery" element={<AdminGallery />} />
+          <Route path="documenti" element={<AdminDocuments />} />
           <Route path="profilo" element={<AdminProfile />} />
           <Route path="utenti" element={<AdminUsers />} />
         </Route>

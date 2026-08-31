@@ -19,16 +19,15 @@ const VALUES = [
   },
 ]
 
-// Raggruppa lo staff in aree dell'organigramma in base al ruolo dichiarato.
-function classifyStaff(member) {
-  const role = (member.role || '').toLowerCase()
-  if (/(president|vice.?president|dirigent|segret|direttor|consiglier|tesorier)/.test(role)) return 'Dirigenza'
-  if (/(allenator|coach|scoutman|prepar|assistent|team manager)/.test(role)) return 'Staff tecnico'
-  if (/(fisio|medic|osteopat|nutriz)/.test(role)) return 'Area sanitaria'
-  return 'Collaboratori'
+// L'area è assegnata a mano dall'admin (campo "area" su Staff), non più indovinata dal ruolo.
+const AREA_LABELS = {
+  staff_tecnico: 'Staff tecnico',
+  dirigenza: 'Dirigenza',
+  area_sanitaria: 'Area sanitaria',
+  collaboratori: 'Collaboratori',
 }
 
-const AREA_ORDER = ['Dirigenza', 'Staff tecnico', 'Area sanitaria', 'Collaboratori']
+const AREA_ORDER = ['staff_tecnico', 'dirigenza', 'area_sanitaria', 'collaboratori']
 
 function StaffCard({ member }) {
   const initials = `${member.first_name?.[0] || ''}${member.last_name?.[0] || ''}`.toUpperCase()
@@ -90,7 +89,7 @@ export default function Club() {
   const grouped = AREA_ORDER
     .map((area) => ({
       area,
-      members: (staff || []).filter((m) => classifyStaff(m) === area),
+      members: (staff || []).filter((m) => (m.area || 'collaboratori') === area),
     }))
     .filter((g) => g.members.length > 0)
 
@@ -187,7 +186,7 @@ export default function Club() {
           {grouped.map(({ area, members }) => (
             <div key={area}>
               <div className="flex items-center gap-4 mb-6">
-                <h3 className="font-display font-bold text-xl text-navy-dark shrink-0">{area}</h3>
+                <h3 className="font-display font-bold text-xl text-navy-dark shrink-0">{AREA_LABELS[area] || area}</h3>
                 <div className="h-0.5 flex-1 bg-navy-dark/10 rounded-full" />
                 <span className="scoreboard text-sm text-navy-dark/40 shrink-0">{members.length}</span>
               </div>

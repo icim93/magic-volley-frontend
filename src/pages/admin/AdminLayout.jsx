@@ -5,12 +5,13 @@ const navItems = [
   { to: '/admin', label: 'Panoramica', end: true },
   { to: '/admin/squadre', label: 'Squadre' },
   { to: '/admin/giocatrici', label: 'Giocatrici' },
-  { to: '/admin/staff', label: 'Staff tecnico' },
+  { to: '/admin/staff', label: 'Staff e Organigramma' },
   { to: '/admin/partite', label: 'Partite' },
   { to: '/admin/news', label: 'News' },
   { to: '/admin/iscrizioni', label: 'Iscrizioni' },
   { to: '/admin/sponsor', label: 'Sponsor' },
   { to: '/admin/gallery', label: 'Fotogallery' },
+  { to: '/admin/documenti', label: 'Documenti' },
   { to: '/admin/profilo', label: 'Profilo' },
 ]
 
