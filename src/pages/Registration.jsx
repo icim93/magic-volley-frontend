@@ -74,11 +74,14 @@ function SummaryDoc({ form, isMinor }) {
   const birthDateLabel = form.birth_date ? new Date(form.birth_date).toLocaleDateString('it-IT') : '__/__/____'
 
   return (
-    <div className="border-2 border-navy-dark/10 rounded-2xl p-6 print:border-0 print:p-0">
-      <p className="font-display font-bold text-lg text-navy-dark print:text-center">
-        Modulo di richiesta tesseramento
-      </p>
-      <p className="text-xs text-navy-dark/40 print:text-center print:mb-6">Magic Volley Adelfia ASD</p>
+    <div className="border-2 border-navy-dark/10 rounded-2xl p-6 print:border print:border-navy-dark/20 print:rounded-none print:p-10">
+      <div className="print:flex print:flex-col print:items-center">
+        <img src="/logo.png" alt="" className="hidden print:block h-16 w-auto mb-3" />
+        <p className="font-display font-bold text-lg text-navy-dark print:text-xl print:text-center">
+          Modulo di richiesta tesseramento
+        </p>
+        <p className="text-xs text-navy-dark/40 print:text-sm print:text-center print:mb-8">Magic Volley Adelfia ASD</p>
+      </div>
 
       <dl className="mt-4 space-y-1">
         <Row label="Nome e cognome" value={fullName} />
@@ -353,18 +356,18 @@ export default function Registration() {
         </div>
       ) : (
         <div>
-          <h1 className="font-display font-bold text-3xl text-navy-dark">Riepilogo</h1>
-          <p className="text-navy-dark/60 mt-3 text-sm">
+          <h1 className="font-display font-bold text-3xl text-navy-dark print:hidden">Riepilogo</h1>
+          <p className="text-navy-dark/60 mt-3 text-sm print:hidden">
             Passo 3 di 3 — controlla i dati, stampa il modulo, firmalo e portalo in palestra. Poi invia la richiesta.
           </p>
 
-          <div className="mt-6">
+          <div className="mt-6 print:mt-0">
             <SummaryDoc form={form} isMinor={isMinor} />
           </div>
 
-          {errorMsg && <p className="text-sm text-amber-dark font-medium mt-4">{errorMsg}</p>}
+          {errorMsg && <p className="text-sm text-amber-dark font-medium mt-4 print:hidden">{errorMsg}</p>}
 
-          <div className="flex flex-wrap gap-3 mt-8">
+          <div className="flex flex-wrap gap-3 mt-8 print:hidden">
             <button type="button" onClick={() => setStep(2)} className="text-navy-dark/60 hover:text-navy-dark font-semibold px-3">
               ← Indietro
             </button>
