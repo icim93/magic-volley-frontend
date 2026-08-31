@@ -66,7 +66,12 @@ function SignatureLine({ label }) {
 
 // Riepilogo stampabile: mostrato sia in anteprima (step 3) sia dopo l'invio,
 // così chi si dimentica di stampare prima può farlo comunque dopo.
+// Struttura ricalcata sul modulo cartaceo già in uso dalla società (QUADRO A
+// per la richiesta dell'atleta, QUADRO B per l'autorizzazione del genitore).
 function SummaryDoc({ form, isMinor }) {
+  const fullName = `${form.first_name} ${form.last_name}`.trim()
+  const birthDateLabel = form.birth_date ? new Date(form.birth_date).toLocaleDateString('it-IT') : '__/__/____'
+
   return (
     <div className="border-2 border-navy-dark/10 rounded-2xl p-6 print:border-0 print:p-0">
       <p className="font-display font-bold text-lg text-navy-dark print:text-center">
@@ -75,24 +80,73 @@ function SummaryDoc({ form, isMinor }) {
       <p className="text-xs text-navy-dark/40 print:text-center print:mb-6">Magic Volley Adelfia ASD</p>
 
       <dl className="mt-4 space-y-1">
-        <Row label="Nome e cognome" value={`${form.first_name} ${form.last_name}`} />
-        <Row label="Data di nascita" value={form.birth_date ? new Date(form.birth_date).toLocaleDateString('it-IT') : ''} />
+        <Row label="Nome e cognome" value={fullName} />
+        <Row label="Data di nascita" value={form.birth_date ? birthDateLabel : ''} />
         {isMinor && <Row label="Genitore/tutore" value={form.parent_name} />}
         <Row label="Email" value={form.email} />
         <Row label="Telefono" value={form.phone} />
         <Row label="Categoria di interesse" value={form.requested_team_category} />
       </dl>
 
-      <p className="text-sm text-navy-dark/80 mt-6 leading-relaxed">
-        Dichiaro di aver letto e accettato: Regolamento interno, Statuto della società, Informativa Privacy,
-        Autorizzazione all'utilizzo delle immagini, Documento di Safe Guarding.
-      </p>
+      {isMinor ? (
+        <>
+          <div className="mt-8 pt-6 border-t-2 border-navy-dark/10">
+            <p className="font-display font-bold text-sm text-navy-dark uppercase tracking-wide">Quadro A</p>
+            <p className="text-sm text-navy-dark/80 mt-2 leading-relaxed">
+              Io sottoscritto/a <strong>{fullName || '_______________'}</strong>, nato/a il <strong>{birthDateLabel}</strong>,
+              CHIEDO l'ammissione a Magic Volley Adelfia Associazione Sportiva Dilettantistica in qualità di tesserato/a.
+            </p>
+            <div className="mt-6">
+              <SignatureLine label="Firma dell'atleta" />
+            </div>
+          </div>
 
-      <div className="mt-10 grid sm:grid-cols-2 gap-8">
-        <SignatureLine label="Firma dell'atleta" />
-        {isMinor && <SignatureLine label="Firma del genitore/tutore" />}
-      </div>
-      <p className="text-xs text-navy-dark/40 mt-8">Data: _______________</p>
+          <div className="mt-8 pt-6 border-t-2 border-navy-dark/10">
+            <p className="font-display font-bold text-sm text-navy-dark uppercase tracking-wide">Quadro B</p>
+            <p className="text-sm text-navy-dark/80 mt-2 leading-relaxed">
+              Io sottoscritto/a <strong>{form.parent_name || '_______________'}</strong>, in qualità di genitore/tutore
+              esercente la responsabilità genitoriale su {fullName || "l'atleta sopra indicato/a"}, AUTORIZZO E ACCONSENTO
+              all'ammissione di mio figlio/a a Magic Volley Adelfia Associazione Sportiva Dilettantistica, nel rispetto
+              delle norme e dei regolamenti statutari.
+            </p>
+            <p className="text-sm text-navy-dark/80 mt-3 font-semibold">DICHIARO:</p>
+            <ul className="text-sm text-navy-dark/80 mt-1 space-y-1 list-disc pl-5">
+              <li>Di aver preso visione e di accettare lo Statuto e il Regolamento Associativo.</li>
+              <li>Di impegnarmi al pagamento della quota di iscrizione annuale e delle quote mensili a seconda dell'attività scelta.</li>
+              <li>
+                Di autorizzare Magic Volley Adelfia ASD al trattamento dei dati personali e all'utilizzo delle
+                immagini/video/fotografie del minore sopra indicato, ai sensi del Regolamento UE 2016/679 come
+                modificato dal D.Lgs. 101 del 10/08/2018.
+              </li>
+              <li>Di aver preso visione e di accettare il Modello Organizzativo e di Controllo dell'Attività Sportiva (Safe Guarding).</li>
+            </ul>
+            <div className="mt-6">
+              <SignatureLine label="Firma del genitore/tutore" />
+            </div>
+          </div>
+        </>
+      ) : (
+        <div className="mt-8 pt-6 border-t-2 border-navy-dark/10">
+          <p className="text-sm text-navy-dark/80 leading-relaxed">
+            Io sottoscritto/a <strong>{fullName || '_______________'}</strong>, nato/a il <strong>{birthDateLabel}</strong>,
+            CHIEDO l'ammissione a Magic Volley Adelfia Associazione Sportiva Dilettantistica in qualità di tesserato/a e DICHIARO:
+          </p>
+          <ul className="text-sm text-navy-dark/80 mt-2 space-y-1 list-disc pl-5">
+            <li>Di aver preso visione e di accettare lo Statuto e il Regolamento Associativo.</li>
+            <li>Di impegnarmi al pagamento della quota di iscrizione annuale e delle quote mensili a seconda dell'attività scelta.</li>
+            <li>
+              Di autorizzare Magic Volley Adelfia ASD al trattamento dei miei dati personali e all'utilizzo delle mie
+              immagini/video/fotografie, ai sensi del Regolamento UE 2016/679 come modificato dal D.Lgs. 101 del 10/08/2018.
+            </li>
+            <li>Di aver preso visione e di accettare il Modello Organizzativo e di Controllo dell'Attività Sportiva (Safe Guarding).</li>
+          </ul>
+          <div className="mt-6">
+            <SignatureLine label="Firma" />
+          </div>
+        </div>
+      )}
+
+      <p className="text-xs text-navy-dark/40 mt-8">Adelfia, lì _______________</p>
     </div>
   )
 }
@@ -267,8 +321,8 @@ export default function Registration() {
           </p>
 
           <div className="mt-4 bg-amber/15 border-2 border-amber/40 rounded-xl p-3 text-xs text-navy-dark/70">
-            ⚠️ Testi provvisori (bozza) usati solo per collaudare questo modulo — verranno sostituiti con i
-            documenti ufficiali della società.
+            ⚠️ L'Informativa Privacy è una bozza in attesa di verifica legale — gli altri documenti sono i
+            testi ufficiali della società.
           </div>
 
           <div className="mt-6 space-y-5">

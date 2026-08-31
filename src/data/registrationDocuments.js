@@ -3,30 +3,62 @@
 // riquadro scrollabile nel form.
 //
 // Stato dei contenuti (aggiornato 2026-08-31):
-// - statuto, safeguarding: testi UFFICIALI, trascritti dai documenti forniti
-//   dalla società (Statuto.pdf, MOG DELIBERATO PDF.pdf). Pronti per la produzione.
-// - regolamento, privacy, foto: ancora BOZZE segnaposto — NON mostrare a
-//   utenti reali finché non arrivano i testi definitivi dalla società.
+// - regolamento, statuto, safeguarding: testi UFFICIALI, trascritti dai
+//   documenti forniti dalla società (Regolamento associativo.pdf, Statuto.pdf,
+//   MOG DELIBERATO PDF.pdf). Pronti per la produzione.
+// - privacy (include anche l'autorizzazione foto): bozza scritta da Claude in
+//   stile GDPR standard, in assenza di un documento ufficiale della società —
+//   falla verificare da un consulente/legale prima di considerarla definitiva.
+// Le assicurazioni CSEN/FIPAV non sono documenti a sé in questo step: restano
+// referenziate all'interno del Regolamento (condizioni polizza su federvolley.it).
 
 export const REGISTRATION_DOCUMENTS = [
   {
     key: 'regolamento',
     title: 'Regolamento interno',
-    text: `[BOZZA — testo segnaposto]
+    text: `Regolamento Associativo
 
-Art. 1 — Il presente regolamento disciplina la partecipazione delle atlete e degli atleti alle attività sportive organizzate da Magic Volley Adelfia ASD.
+Obiettivo della Magic Volley Adelfia Associazione Sportiva Dilettantistica è quello di diffondere la pratica della pallavolo sia sotto l'aspetto ludico e agonistico, ma soprattutto quello di consentire ai propri associati uno sviluppo della personalità armonico ed equilibrato.
+I corsi hanno una durata di circa dieci mesi per tutte le attività e possono essere protratti fino alla fine di luglio con l'attività del campo estivo.
+L'iscrizione ha una validità annuale a partire dal primo di settembre per finire al trentuno di agosto ed è subordinata al versamento della quota che annualmente viene determinata dal Consiglio Direttivo per coprire gli oneri sostenuti dall'Associazione.
+Gli associati/tesserati saranno ammessi ad utilizzare i servizi dell'Associazione solo dopo aver espletato tutte le formalità di rito previste per l'iscrizione:
+1) Sottoscrizione modulo d'iscrizione associativa/partecipazione corsi;
+2) Sottoscrizione modulo tesseramento FIPAV;
+3) Presentazione del certificato medico per attività sportiva non agonistica;
+4) Pagamento della Quota Associativa/Partecipazione corsi;
+5) Pagamento della quota mensile partecipazione corsi.
+Per quanto previsto dal punto 1 è possibile effettuare per i nuovi iscritti una lezione prova totalmente gratuita, previa sottoscrizione da parte di un genitore del modulo di assunzione di responsabilità civile e penale.
+Per quanto previsto dal punto 3 gli associati che svolgono l'attività agonistica sono tenuti a svolgere la visita medico sportiva per l'idoneità agonistica presso un centro di medicina dello sport convenzionato. Senza l'idoneità di cui sopra l'associato non potrà svolgere alcun campionato federale ma potrà partecipare agli allenamenti della squadra di appartenenza (previa presentazione di un certificato per attività sportiva non agonistica).
+Per quanto previsto dai punti quattro e cinque le quote già versate nel caso di espulsione per motivi disciplinari, assenza per malattia o per qualsiasi altra ragione non imputabile all'Associazione non saranno rimborsate. Le quote mensili vanno versate entro il cinque di ogni mese e comunque non oltre la seconda lezione/allenamento.
+Per ragioni contabili non sono ammesse deroghe alle date indicate per il versamento delle quote, eventuali ritardi saranno considerati quali dichiarazioni di rinuncia. La dichiarazione di rinuncia al corso deve essere comunicata per iscritto entro cinque giorni dall'inizio del mese, pena il pagamento della quota mensile dovuta.
+Gli associati non in regola con il versamento della quota mensile o rinunciatari non potranno beneficiare dei servizi dell'Associazione. Se volessero riprendere successivamente le attività dovranno riversare la quota Associativa e/o partecipazione corsi.
 
-Art. 2 — La frequenza agli allenamenti è obbligatoria salvo giustificato motivo comunicato allo staff tecnico con ragionevole anticipo.
+È prerogativa dell'Associazione decidere:
+1) La composizione dei gruppi;
+2) Istruttori e tecnici federali;
+3) Giorni ed orari delle lezioni/allenamenti.
+4) La partecipazione ai campionati di serie, minivolley e/o di categoria.
+Per quanto previsto dal punto 3 le lezioni/allenamenti coincidenti con le festività non saranno effettuati.
+Per quanto previsto dal punto 4, i genitori all'atto dell'iscrizione sono tenuti a comunicare eventuali situazioni che possano impedire la partecipazione del proprio figlio ai campionati svolti dal gruppo di appartenenza.
+Tutti gli associati al termine del turno di lezione/allenamento devono ritirare tutti gli effetti personali. In ogni caso l'Associazione non si assume nessuna responsabilità circa oggetti e/o indumenti eventualmente dimenticati o smarriti.
+Gli associati potranno essere presi dai rispettivi genitori o da persone dagli stessi indicati, al termine della lezione. Si prega di voler comunicare eventuali rientri non accompagnati e di riprendere i propri figli entro massimo dieci minuti dal termine della lezione. La responsabilità ex art. 2048 c.c. e quella sulla custodia dei minori viene assunta dall'allenatore e/o istruttore dell'Associazione solo nella fascia oraria relativa all'attività svolta dall'associazione stessa nei confronti dell'atleta minorenne. Oltre tale lasso di tempo e al di fuori della palestra la Associazione si intende liberata da ogni tipo di responsabilità di cui sopra.
+Per motivi di sicurezza, è fatto assoluto divieto ai genitori di sostare nelle strutture sportive, ove si svolgono i corsi, al fine di evitare qualsiasi tipo di accadimento fortuito (pallonate, ecc.). Gli stessi potranno accedere esclusivamente nelle aree appositamente individuate assumendosi qualsiasi responsabilità di carattere civile e/o penale.
+L'abbigliamento per la partecipazione alle lezioni/allenamenti e/o alle manifestazioni organizzate dalla FIPAV a cui l'Associazione partecipa è a totale o parziale carico dei genitori su indicazione della stessa Associazione.
+Chi non indossa la divisa ufficiale non potrà prendere parte alle gare, ma potrà regolarmente frequentare le lezioni o gli allenamenti.
+Tutti gli allievi sono assicurati con specifica polizza base Federale della Compagnia Allianz Assicurazioni spa valida per gli associati tesserati alla FIPAV. Le condizioni di polizza sono interamente consultabili e scaricabili nel sito www.federvolley.it (cliccare su Documenti e quindi all'apertura della tendina cliccare su Assicurazioni).
+Con l'iscrizione il socio accetta i termini e le condizioni previste dalla polizza FIPAV e libera espressamente l'Associazione Magic Volley Adelfia a.s.d. da ogni pretesa risarcitoria eccedente i limiti descritti nella suddetta polizza.
+È compito dell'allenatore, di ogni genitore e dell'associato segnalare tempestivamente verbalmente e entro il giorno seguente per iscritto, eventuali infortuni accaduti durante partite ed allenamenti tramite il dirigente e la segreteria, poiché la denuncia deve essere effettuata entro trenta giorni dall'infortunio. È possibile stipulare delle polizze integrative con costo a carico dell'Associato e da richiedere alla dirigenza all'atto dell'iscrizione.
 
-Art. 3 — È richiesto un comportamento rispettoso verso compagne/i, staff tecnico, dirigenti, arbitri e avversarie/i, sia in palestra che in trasferta.
+L'attività sportiva si svolge principalmente presso il palazzetto dello sport di Adelfia, le palestre scolastiche locali, salvo diverse disposizioni. Le lezioni/allenamenti si svolgono dal lunedì al sabato; partite amichevoli o ufficiali e tornei si svolgono prevalentemente la domenica mattina e/o pomeriggio, salve diverse disposizioni.
+L'Associato è tenuto a garantire la sua presenza per l'attività organizzativa della Associazione per partite, tornei, gare e feste societarie. Se vi sono assenze per attività già programmate (settimane bianche, gite scolastiche, viaggi, ecc.) i genitori dell'atleta sono tenuti a segnalarlo con anticipo all'allenatore e/o il dirigente di riferimento.
+Le assenze prolungate degli allenamenti senza una adeguata giustificazione o motivazione comportano, dopo trenta giorni consecutivi, l'esclusione dell'associato da ogni attività della Associazione senza alcun rimborso della quota versata. Si rammenta che l'assenza agli allenamenti e alle partite può danneggiare tutta la squadra e la Associazione.
+Gli associati durante la gara e gli allenamenti devono osservare sempre ed in qualsiasi situazione, un atteggiamento leale, corretto e rispettoso nei confronti di dirigenti, allenatori, istruttori, altri associati, avversari, arbitri e pubblico. Non sono tollerati comportamenti violenti o comunque contrari all'etica sportiva. La Associazione è tenuta a prendere provvedimenti disciplinari contro chi non rispetti tali norme di comportamento ed è autorizzata, in casi estremi a sospenderli dall'attività sportiva.
+Nelle palestre, negli spogliatoi e nei locali utilizzati dall'Associazione va tenuto un comportamento corretto, educato e rispettoso degli altri, evitando urla e schiamazzi. In palestra si accede con una corretta tenuta sportiva possibilmente indossata nello spogliatoio (ovviamente dove è possibile).
+L'Associato è tenuto a presentarsi con puntualità alle lezioni/allenamenti e partite.
 
-Art. 4 — L'abbigliamento e il materiale tecnico sono forniti secondo le indicazioni dello staff; eventuali danni per uso improprio sono a carico della famiglia.
+Ringraziandovi anticipatamente per la collaborazione, auguriamo a tutti i nostri associati e ai loro familiari di trascorrere un piacevole anno tutti insieme ricordandoci che la crescita armonica dei nostri figli passa attraverso:
 
-Art. 5 — La società si riserva di sospendere temporaneamente un'atleta dalle attività in caso di comportamenti gravemente scorretti, previa comunicazione alla famiglia.
-
-Art. 6 — Le quote di iscrizione e le relative scadenze sono comunicate all'atto del tesseramento e vanno rispettate per garantire la continuità della partecipazione.
-
-[Fine testo segnaposto — sostituire con il regolamento ufficiale]`,
+Il rispetto del prossimo e di noi stessi`,
   },
   {
     key: 'statuto',
@@ -274,33 +306,38 @@ Per quanto non espressamente previsto dal presente statuto si applicano le dispo
   },
   {
     key: 'privacy',
-    title: 'Informativa Privacy (GDPR)',
-    text: `[BOZZA — testo segnaposto]
+    title: 'Informativa Privacy (GDPR) e Autorizzazione all\'utilizzo delle immagini',
+    text: `[Bozza scritta in assenza di un documento ufficiale della società — farla verificare da un consulente/legale prima della pubblicazione definitiva]
 
-Ai sensi del Regolamento UE 2016/679 (GDPR), Magic Volley Adelfia ASD, in qualità di titolare del trattamento, informa che i dati personali forniti in fase di iscrizione (dati anagrafici, di contatto, ed eventuale documentazione sanitaria) sono trattati esclusivamente per finalità connesse alla gestione del tesseramento sportivo, alla partecipazione ad attività e competizioni, e agli adempimenti verso la Federazione di riferimento.
+INFORMATIVA SUL TRATTAMENTO DEI DATI PERSONALI (Regolamento UE 2016/679 – GDPR) E AUTORIZZAZIONE ALL'UTILIZZO DELLE IMMAGINI
 
-I dati relativi a minorenni sono trattati previo consenso di chi esercita la responsabilità genitoriale.
+Titolare del trattamento
+Il titolare del trattamento dei dati è Magic Volley Adelfia Associazione Sportiva Dilettantistica, con sede in Adelfia (BA), Via Guido Rossa n. 4C. Per qualsiasi richiesta relativa al trattamento dei dati personali è possibile scrivere a info@magicvolleyadelfia.it.
 
-I dati non sono ceduti a terzi se non per obblighi di legge o verso la Federazione sportiva competente, e sono conservati per il tempo necessario alle finalità sopra indicate.
+Dati raccolti e finalità del trattamento
+In fase di iscrizione vengono raccolti i dati anagrafici (nome, cognome, data di nascita), i dati di contatto (email, telefono) e, per gli atleti minorenni, i dati del genitore/tutore. In fase di tesseramento e nel corso della stagione possono inoltre essere richiesti il certificato medico sportivo e, ove necessaria, ulteriore documentazione sanitaria.
 
-L'interessato (o chi esercita la responsabilità genitoriale, per i minori) può in ogni momento richiedere accesso, rettifica o cancellazione dei propri dati scrivendo a info@magicvolleyadelfia.it.
+Tali dati sono trattati per le seguenti finalità:
+- gestione dell'iscrizione e del tesseramento sportivo;
+- adempimenti nei confronti della Federazione Italiana Pallavolo (FIPAV) e degli enti di promozione sportiva (es. CSEN) cui l'Associazione è affiliata, incluso il tesseramento e la copertura assicurativa;
+- organizzazione e gestione delle attività sportive, degli allenamenti, delle partite e degli eventi sociali;
+- comunicazioni relative alla vita associativa (es. calendario, convocazioni, comunicazioni organizzative);
+- adempimenti amministrativi, contabili e fiscali previsti dalla legge.
 
-[Fine testo segnaposto — sostituire con l'informativa privacy definitiva, verificata da un professionista]`,
-  },
-  {
-    key: 'foto',
-    title: 'Autorizzazione all\'utilizzo delle immagini',
-    text: `[BOZZA — testo segnaposto]
+Base giuridica
+Il trattamento si basa sull'esecuzione del rapporto associativo/di tesseramento sportivo instaurato con l'iscrizione, sull'adempimento di obblighi di legge e, per il trattamento delle immagini e per i dati dei minori, sul consenso espresso da chi esercita la responsabilità genitoriale.
 
-Con l'iscrizione, l'atleta (o chi esercita la responsabilità genitoriale, per i minori) autorizza Magic Volley Adelfia ASD a riprendere, fotografare e pubblicare immagini e video ritraenti l'atleta durante allenamenti, partite ed eventi sociali, per finalità promozionali e informative della società.
-
+Trattamento delle immagini e dei video
+Con l'iscrizione, l'atleta (o chi esercita la responsabilità genitoriale, per i minori) autorizza Magic Volley Adelfia ASD a riprendere, fotografare e pubblicare immagini e video ritraenti l'atleta durante allenamenti, partite ed eventi sociali, per finalità sportive, promozionali e informative della società e/o di un suo sponsor, ai sensi del Regolamento UE 2016/679 così come modificato dal D.Lgs. 101 del 10/08/2018.
 Le immagini potranno essere utilizzate su: sito web ufficiale, canali social della società (Instagram, Facebook), materiale promozionale cartaceo o digitale.
-
 L'autorizzazione è concessa a titolo gratuito e può essere revocata in qualsiasi momento con comunicazione scritta a info@magicvolleyadelfia.it; la revoca non ha effetto retroattivo sul materiale già pubblicato prima della richiesta.
-
 La società si impegna a non utilizzare le immagini in contesti lesivi della dignità o dell'immagine dell'atleta.
 
-[Fine testo segnaposto — sostituire con il modulo di liberatoria definitivo]`,
+Comunicazione e conservazione dei dati
+I dati non sono ceduti a terzi se non per obblighi di legge o verso la Federazione/l'ente di promozione sportiva cui l'Associazione è affiliata (FIPAV, CSEN) e verso il fornitore della copertura assicurativa. I dati possono essere conservati su infrastrutture informatiche gestite da fornitori terzi (hosting, database, storage) che agiscono in qualità di responsabili del trattamento, nel rispetto della normativa vigente. I dati sono conservati per il tempo necessario alle finalità sopra indicate e comunque nei limiti previsti dalla legge.
+
+Diritti dell'interessato
+L'interessato (o chi esercita la responsabilità genitoriale, per i minori) può in ogni momento richiedere accesso, rettifica, cancellazione o limitazione del trattamento dei propri dati, nonché opporsi al trattamento, scrivendo a info@magicvolleyadelfia.it.`,
   },
   {
     key: 'safeguarding',
