@@ -218,8 +218,21 @@ export default function AdminRegistrations() {
                 </p>
                 {item.parent_name && <p className="text-sm text-navy-dark/50 mt-0.5">Genitore: {item.parent_name}</p>}
                 <p className="text-xs text-navy-dark/40 mt-1">
-                  Nato/a il {new Date(item.birth_date).toLocaleDateString('it-IT')} · richiesta del {new Date(item.created_at).toLocaleDateString('it-IT')}
+                  Nato/a il {new Date(item.birth_date).toLocaleDateString('it-IT')}
+                  {item.birth_place && ` a ${item.birth_place}`} · richiesta del {new Date(item.created_at).toLocaleDateString('it-IT')}
                 </p>
+                {(item.address || item.fiscal_code) && (
+                  <p className="text-xs text-navy-dark/40 mt-0.5">
+                    {item.address}{item.address && item.fiscal_code && ' · '}{item.fiscal_code && `C.F. ${item.fiscal_code}`}
+                  </p>
+                )}
+                {(item.parent_birth_place || item.parent_address || item.parent_fiscal_code) && (
+                  <p className="text-xs text-navy-dark/40 mt-0.5">
+                    Genitore — {item.parent_birth_place && `nato/a a ${item.parent_birth_place}`}
+                    {item.parent_address && ` · ${item.parent_address}`}
+                    {item.parent_fiscal_code && ` · C.F. ${item.parent_fiscal_code}`}
+                  </p>
+                )}
                 {item.documents_accepted_at && (
                   <p className="text-xs text-navy-dark/40 mt-1">
                     ✓ Documenti confermati il {new Date(item.documents_accepted_at).toLocaleDateString('it-IT')}

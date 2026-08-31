@@ -33,8 +33,8 @@ export const REGISTRATION_DOCUMENTS = [
     description: 'Iscrizione, quote, assicurazione, comportamento in palestra e in trasferta.',
     links: [
       { label: 'Documento originale (PDF)', url: ORIGINAL_DOCUMENT_URLS.regolamento },
-      { label: 'Polizza infortuni CSEN (PDF)', url: INSURANCE_URLS.csen },
-      { label: 'Polizza infortuni FIPAV (PDF)', url: INSURANCE_URLS.fipav },
+      { label: 'Polizza infortuni CSEN (PDF)', url: INSURANCE_URLS.csen, required: true },
+      { label: 'Polizza infortuni FIPAV (PDF)', url: INSURANCE_URLS.fipav, required: true },
     ],
     text: `Regolamento Associativo
 

@@ -9,7 +9,13 @@ const emptyForm = {
   first_name: '',
   last_name: '',
   birth_date: '',
+  birth_place: '',
+  address: '',
+  fiscal_code: '',
   parent_name: '',
+  parent_birth_place: '',
+  parent_address: '',
+  parent_fiscal_code: '',
   email: '',
   phone: '',
   requested_team_category: '',
@@ -68,12 +74,26 @@ function SummaryDoc({ form, isMinor }) {
     <div className="border-2 border-navy-dark/10 rounded-2xl p-6">
       <dl className="space-y-1">
         <Row label="Nome e cognome" value={fullName} />
-        <Row label="Data di nascita" value={birthDateLabel} />
-        {isMinor && <Row label="Genitore/tutore" value={form.parent_name} />}
+        <Row label="Luogo e data di nascita" value={form.birth_place ? `${form.birth_place}, ${birthDateLabel}` : birthDateLabel} />
+        <Row label="Indirizzo" value={form.address} />
+        <Row label="Codice fiscale" value={form.fiscal_code} />
         <Row label="Email" value={form.email} />
         <Row label="Telefono" value={form.phone} />
         <Row label="Categoria di interesse" value={form.requested_team_category} />
       </dl>
+      {isMinor && (
+        <>
+          <p className="font-display font-semibold text-xs uppercase tracking-wide text-navy-dark/50 mt-5 mb-1">
+            Genitore/tutore
+          </p>
+          <dl className="space-y-1">
+            <Row label="Nome e cognome" value={form.parent_name} />
+            <Row label="Luogo di nascita" value={form.parent_birth_place} />
+            <Row label="Indirizzo" value={form.parent_address} />
+            <Row label="Codice fiscale" value={form.parent_fiscal_code} />
+          </dl>
+        </>
+      )}
     </div>
   )
 }
@@ -101,10 +121,12 @@ export default function Registration() {
 
   const isMinor = form.birth_date ? computeAge(form.birth_date) < 18 : false
 
-  // Se l'atleta risulta maggiorenne, il nome del genitore non serve più: lo svuotiamo
-  // per non mandarlo per sbaglio insieme alla richiesta.
+  // Se l'atleta risulta maggiorenne, i dati del genitore non servono più: li svuotiamo
+  // per non mandarli per sbaglio insieme alla richiesta.
   useEffect(() => {
-    if (!isMinor && form.parent_name) setForm((f) => ({ ...f, parent_name: '' }))
+    if (!isMinor && (form.parent_name || form.parent_birth_place || form.parent_address || form.parent_fiscal_code)) {
+      setForm((f) => ({ ...f, parent_name: '', parent_birth_place: '', parent_address: '', parent_fiscal_code: '' }))
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isMinor])
 
@@ -112,8 +134,9 @@ export default function Registration() {
 
   const canProceedStep1 =
     form.first_name.trim() && form.last_name.trim() && form.birth_date &&
+    form.birth_place.trim() && form.address.trim() && form.fiscal_code.trim() &&
     form.email.trim() && form.phone.trim() &&
-    (!isMinor || form.parent_name.trim())
+    (!isMinor || (form.parent_name.trim() && form.parent_birth_place.trim() && form.parent_address.trim() && form.parent_fiscal_code.trim()))
 
   const allDocsRead = REGISTRATION_DOCUMENTS.every((d) => docsRead[d.key])
 
@@ -180,6 +203,8 @@ export default function Registration() {
           </p>
 
           <div className="mt-10 space-y-5">
+            <p className="font-display font-semibold text-xs uppercase tracking-wide text-navy-dark/50">Atleta</p>
+
             <div className="grid sm:grid-cols-2 gap-5">
               <Field label="Nome" required>
                 <input required value={form.first_name} onChange={update('first_name')} className="input" />
@@ -189,27 +214,21 @@ export default function Registration() {
               </Field>
             </div>
 
-            <Field label="Data di nascita" required>
-              <input required type="date" value={form.birth_date} onChange={update('birth_date')} className="input" />
+            <div className="grid sm:grid-cols-2 gap-5">
+              <Field label="Luogo di nascita" required>
+                <input required value={form.birth_place} onChange={update('birth_place')} className="input" placeholder="Es. Bari" />
+              </Field>
+              <Field label="Data di nascita" required>
+                <input required type="date" value={form.birth_date} onChange={update('birth_date')} className="input" />
+              </Field>
+            </div>
+
+            <Field label="Indirizzo di residenza" required>
+              <input required value={form.address} onChange={update('address')} className="input" placeholder="Via, numero civico, città" />
             </Field>
 
-            <Field
-              label="Nome del genitore/tutore"
-              hint={
-                !form.birth_date
-                  ? 'Si abilita dopo aver inserito la data di nascita'
-                  : isMinor
-                  ? "Obbligatorio: l'atleta è minorenne"
-                  : "Non necessario: l'atleta è maggiorenne"
-              }
-            >
-              <input
-                required={isMinor}
-                disabled={!isMinor}
-                value={form.parent_name}
-                onChange={update('parent_name')}
-                className="input disabled:opacity-40 disabled:cursor-not-allowed"
-              />
+            <Field label="Codice fiscale" required>
+              <input required value={form.fiscal_code} onChange={update('fiscal_code')} maxLength={16} className="input uppercase" />
             </Field>
 
             <div className="grid sm:grid-cols-2 gap-5">
@@ -228,6 +247,35 @@ export default function Registration() {
               </select>
             </Field>
 
+            {!form.birth_date ? (
+              <p className="text-xs text-navy-dark/40">
+                I dati del genitore/tutore compaiono qui sotto una volta inserita la data di nascita, se l'atleta
+                risulta minorenne.
+              </p>
+            ) : isMinor && (
+              <>
+                <p className="font-display font-semibold text-xs uppercase tracking-wide text-navy-dark/50 pt-4">
+                  Genitore/tutore — obbligatorio: l'atleta è minorenne
+                </p>
+
+                <Field label="Nome e cognome" required>
+                  <input required value={form.parent_name} onChange={update('parent_name')} className="input" />
+                </Field>
+
+                <Field label="Luogo di nascita" required>
+                  <input required value={form.parent_birth_place} onChange={update('parent_birth_place')} className="input" placeholder="Es. Bari" />
+                </Field>
+
+                <Field label="Indirizzo di residenza" required>
+                  <input required value={form.parent_address} onChange={update('parent_address')} className="input" placeholder="Via, numero civico, città" />
+                </Field>
+
+                <Field label="Codice fiscale" required>
+                  <input required value={form.parent_fiscal_code} onChange={update('parent_fiscal_code')} maxLength={16} className="input uppercase" />
+                </Field>
+              </>
+            )}
+
             <button
               type="button"
               disabled={!canProceedStep1}
@@ -243,7 +291,8 @@ export default function Registration() {
           <h1 className="font-display font-bold text-3xl text-navy-dark">Documenti da leggere</h1>
           <p className="text-navy-dark/60 mt-3 text-sm">
             Passo 2 di 3 — apri ogni documento e scorrilo fino in fondo per confermarne la lettura. Per Statuto e
-            Safe Guarding puoi anche consultare il PDF originale.
+            Safe Guarding puoi anche consultare il PDF originale. Nel Regolamento devi anche aprire i link delle
+            polizze assicurative CSEN e FIPAV.
           </p>
 
           <div className="mt-6 space-y-3">
@@ -261,7 +310,7 @@ export default function Registration() {
             <DocumentModal
               doc={openDoc}
               onClose={() => setOpenDoc(null)}
-              onScrolledToBottom={() => markRead(openDoc.key)}
+              onFullyRead={() => markRead(openDoc.key)}
             />
           )}
 
