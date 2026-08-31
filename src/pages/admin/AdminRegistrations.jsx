@@ -220,6 +220,11 @@ export default function AdminRegistrations() {
                 <p className="text-xs text-navy-dark/40 mt-1">
                   Nato/a il {new Date(item.birth_date).toLocaleDateString('it-IT')} · richiesta del {new Date(item.created_at).toLocaleDateString('it-IT')}
                 </p>
+                {item.documents_accepted_at && (
+                  <p className="text-xs text-navy-dark/40 mt-1">
+                    ✓ Documenti confermati il {new Date(item.documents_accepted_at).toLocaleDateString('it-IT')}
+                  </p>
+                )}
                 {item.player_id ? (
                   <p className="text-xs text-green-700 font-semibold mt-2">✓ Giocatrice e account genitore creati</p>
                 ) : (
