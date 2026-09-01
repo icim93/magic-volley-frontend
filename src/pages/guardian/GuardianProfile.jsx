@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import guardianApi from '../../lib/guardianApi'
 import { useGuardianAuth } from '../../context/GuardianAuthContext'
 import NotificationToggle from '../../components/NotificationToggle'
@@ -44,7 +45,11 @@ export default function GuardianProfile() {
 
   return (
     <div>
-      <h1 className="font-display font-bold text-2xl text-navy-dark">Profilo</h1>
+      <Link to="/area-riservata" className="text-sm text-navy-dark/60 hover:text-navy-dark font-semibold">
+        ← Indietro
+      </Link>
+
+      <h1 className="font-display font-bold text-2xl text-navy-dark mt-3">Profilo</h1>
       <p className="text-navy-dark/60 text-sm mt-1">I tuoi dati e le impostazioni dell'account.</p>
 
       {guardian && (
