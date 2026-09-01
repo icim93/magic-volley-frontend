@@ -167,7 +167,8 @@ export function generateRegistrationPdf(form, isMinor) {
       { align: 'center' }
     )
     c.keyword('DICHIARO')
-    c.bullet('Di aver preso visione e di accettare lo Statuto e il Regolamento Associativo (comprese le condizioni delle polizze assicurative CSEN e FIPAV ivi richiamate).')
+    c.bullet('Di aver preso visione e di accettare lo Statuto e il Regolamento Associativo.')
+    c.bullet('Di aver preso visione e di accettare le condizioni delle polizze assicurative CSEN e FIPAV.')
     c.bullet('Di impegnarmi al pagamento della quota di iscrizione annuale e delle quote mensili a seconda dell\'attività scelta.')
     c.bullet('Di autorizzare Magic Volley Adelfia Associazione Sportiva Dilettantistica al trattamento dei dati personali e all\'utilizzo delle immagini/video/fotografie del minore sopra indicato, ai sensi del Regolamento UE 2016/679 come modificato dal D.Lgs. 101 del 10/08/2018.')
     c.bullet('Di aver preso visione e di accettare il Modello Organizzativo e di Controllo dell\'Attività Sportiva (Safe Guarding).')
@@ -179,7 +180,8 @@ export function generateRegistrationPdf(form, isMinor) {
       { align: 'center' }
     )
     c.keyword('DICHIARO')
-    c.bullet('Di aver preso visione e di accettare lo Statuto e il Regolamento Associativo (comprese le condizioni delle polizze assicurative CSEN e FIPAV ivi richiamate).')
+    c.bullet('Di aver preso visione e di accettare lo Statuto e il Regolamento Associativo.')
+    c.bullet('Di aver preso visione e di accettare le condizioni delle polizze assicurative CSEN e FIPAV.')
     c.bullet('Di impegnarmi al pagamento della quota di iscrizione annuale e delle quote mensili a seconda dell\'attività scelta.')
     c.bullet('Di autorizzare Magic Volley Adelfia Associazione Sportiva Dilettantistica al trattamento dei miei dati personali e all\'utilizzo delle mie immagini/video/fotografie, ai sensi del Regolamento UE 2016/679 come modificato dal D.Lgs. 101 del 10/08/2018.')
     c.bullet('Di aver preso visione e di accettare il Modello Organizzativo e di Controllo dell\'Attività Sportiva (Safe Guarding).')

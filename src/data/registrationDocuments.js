@@ -9,8 +9,8 @@
 // - privacy (include anche l'autorizzazione foto): bozza scritta da Claude in
 //   stile GDPR standard, in assenza di un documento ufficiale della società —
 //   falla verificare da un consulente/legale prima di considerarla definitiva.
-// Le assicurazioni CSEN/FIPAV non sono documenti a sé in questo step: restano
-// referenziate all'interno del Regolamento, con link diretto alle polizze caricate.
+// Le assicurazioni CSEN/FIPAV sono un documento a sé (key "assicurazioni"),
+// separato dal Regolamento, con i link alle due polizze come lettura obbligatoria.
 
 // URL dei PDF originali su Supabase Storage (caricati con upload_source_documents.py
 // dalla cartella backend, che scrive gli URL reali — con nome file casuale — in
@@ -33,8 +33,6 @@ export const REGISTRATION_DOCUMENTS = [
     description: 'Iscrizione, quote, assicurazione, comportamento in palestra e in trasferta.',
     links: [
       { label: 'Documento originale (PDF)', url: ORIGINAL_DOCUMENT_URLS.regolamento },
-      { label: 'Polizza infortuni CSEN (PDF)', url: INSURANCE_URLS.csen, required: true },
-      { label: 'Polizza infortuni FIPAV (PDF)', url: INSURANCE_URLS.fipav, required: true },
     ],
     text: `Regolamento Associativo
 
@@ -79,6 +77,22 @@ L'Associato è tenuto a presentarsi con puntualità alle lezioni/allenamenti e p
 Ringraziandovi anticipatamente per la collaborazione, auguriamo a tutti i nostri associati e ai loro familiari di trascorrere un piacevole anno tutti insieme ricordandoci che la crescita armonica dei nostri figli passa attraverso:
 
 Il rispetto del prossimo e di noi stessi`,
+  },
+  {
+    key: 'assicurazioni',
+    title: 'Polizze assicurative CSEN e FIPAV',
+    description: 'Condizioni delle polizze infortuni per gli atleti tesserati.',
+    links: [
+      { label: 'Polizza infortuni CSEN (PDF)', url: INSURANCE_URLS.csen, required: true },
+      { label: 'Polizza infortuni FIPAV (PDF)', url: INSURANCE_URLS.fipav, required: true },
+    ],
+    text: `Polizze assicurative CSEN e FIPAV
+
+Tutti gli associati tesserati sono coperti da una polizza infortuni base, stipulata tramite la Federazione Italiana Pallavolo (FIPAV) e/o l'ente di promozione sportiva CSEN a seconda dell'attività e della categoria di tesseramento. Le condizioni integrali delle polizze — massimali, esclusioni, modalità di denuncia sinistro — sono consultabili nei due documenti ufficiali collegati qui sopra: apri entrambi i link prima di proseguire.
+
+Con l'iscrizione, l'associato (o chi esercita la responsabilità genitoriale, per i minori) dichiara di aver preso visione delle condizioni di entrambe le polizze e ne accetta i termini, sollevando Magic Volley Adelfia Associazione Sportiva Dilettantistica da ogni pretesa risarcitoria eccedente i limiti in esse descritti.
+
+Eventuali infortuni devono essere segnalati tempestivamente all'allenatore e alla segreteria societaria, poiché la denuncia formale va effettuata entro trenta giorni dall'evento. È possibile stipulare polizze integrative facoltative, con costo a carico dell'associato, da richiedere alla dirigenza all'atto dell'iscrizione.`,
   },
   {
     key: 'statuto',
