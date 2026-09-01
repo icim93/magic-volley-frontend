@@ -33,8 +33,8 @@ export default function AdminGuardians() {
       <div className="mb-8">
         <h1 className="font-display font-bold text-2xl text-navy-dark">Genitori</h1>
         <p className="text-navy-dark/60 text-sm mt-1">
-          Account dell'area riservata famiglie, creati approvando le iscrizioni. Da qui puoi anche rigenerare il
-          link di attivazione se è andato perso.
+          Account dell'area riservata famiglie, creati approvando le iscrizioni. Da qui puoi rigenerare il link di
+          attivazione se è andato perso, o reimpostare la password se un genitore l'ha dimenticata.
         </p>
       </div>
 
@@ -74,15 +74,13 @@ export default function AdminGuardians() {
                     )}
                   </td>
                   <td className="px-5 py-3 text-right whitespace-nowrap">
-                    {!g.is_active && (
-                      <button
-                        onClick={() => regenerateLink(g)}
-                        disabled={regenerating === g.id}
-                        className="text-navy-light hover:text-navy-dark font-semibold disabled:opacity-50"
-                      >
-                        {regenerating === g.id ? 'Genero…' : 'Rigenera link'}
-                      </button>
-                    )}
+                    <button
+                      onClick={() => regenerateLink(g)}
+                      disabled={regenerating === g.id}
+                      className="text-navy-light hover:text-navy-dark font-semibold disabled:opacity-50"
+                    >
+                      {regenerating === g.id ? 'Genero…' : g.is_active ? 'Reimposta password' : 'Rigenera link'}
+                    </button>
                   </td>
                 </tr>
               ))}
