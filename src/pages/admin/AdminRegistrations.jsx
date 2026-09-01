@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import api from '../../lib/api'
 import { generateRegistrationPdf } from '../../lib/registrationPdf'
+import { useAuth } from '../../context/AuthContext'
 
 const statusOptions = [
   { value: 'pending', label: 'In attesa' },
@@ -182,6 +183,8 @@ function ApproveModal({ registration, onClose, onDone }) {
 }
 
 export default function AdminRegistrations() {
+  const { user } = useAuth()
+  const isSuperadmin = user?.role === 'superadmin'
   const [items, setItems] = useState(null)
   const [error, setError] = useState('')
   const [savingId, setSavingId] = useState(null)
@@ -213,6 +216,19 @@ export default function AdminRegistrations() {
       load()
     } catch {
       setError('Non riesco a salvare le note.')
+    } finally {
+      setSavingId(null)
+    }
+  }
+
+  const deleteRegistration = async (item) => {
+    if (!window.confirm('Confermi l\'eliminazione di questa richiesta? L\'operazione non è reversibile.')) return
+    setSavingId(item.id)
+    try {
+      await api.delete(`/api/registrations/${item.id}`)
+      load()
+    } catch (err) {
+      setError(err.response?.data?.detail || 'Non riesco a eliminare questa richiesta.')
     } finally {
       setSavingId(null)
     }
@@ -283,6 +299,15 @@ export default function AdminRegistrations() {
                   >
                     Scarica modulo PDF ↓
                   </button>
+                  {isSuperadmin && (
+                    <button
+                      onClick={() => deleteRegistration(item)}
+                      disabled={savingId === item.id}
+                      className="text-xs font-semibold text-navy-dark/40 hover:text-red-600 disabled:opacity-50"
+                    >
+                      Elimina
+                    </button>
+                  )}
                 </div>
               </div>
 
