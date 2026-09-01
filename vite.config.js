@@ -2,47 +2,24 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
 
-// Origine del backend in produzione: le chiamate API sono cross-origin
-// (frontend su magicvolleyadelfia.it, backend su onrender.com), quindi le
-// regex di runtimeCaching devono matchare l'URL assoluto, non solo il path.
-const API_ORIGIN = 'https://magic-volley-backend.onrender.com'
-
-// Solo le GET pubbliche di sola lettura, una regex per famiglia di endpoint.
-// Niente pattern "cattura tutto" su /api/* — cache-are per sbaglio le
-// risposte di admin/genitori (anche se non contengono cookie di sessione,
-// meglio non fidarsi del matching di default) è il rischio da evitare qui.
-function publicApiCache(name, pathPattern) {
-  return {
-    urlPattern: new RegExp(`^${API_ORIGIN.replace(/[.]/g, '\\.')}/api/${pathPattern}(\\?.*)?$`),
-    handler: 'StaleWhileRevalidate',
-    method: 'GET',
-    options: {
-      cacheName: `api-${name}`,
-      expiration: { maxEntries: 60, maxAgeSeconds: 60 * 60 },
-      cacheableResponse: { statuses: [0, 200] },
-    },
-  }
-}
-
 export default defineConfig({
   plugins: [
     react(),
     VitePWA({
+      // Service worker scritto a mano (src/sw.js) invece che generato per
+      // intero dal plugin: serve per gli handler delle notifiche push,
+      // che la modalità generateSW non permette di aggiungere.
+      strategies: 'injectManifest',
+      srcDir: 'src',
+      filename: 'sw.js',
+      injectManifest: {
+        // I file di app/dist superano il limite di precache di default
+        // (2 MiB) una volta sommati; qui non serve nessuna soglia stretta,
+        // il service worker precache-a comunque solo gli asset del build.
+        maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
+      },
       registerType: 'autoUpdate',
       includeAssets: ['favicon.png', 'robots.txt'],
-      workbox: {
-        navigateFallbackDenylist: [/^\/admin/, /^\/area-riservata/],
-        runtimeCaching: [
-          publicApiCache('news', 'news(/[^/]+)?'),
-          publicApiCache('matches', 'matches(/results)?'),
-          publicApiCache('teams', 'teams(/\\d+)?'),
-          publicApiCache('players', 'players(/\\d+)?'),
-          publicApiCache('gallery', 'gallery'),
-          publicApiCache('sponsors', 'sponsors'),
-          publicApiCache('documents', 'documents'),
-          publicApiCache('staff', 'staff'),
-        ],
-      },
       manifest: {
         name: 'Magic Volley Adelfia',
         short_name: 'Magic Volley',

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import guardianApi from '../../lib/guardianApi'
 import { useGuardianAuth } from '../../context/GuardianAuthContext'
 import { Loading, ErrorState } from '../../components/Feedback'
+import NotificationToggle from '../../components/NotificationToggle'
 
 const statusLabel = {
   scheduled: 'In programma',
@@ -30,6 +31,10 @@ export default function GuardianDashboard() {
         Ciao {guardian.first_name} 👋
       </h1>
       <p className="text-navy-dark/60 text-sm mt-1">Ecco la situazione delle tue figlie/i in società.</p>
+
+      <div className="mt-6">
+        <NotificationToggle />
+      </div>
 
       <div className="mt-8 space-y-4">
         {guardian.players.map((player) => (

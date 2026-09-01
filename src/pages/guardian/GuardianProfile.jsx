@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import guardianApi from '../../lib/guardianApi'
 import { useGuardianAuth } from '../../context/GuardianAuthContext'
+import NotificationToggle from '../../components/NotificationToggle'
 
 export default function GuardianProfile() {
   const { guardian } = useGuardianAuth()
@@ -53,6 +54,10 @@ export default function GuardianProfile() {
           <p className="text-sm text-navy-dark/60 mt-1">{guardian.email}</p>
         </div>
       )}
+
+      <div className="mt-8">
+        <NotificationToggle />
+      </div>
 
       <div className="mt-8 bg-white border-2 border-navy-dark/10 rounded-2xl p-6">
         <p className="font-display text-xs uppercase tracking-widest text-amber-dark mb-4">Cambia password</p>
