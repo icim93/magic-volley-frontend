@@ -1,11 +1,116 @@
 import { useEffect, useState } from 'react'
 import api from '../../lib/api'
 
+function MessageModal({ guardian, onClose }) {
+  const [title, setTitle] = useState('')
+  const [body, setBody] = useState('')
+  const [sending, setSending] = useState(false)
+  const [result, setResult] = useState(null)
+  const [error, setError] = useState('')
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setSending(true)
+    setError('')
+    try {
+      const { data } = await api.post(`/api/guardians/${guardian.id}/send-message`, { title, body })
+      setResult(data)
+    } catch (err) {
+      setError(err.response?.data?.detail || 'Non riesco a inviare il messaggio.')
+    } finally {
+      setSending(false)
+    }
+  }
+
+  return (
+    <div className="fixed inset-0 bg-navy-dark/40 flex items-center justify-center p-5 z-50">
+      <div className="bg-cream rounded-2xl p-7 w-full max-w-lg">
+        <div className="flex items-start justify-between gap-4 mb-1">
+          <h2 className="font-display font-bold text-lg text-navy-dark">
+            Messaggio a {guardian.first_name} {guardian.last_name}
+          </h2>
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Chiudi"
+            className="text-navy-dark/40 hover:text-navy-dark shrink-0"
+          >
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M6 6L18 18M6 18L18 6" strokeLinecap="round" />
+            </svg>
+          </button>
+        </div>
+
+        {result ? (
+          <div>
+            <p className="text-sm text-navy-dark/70 mb-4">
+              {result.sent_via === 'push'
+                ? 'Inviato come notifica push (il genitore ha le notifiche attive).'
+                : result.delivered
+                  ? 'Il genitore non ha le notifiche push attive: inviato via email.'
+                  : 'Il genitore non ha le notifiche push attive e l\'invio email non è riuscito (controlla la configurazione email).'}
+            </p>
+            <button
+              onClick={onClose}
+              className="bg-amber hover:bg-amber-dark text-navy-dark font-display font-semibold px-5 py-2.5 rounded-full transition-colors"
+            >
+              Chiudi
+            </button>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="mt-5">
+            <p className="text-xs text-navy-dark/50 mb-4">
+              Se il genitore ha le notifiche attive gli arriva come push, altrimenti via email — mai entrambi.
+            </p>
+            <label className="block mb-4">
+              <span className="text-sm font-semibold text-navy-dark">Titolo</span>
+              <input
+                required
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                placeholder="Es. Assenza"
+                className="input mt-1.5"
+              />
+            </label>
+            <label className="block mb-4">
+              <span className="text-sm font-semibold text-navy-dark">Messaggio</span>
+              <textarea
+                required
+                rows={4}
+                value={body}
+                onChange={(e) => setBody(e.target.value)}
+                placeholder="Es. Anna oggi risulta assente all'allenamento."
+                className="input mt-1.5"
+              />
+            </label>
+
+            {error && <p className="text-sm text-amber-dark font-medium mb-4">{error}</p>}
+
+            <div className="flex gap-3">
+              <button
+                type="submit"
+                disabled={sending}
+                className="bg-amber hover:bg-amber-dark disabled:opacity-60 text-navy-dark font-display font-semibold px-5 py-2.5 rounded-full transition-colors"
+              >
+                {sending ? 'Invio…' : 'Invia'}
+              </button>
+              <button type="button" onClick={onClose} className="text-navy-dark/60 hover:text-navy-dark font-semibold px-3">
+                Annulla
+              </button>
+            </div>
+          </form>
+        )}
+      </div>
+    </div>
+  )
+}
+
 export default function AdminGuardians() {
   const [items, setItems] = useState(null)
   const [error, setError] = useState('')
   const [regenerating, setRegenerating] = useState(null)
   const [linkResult, setLinkResult] = useState(null)
+  const [messaging, setMessaging] = useState(null)
 
   const load = () => {
     api.get('/api/guardians')
@@ -75,6 +180,12 @@ export default function AdminGuardians() {
                   </td>
                   <td className="px-5 py-3 text-right whitespace-nowrap">
                     <button
+                      onClick={() => setMessaging(g)}
+                      className="text-navy-light hover:text-navy-dark font-semibold mr-4"
+                    >
+                      Messaggio
+                    </button>
+                    <button
                       onClick={() => regenerateLink(g)}
                       disabled={regenerating === g.id}
                       className="text-navy-light hover:text-navy-dark font-semibold disabled:opacity-50"
@@ -131,6 +242,8 @@ export default function AdminGuardians() {
           </div>
         </div>
       )}
+
+      {messaging && <MessageModal guardian={messaging} onClose={() => setMessaging(null)} />}
     </div>
   )
 }
