@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import api from '../../lib/api'
+import { generateRegistrationPdf } from '../../lib/registrationPdf'
 
 const statusOptions = [
   { value: 'pending', label: 'In attesa' },
@@ -23,6 +24,19 @@ function splitName(fullName) {
   if (!fullName) return { first: '', last: '' }
   const parts = fullName.trim().split(/\s+/)
   return { first: parts[0] || '', last: parts.slice(1).join(' ') || '' }
+}
+
+// Un genitore può non riuscire a scaricare/ristampare il modulo da casa: lo
+// staff può generare lo stesso PDF direttamente dai dati già salvati con la richiesta.
+function isRegistrationMinor(birthDate) {
+  if (!birthDate) return false
+  const birth = new Date(birthDate)
+  const now = new Date()
+  let age = now.getFullYear() - birth.getFullYear()
+  const beforeBirthday =
+    now.getMonth() < birth.getMonth() || (now.getMonth() === birth.getMonth() && now.getDate() < birth.getDate())
+  if (beforeBirthday) age -= 1
+  return age < 18
 }
 
 function ApproveModal({ registration, onClose, onDone }) {
@@ -221,15 +235,18 @@ export default function AdminRegistrations() {
                   Nato/a il {new Date(item.birth_date).toLocaleDateString('it-IT')}
                   {item.birth_place && ` a ${item.birth_place}`} · richiesta del {new Date(item.created_at).toLocaleDateString('it-IT')}
                 </p>
-                {(item.address || item.fiscal_code) && (
+                {(item.address || item.city || item.postal_code || item.fiscal_code) && (
                   <p className="text-xs text-navy-dark/40 mt-0.5">
-                    {item.address}{item.address && item.fiscal_code && ' · '}{item.fiscal_code && `C.F. ${item.fiscal_code}`}
+                    {item.address}
+                    {(item.city || item.postal_code) && `${item.address ? ', ' : ''}${item.city || ''}${item.postal_code ? ` (${item.postal_code})` : ''}`}
+                    {item.fiscal_code && ` · C.F. ${item.fiscal_code}`}
                   </p>
                 )}
-                {(item.parent_birth_place || item.parent_address || item.parent_fiscal_code) && (
+                {(item.parent_birth_place || item.parent_address || item.parent_city || item.parent_postal_code || item.parent_fiscal_code) && (
                   <p className="text-xs text-navy-dark/40 mt-0.5">
                     Genitore — {item.parent_birth_place && `nato/a a ${item.parent_birth_place}`}
                     {item.parent_address && ` · ${item.parent_address}`}
+                    {(item.parent_city || item.parent_postal_code) && ` ${item.parent_city || ''}${item.parent_postal_code ? ` (${item.parent_postal_code})` : ''}`}
                     {item.parent_fiscal_code && ` · C.F. ${item.parent_fiscal_code}`}
                   </p>
                 )}
@@ -238,16 +255,25 @@ export default function AdminRegistrations() {
                     ✓ Documenti confermati il {new Date(item.documents_accepted_at).toLocaleDateString('it-IT')}
                   </p>
                 )}
-                {item.player_id ? (
-                  <p className="text-xs text-green-700 font-semibold mt-2">✓ Giocatrice e account genitore creati</p>
-                ) : (
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-2">
+                  {item.player_id ? (
+                    <p className="text-xs text-green-700 font-semibold">✓ Giocatrice e account genitore creati</p>
+                  ) : (
+                    <button
+                      onClick={() => setApproving(item)}
+                      className="text-xs font-semibold text-amber-dark hover:text-amber"
+                    >
+                      Approva e crea account genitore →
+                    </button>
+                  )}
                   <button
-                    onClick={() => setApproving(item)}
-                    className="text-xs font-semibold text-amber-dark hover:text-amber mt-2"
+                    onClick={() => generateRegistrationPdf(item, isRegistrationMinor(item.birth_date))}
+                    className="text-xs font-semibold text-navy-dark/60 hover:text-navy-dark"
+                    title="Se il genitore non riesce a scaricarlo da casa, puoi generarlo tu da qui con i dati già inviati"
                   >
-                    Approva e crea account genitore →
+                    Scarica modulo PDF ↓
                   </button>
-                )}
+                </div>
               </div>
 
               <select

@@ -112,11 +112,12 @@ export function generateRegistrationPdf(form, isMinor) {
   const birthDateLabel = form.birth_date ? new Date(form.birth_date).toLocaleDateString('it-IT') : '__/__/____'
 
   c.heading('Modulo di richiesta tesseramento')
-  c.subheading('Magic Volley Adelfia ASD')
+  c.subheading('Magic Volley Adelfia Associazione Sportiva Dilettantistica')
 
   c.row('Nome e cognome', fullName)
   c.row('Luogo e data di nascita', form.birth_place ? `${form.birth_place}, ${birthDateLabel}` : birthDateLabel)
   c.row('Indirizzo', form.address)
+  c.row('Città', form.city ? `${form.city}${form.postal_code ? ` (${form.postal_code})` : ''}` : form.postal_code)
   c.row('Codice fiscale', form.fiscal_code)
   if (isMinor) c.row('Genitore/tutore', form.parent_name)
   c.row('Email', form.email)
@@ -129,7 +130,9 @@ export function generateRegistrationPdf(form, isMinor) {
     c.label('Quadro A')
     c.paragraph(
       `Io sottoscritto/a ${fullName || '_______________'}, nato/a a ${form.birth_place || '__________'} il ` +
-      `${birthDateLabel}, residente in ${form.address || '__________'}, codice fiscale ${form.fiscal_code || '________________'}, ` +
+      `${birthDateLabel}, residente in ${form.address || '__________'}` +
+      `${form.city ? `, ${form.city}` : ''}${form.postal_code ? ` (CAP ${form.postal_code})` : ''}, ` +
+      `codice fiscale ${form.fiscal_code || '________________'}, ` +
       `CHIEDO l'ammissione a Magic Volley Adelfia Associazione Sportiva Dilettantistica in qualità di tesserato/a.`
     )
     c.signatureLine("Firma dell'atleta")
@@ -139,7 +142,9 @@ export function generateRegistrationPdf(form, isMinor) {
     c.label('Quadro B')
     c.paragraph(
       `Io sottoscritto/a ${form.parent_name || '_______________'}, nato/a a ${form.parent_birth_place || '__________'}, ` +
-      `residente in ${form.parent_address || '__________'}, codice fiscale ${form.parent_fiscal_code || '________________'}, ` +
+      `residente in ${form.parent_address || '__________'}` +
+      `${form.parent_city ? `, ${form.parent_city}` : ''}${form.parent_postal_code ? ` (CAP ${form.parent_postal_code})` : ''}, ` +
+      `codice fiscale ${form.parent_fiscal_code || '________________'}, ` +
       `in qualità di genitore/tutore esercente la responsabilità genitoriale su ${fullName || "l'atleta sopra indicato/a"}, ` +
       `AUTORIZZO E ACCONSENTO all'ammissione di mio figlio/a a Magic Volley Adelfia Associazione Sportiva Dilettantistica, ` +
       `nel rispetto delle norme e dei regolamenti statutari.`
@@ -148,19 +153,21 @@ export function generateRegistrationPdf(form, isMinor) {
     c.label('Dichiaro:')
     c.bullet('Di aver preso visione e di accettare lo Statuto e il Regolamento Associativo (comprese le condizioni delle polizze assicurative CSEN e FIPAV ivi richiamate).')
     c.bullet('Di impegnarmi al pagamento della quota di iscrizione annuale e delle quote mensili a seconda dell\'attività scelta.')
-    c.bullet('Di autorizzare Magic Volley Adelfia ASD al trattamento dei dati personali e all\'utilizzo delle immagini/video/fotografie del minore sopra indicato, ai sensi del Regolamento UE 2016/679 come modificato dal D.Lgs. 101 del 10/08/2018.')
+    c.bullet('Di autorizzare Magic Volley Adelfia Associazione Sportiva Dilettantistica al trattamento dei dati personali e all\'utilizzo delle immagini/video/fotografie del minore sopra indicato, ai sensi del Regolamento UE 2016/679 come modificato dal D.Lgs. 101 del 10/08/2018.')
     c.bullet('Di aver preso visione e di accettare il Modello Organizzativo e di Controllo dell\'Attività Sportiva (Safe Guarding).')
     c.signatureLine('Firma del genitore/tutore')
   } else {
     c.paragraph(
       `Io sottoscritto/a ${fullName || '_______________'}, nato/a a ${form.birth_place || '__________'} il ` +
-      `${birthDateLabel}, residente in ${form.address || '__________'}, codice fiscale ${form.fiscal_code || '________________'}, ` +
+      `${birthDateLabel}, residente in ${form.address || '__________'}` +
+      `${form.city ? `, ${form.city}` : ''}${form.postal_code ? ` (CAP ${form.postal_code})` : ''}, ` +
+      `codice fiscale ${form.fiscal_code || '________________'}, ` +
       `CHIEDO l'ammissione a Magic Volley Adelfia Associazione Sportiva Dilettantistica in qualità di tesserato/a e DICHIARO:`
     )
     c.space(2)
     c.bullet('Di aver preso visione e di accettare lo Statuto e il Regolamento Associativo (comprese le condizioni delle polizze assicurative CSEN e FIPAV ivi richiamate).')
     c.bullet('Di impegnarmi al pagamento della quota di iscrizione annuale e delle quote mensili a seconda dell\'attività scelta.')
-    c.bullet('Di autorizzare Magic Volley Adelfia ASD al trattamento dei miei dati personali e all\'utilizzo delle mie immagini/video/fotografie, ai sensi del Regolamento UE 2016/679 come modificato dal D.Lgs. 101 del 10/08/2018.')
+    c.bullet('Di autorizzare Magic Volley Adelfia Associazione Sportiva Dilettantistica al trattamento dei miei dati personali e all\'utilizzo delle mie immagini/video/fotografie, ai sensi del Regolamento UE 2016/679 come modificato dal D.Lgs. 101 del 10/08/2018.')
     c.bullet('Di aver preso visione e di accettare il Modello Organizzativo e di Controllo dell\'Attività Sportiva (Safe Guarding).')
     c.signatureLine('Firma')
   }

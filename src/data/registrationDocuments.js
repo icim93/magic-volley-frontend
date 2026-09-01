@@ -349,7 +349,7 @@ Base giuridica
 Il trattamento si basa sull'esecuzione del rapporto associativo/di tesseramento sportivo instaurato con l'iscrizione, sull'adempimento di obblighi di legge e, per il trattamento delle immagini e per i dati dei minori, sul consenso espresso da chi esercita la responsabilità genitoriale.
 
 Trattamento delle immagini e dei video
-Con l'iscrizione, l'atleta (o chi esercita la responsabilità genitoriale, per i minori) autorizza Magic Volley Adelfia ASD a riprendere, fotografare e pubblicare immagini e video ritraenti l'atleta durante allenamenti, partite ed eventi sociali, per finalità sportive, promozionali e informative della società e/o di un suo sponsor, ai sensi del Regolamento UE 2016/679 così come modificato dal D.Lgs. 101 del 10/08/2018.
+Con l'iscrizione, l'atleta (o chi esercita la responsabilità genitoriale, per i minori) autorizza Magic Volley Adelfia Associazione Sportiva Dilettantistica a riprendere, fotografare e pubblicare immagini e video ritraenti l'atleta durante allenamenti, partite ed eventi sociali, per finalità sportive, promozionali e informative della società e/o di un suo sponsor, ai sensi del Regolamento UE 2016/679 così come modificato dal D.Lgs. 101 del 10/08/2018.
 Le immagini potranno essere utilizzate su: sito web ufficiale, canali social della società (Instagram, Facebook), materiale promozionale cartaceo o digitale.
 L'autorizzazione è concessa a titolo gratuito e può essere revocata in qualsiasi momento con comunicazione scritta a info@magicvolleyadelfia.it; la revoca non ha effetto retroattivo sul materiale già pubblicato prima della richiesta.
 La società si impegna a non utilizzare le immagini in contesti lesivi della dignità o dell'immagine dell'atleta.

@@ -15,7 +15,7 @@ export default function Sponsors() {
 
   useDocumentMeta({
     title: 'Sponsor',
-    description: 'Gli sponsor che sostengono Magic Volley Adelfia ASD.',
+    description: 'Gli sponsor che sostengono Magic Volley Adelfia Associazione Sportiva Dilettantistica.',
     path: '/sponsor',
   })
 

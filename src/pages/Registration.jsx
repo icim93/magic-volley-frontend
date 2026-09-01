@@ -11,10 +11,14 @@ const emptyForm = {
   birth_date: '',
   birth_place: '',
   address: '',
+  city: '',
+  postal_code: '',
   fiscal_code: '',
   parent_name: '',
   parent_birth_place: '',
   parent_address: '',
+  parent_city: '',
+  parent_postal_code: '',
   parent_fiscal_code: '',
   email: '',
   phone: '',
@@ -76,6 +80,8 @@ function SummaryDoc({ form, isMinor }) {
         <Row label="Nome e cognome" value={fullName} />
         <Row label="Luogo e data di nascita" value={form.birth_place ? `${form.birth_place}, ${birthDateLabel}` : birthDateLabel} />
         <Row label="Indirizzo" value={form.address} />
+        <Row label="Città" value={form.city} />
+        <Row label="CAP" value={form.postal_code} />
         <Row label="Codice fiscale" value={form.fiscal_code} />
         <Row label="Email" value={form.email} />
         <Row label="Telefono" value={form.phone} />
@@ -90,6 +96,8 @@ function SummaryDoc({ form, isMinor }) {
             <Row label="Nome e cognome" value={form.parent_name} />
             <Row label="Luogo di nascita" value={form.parent_birth_place} />
             <Row label="Indirizzo" value={form.parent_address} />
+            <Row label="Città" value={form.parent_city} />
+            <Row label="CAP" value={form.parent_postal_code} />
             <Row label="Codice fiscale" value={form.parent_fiscal_code} />
           </dl>
         </>
@@ -115,7 +123,7 @@ export default function Registration() {
 
   useDocumentMeta({
     title: 'Iscriviti',
-    description: 'Richiedi il tesseramento a Magic Volley Adelfia ASD: compila il modulo di iscrizione.',
+    description: 'Richiedi il tesseramento a Magic Volley Adelfia Associazione Sportiva Dilettantistica: compila il modulo di iscrizione.',
     path: '/iscriviti',
   })
 
@@ -124,8 +132,12 @@ export default function Registration() {
   // Se l'atleta risulta maggiorenne, i dati del genitore non servono più: li svuotiamo
   // per non mandarli per sbaglio insieme alla richiesta.
   useEffect(() => {
-    if (!isMinor && (form.parent_name || form.parent_birth_place || form.parent_address || form.parent_fiscal_code)) {
-      setForm((f) => ({ ...f, parent_name: '', parent_birth_place: '', parent_address: '', parent_fiscal_code: '' }))
+    if (!isMinor && (form.parent_name || form.parent_birth_place || form.parent_address || form.parent_city || form.parent_postal_code || form.parent_fiscal_code)) {
+      setForm((f) => ({
+        ...f,
+        parent_name: '', parent_birth_place: '', parent_address: '',
+        parent_city: '', parent_postal_code: '', parent_fiscal_code: '',
+      }))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isMinor])
@@ -134,9 +146,12 @@ export default function Registration() {
 
   const canProceedStep1 =
     form.first_name.trim() && form.last_name.trim() && form.birth_date &&
-    form.birth_place.trim() && form.address.trim() && form.fiscal_code.trim() &&
+    form.birth_place.trim() && form.address.trim() && form.city.trim() && form.postal_code.trim() && form.fiscal_code.trim() &&
     form.email.trim() && form.phone.trim() &&
-    (!isMinor || (form.parent_name.trim() && form.parent_birth_place.trim() && form.parent_address.trim() && form.parent_fiscal_code.trim()))
+    (!isMinor || (
+      form.parent_name.trim() && form.parent_birth_place.trim() && form.parent_address.trim() &&
+      form.parent_city.trim() && form.parent_postal_code.trim() && form.parent_fiscal_code.trim()
+    ))
 
   const allDocsRead = REGISTRATION_DOCUMENTS.every((d) => docsRead[d.key])
 
@@ -224,8 +239,17 @@ export default function Registration() {
             </div>
 
             <Field label="Indirizzo di residenza" required>
-              <input required value={form.address} onChange={update('address')} className="input" placeholder="Via, numero civico, città" />
+              <input required value={form.address} onChange={update('address')} className="input" placeholder="Via e numero civico" />
             </Field>
+
+            <div className="grid sm:grid-cols-[1fr_auto] gap-5">
+              <Field label="Città di residenza" required>
+                <input required value={form.city} onChange={update('city')} className="input" placeholder="Es. Adelfia" />
+              </Field>
+              <Field label="CAP" required>
+                <input required value={form.postal_code} onChange={update('postal_code')} maxLength={5} className="input w-24" placeholder="70010" />
+              </Field>
+            </div>
 
             <Field label="Codice fiscale" required>
               <input required value={form.fiscal_code} onChange={update('fiscal_code')} maxLength={16} className="input uppercase" />
@@ -267,8 +291,17 @@ export default function Registration() {
                 </Field>
 
                 <Field label="Indirizzo di residenza" required>
-                  <input required value={form.parent_address} onChange={update('parent_address')} className="input" placeholder="Via, numero civico, città" />
+                  <input required value={form.parent_address} onChange={update('parent_address')} className="input" placeholder="Via e numero civico" />
                 </Field>
+
+                <div className="grid sm:grid-cols-[1fr_auto] gap-5">
+                  <Field label="Città di residenza" required>
+                    <input required value={form.parent_city} onChange={update('parent_city')} className="input" placeholder="Es. Adelfia" />
+                  </Field>
+                  <Field label="CAP" required>
+                    <input required value={form.parent_postal_code} onChange={update('parent_postal_code')} maxLength={5} className="input w-24" placeholder="70010" />
+                  </Field>
+                </div>
 
                 <Field label="Codice fiscale" required>
                   <input required value={form.parent_fiscal_code} onChange={update('parent_fiscal_code')} maxLength={16} className="input uppercase" />

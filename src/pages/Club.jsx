@@ -80,7 +80,7 @@ export default function Club() {
 
   useDocumentMeta({
     title: 'Società',
-    description: "Chi siamo, la nostra missione e l'organigramma di Magic Volley Adelfia ASD.",
+    description: "Chi siamo, la nostra missione e l'organigramma di Magic Volley Adelfia Associazione Sportiva Dilettantistica.",
     path: '/societa',
   })
 
@@ -100,7 +100,7 @@ export default function Club() {
         <div className="max-w-6xl mx-auto px-5 py-16 md:py-20">
           <p className="font-display text-xs uppercase tracking-widest text-amber mb-4">La società</p>
           <h1 className="font-display font-extrabold text-4xl md:text-5xl leading-tight max-w-2xl">
-            Magic Volley Adelfia ASD
+            Magic Volley Adelfia Associazione Sportiva Dilettantistica
           </h1>
           <p className="mt-5 text-cream/80 text-lg max-w-2xl">
             Un'associazione sportiva dilettantistica nata per dare alle ragazze di Adelfia

@@ -27,7 +27,7 @@ export default function Home() {
   }, [])
 
   useDocumentMeta({
-    description: 'Sito ufficiale di Magic Volley Adelfia ASD — pallavolo femminile: squadre, atlete, staff, calendario, fotogallery, news e iscrizioni.',
+    description: 'Sito ufficiale di Magic Volley Adelfia Associazione Sportiva Dilettantistica — pallavolo femminile: squadre, atlete, staff, calendario, fotogallery, news e iscrizioni.',
     path: '/',
   })
 
@@ -63,9 +63,11 @@ export default function Home() {
 
             <h1 className="font-display font-extrabold text-5xl sm:text-6xl md:text-7xl leading-[1.05] max-w-3xl">
               Magic Volley<br />
-              <span className="text-amber">Adelfia</span>{' '}
-              <span className="text-cream/40 text-3xl sm:text-4xl md:text-5xl align-top">ASD</span>
+              <span className="text-amber">Adelfia</span>
             </h1>
+            <p className="text-cream/40 text-sm sm:text-base tracking-wide uppercase mt-2">
+              Associazione Sportiva Dilettantistica
+            </p>
 
             <div className="mt-9 flex flex-wrap gap-4">
               <Link

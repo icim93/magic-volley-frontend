@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-const SITE_NAME = 'Magic Volley Adelfia ASD'
+const SITE_NAME = 'Magic Volley Adelfia Associazione Sportiva Dilettantistica'
 const SITE_URL = 'https://www.magicvolleyadelfia.it'
 const DEFAULT_IMAGE = '/logo.png'
 

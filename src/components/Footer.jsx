@@ -7,10 +7,10 @@ export default function Footer() {
         <div>
           <img
             src="/logo-dark.jpg"
-            alt="Magic Volley Adelfia ASD"
+            alt="Magic Volley Adelfia Associazione Sportiva Dilettantistica"
             className="h-24 w-auto mb-3 mix-blend-lighten"
           />
-          <p className="font-display font-bold text-lg">Magic Volley Adelfia ASD</p>
+          <p className="font-display font-bold text-lg">Magic Volley Adelfia Associazione Sportiva Dilettantistica</p>
           <p className="text-sm text-cream/60 mt-2 max-w-xs">
             Pallavolo femminile ad Adelfia: 2ª Divisione, U16 e U18. Un progetto
             sportivo che cresce insieme alle sue atlete.
@@ -43,7 +43,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="border-t border-cream/10 py-5 text-center text-xs text-cream/50">
-        © {new Date().getFullYear()} Magic Volley Adelfia ASD. Tutti i diritti riservati.
+        © {new Date().getFullYear()} Magic Volley Adelfia Associazione Sportiva Dilettantistica. Tutti i diritti riservati.
       </div>
     </footer>
   )

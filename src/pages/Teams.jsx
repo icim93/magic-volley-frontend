@@ -16,7 +16,7 @@ export default function Teams() {
 
   useDocumentMeta({
     title: 'Squadre',
-    description: 'Le squadre di Magic Volley Adelfia ASD: rose, categorie e schede delle atlete.',
+    description: 'Le squadre di Magic Volley Adelfia Associazione Sportiva Dilettantistica: rose, categorie e schede delle atlete.',
     path: '/squadre',
   })
 

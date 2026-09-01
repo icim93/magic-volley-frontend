@@ -40,7 +40,7 @@ export default function PlayerDetail() {
   useDocumentMeta({
     title: player ? `${player.first_name} ${player.last_name}` : undefined,
     description: player
-      ? (player.bio || `Scheda di ${player.first_name} ${player.last_name}, ${player.role || 'atleta'} di Magic Volley Adelfia ASD.`)
+      ? (player.bio || `Scheda di ${player.first_name} ${player.last_name}, ${player.role || 'atleta'} di Magic Volley Adelfia Associazione Sportiva Dilettantistica.`)
       : undefined,
     image: player?.photo_url,
     path: `/giocatrici/${id}`,

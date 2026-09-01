@@ -3,7 +3,7 @@ import { useDocumentMeta } from '../hooks/useDocumentMeta'
 export default function Contact() {
   useDocumentMeta({
     title: 'Contatti',
-    description: 'Contatti e informazioni per raggiungere Magic Volley Adelfia ASD.',
+    description: 'Contatti e informazioni per raggiungere Magic Volley Adelfia Associazione Sportiva Dilettantistica.',
     path: '/contatti',
   })
 

@@ -59,7 +59,7 @@ export default function Calendar() {
 
   useDocumentMeta({
     title: 'Calendario & Risultati',
-    description: 'Prossime partite e risultati delle squadre di Magic Volley Adelfia ASD.',
+    description: 'Prossime partite e risultati delle squadre di Magic Volley Adelfia Associazione Sportiva Dilettantistica.',
     path: '/calendario',
   })
 

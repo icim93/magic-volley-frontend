@@ -16,7 +16,7 @@ export default function News() {
 
   useDocumentMeta({
     title: 'News',
-    description: 'Tutte le novità di Magic Volley Adelfia ASD.',
+    description: 'Tutte le novità di Magic Volley Adelfia Associazione Sportiva Dilettantistica.',
     path: '/news',
   })
 

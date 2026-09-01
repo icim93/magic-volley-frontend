@@ -17,7 +17,7 @@ export default function Gallery() {
 
   useDocumentMeta({
     title: 'Fotogallery',
-    description: 'Foto delle partite, degli allenamenti e degli eventi di Magic Volley Adelfia ASD.',
+    description: 'Foto delle partite, degli allenamenti e degli eventi di Magic Volley Adelfia Associazione Sportiva Dilettantistica.',
     path: '/gallery',
   })
 
@@ -90,7 +90,7 @@ export default function Gallery() {
             >
               <img
                 src={photo.image_url}
-                alt={photo.caption || 'Foto Magic Volley Adelfia ASD'}
+                alt={photo.caption || 'Foto Magic Volley Adelfia Associazione Sportiva Dilettantistica'}
                 loading="lazy"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
               />

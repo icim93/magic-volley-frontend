@@ -18,7 +18,7 @@ export default function NewsDetail() {
 
   useDocumentMeta({
     title: item?.title,
-    description: item?.summary || 'Leggi le ultime notizie di Magic Volley Adelfia ASD.',
+    description: item?.summary || 'Leggi le ultime notizie di Magic Volley Adelfia Associazione Sportiva Dilettantistica.',
     image: item?.cover_image_url,
     path: `/news/${slug}`,
     type: 'article',

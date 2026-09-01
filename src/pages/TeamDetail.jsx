@@ -60,7 +60,7 @@ export default function TeamDetail() {
   useDocumentMeta({
     title: team?.name,
     description: team
-      ? `Roster e informazioni della squadra ${team.name} (${team.category}) di Magic Volley Adelfia ASD.`
+      ? `Roster e informazioni della squadra ${team.name} (${team.category}) di Magic Volley Adelfia Associazione Sportiva Dilettantistica.`
       : undefined,
     image: team?.photo_url,
     path: `/squadre/${id}`,

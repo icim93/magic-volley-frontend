@@ -8,7 +8,7 @@ export default function Documents() {
 
   useDocumentMeta({
     title: 'Documenti',
-    description: 'Regolamento, Statuto, Informativa Privacy e Documento di Safe Guarding di Magic Volley Adelfia ASD.',
+    description: 'Regolamento, Statuto, Informativa Privacy e Documento di Safe Guarding di Magic Volley Adelfia Associazione Sportiva Dilettantistica.',
     path: '/documenti',
   })
 
