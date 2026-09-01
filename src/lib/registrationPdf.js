@@ -45,7 +45,18 @@ function makeCursor(doc) {
       doc.text(text, MARGIN, y)
       y += 6
     },
-    paragraph(text, size = 10.5) {
+    // Parola chiave della dichiarazione (CHIEDO, DICHIARO, AUTORIZZO...),
+    // centrata e in grande per evitare di doverla ripetere in mezzo al testo.
+    keyword(text, size = 13) {
+      this.space(3)
+      ensureSpace(size / 2 + 3)
+      doc.setFont('helvetica', 'bold')
+      doc.setFontSize(size)
+      doc.setTextColor(...NAVY)
+      doc.text(text, PAGE_WIDTH / 2, y, { align: 'center' })
+      y += size / 2 + 4
+    },
+    paragraph(text, { size = 10.5, align = 'left' } = {}) {
       doc.setFont('helvetica', 'normal')
       doc.setFontSize(size)
       doc.setTextColor(...NAVY)
@@ -53,7 +64,7 @@ function makeCursor(doc) {
       const lineHeight = size / 2.1
       lines.forEach((line) => {
         ensureSpace(lineHeight)
-        doc.text(line, MARGIN, y)
+        doc.text(line, align === 'center' ? PAGE_WIDTH / 2 : MARGIN, y, align === 'center' ? { align: 'center' } : undefined)
         y += lineHeight
       })
     },
@@ -119,52 +130,55 @@ export function generateRegistrationPdf(form, isMinor) {
   c.row('Indirizzo', form.address)
   c.row('Città', form.city ? `${form.city}${form.postal_code ? ` (${form.postal_code})` : ''}` : form.postal_code)
   c.row('Codice fiscale', form.fiscal_code)
-  if (isMinor) c.row('Genitore/tutore', form.parent_name)
   c.row('Email', form.email)
   c.row('Telefono', form.phone)
   c.row('Categoria di interesse', form.requested_team_category)
+
+  if (isMinor) {
+    c.space(3)
+    c.label('Genitore/tutore')
+    c.row('Nome e cognome', form.parent_name)
+    c.row('Luogo e data di nascita', form.parent_birth_place)
+    c.row('Indirizzo', form.parent_address)
+    c.row('Città', form.parent_city ? `${form.parent_city}${form.parent_postal_code ? ` (${form.parent_postal_code})` : ''}` : form.parent_postal_code)
+    c.row('Codice fiscale', form.parent_fiscal_code)
+  }
 
   c.divider()
 
   if (isMinor) {
     c.label('Quadro A')
+    c.keyword('CHIEDO')
     c.paragraph(
-      `Io sottoscritto/a ${fullName || '_______________'}, nato/a a ${form.birth_place || '__________'} il ` +
-      `${birthDateLabel}, residente in ${form.address || '__________'}` +
-      `${form.city ? `, ${form.city}` : ''}${form.postal_code ? ` (CAP ${form.postal_code})` : ''}, ` +
-      `codice fiscale ${form.fiscal_code || '________________'}, ` +
-      `CHIEDO l'ammissione a Magic Volley Adelfia Associazione Sportiva Dilettantistica in qualità di tesserato/a.`
+      `l'ammissione di ${fullName || "l'atleta sopra indicato/a"} a Magic Volley Adelfia Associazione Sportiva ` +
+      `Dilettantistica in qualità di tesserato/a.`,
+      { align: 'center' }
     )
     c.signatureLine("Firma dell'atleta")
 
     c.divider()
 
     c.label('Quadro B')
+    c.keyword('AUTORIZZO E ACCONSENTO')
     c.paragraph(
-      `Io sottoscritto/a ${form.parent_name || '_______________'}, nato/a a ${form.parent_birth_place || '__________'}, ` +
-      `residente in ${form.parent_address || '__________'}` +
-      `${form.parent_city ? `, ${form.parent_city}` : ''}${form.parent_postal_code ? ` (CAP ${form.parent_postal_code})` : ''}, ` +
-      `codice fiscale ${form.parent_fiscal_code || '________________'}, ` +
-      `in qualità di genitore/tutore esercente la responsabilità genitoriale su ${fullName || "l'atleta sopra indicato/a"}, ` +
-      `AUTORIZZO E ACCONSENTO all'ammissione di mio figlio/a a Magic Volley Adelfia Associazione Sportiva Dilettantistica, ` +
-      `nel rispetto delle norme e dei regolamenti statutari.`
+      `all'ammissione di ${fullName || "l'atleta sopra indicato/a"} a Magic Volley Adelfia Associazione Sportiva ` +
+      `Dilettantistica, in qualità di genitore/tutore esercente la responsabilità genitoriale, nel rispetto delle ` +
+      `norme e dei regolamenti statutari.`,
+      { align: 'center' }
     )
-    c.space(2)
-    c.label('Dichiaro:')
+    c.keyword('DICHIARO')
     c.bullet('Di aver preso visione e di accettare lo Statuto e il Regolamento Associativo (comprese le condizioni delle polizze assicurative CSEN e FIPAV ivi richiamate).')
     c.bullet('Di impegnarmi al pagamento della quota di iscrizione annuale e delle quote mensili a seconda dell\'attività scelta.')
     c.bullet('Di autorizzare Magic Volley Adelfia Associazione Sportiva Dilettantistica al trattamento dei dati personali e all\'utilizzo delle immagini/video/fotografie del minore sopra indicato, ai sensi del Regolamento UE 2016/679 come modificato dal D.Lgs. 101 del 10/08/2018.')
     c.bullet('Di aver preso visione e di accettare il Modello Organizzativo e di Controllo dell\'Attività Sportiva (Safe Guarding).')
     c.signatureLine('Firma del genitore/tutore')
   } else {
+    c.keyword('CHIEDO')
     c.paragraph(
-      `Io sottoscritto/a ${fullName || '_______________'}, nato/a a ${form.birth_place || '__________'} il ` +
-      `${birthDateLabel}, residente in ${form.address || '__________'}` +
-      `${form.city ? `, ${form.city}` : ''}${form.postal_code ? ` (CAP ${form.postal_code})` : ''}, ` +
-      `codice fiscale ${form.fiscal_code || '________________'}, ` +
-      `CHIEDO l'ammissione a Magic Volley Adelfia Associazione Sportiva Dilettantistica in qualità di tesserato/a e DICHIARO:`
+      `l'ammissione a Magic Volley Adelfia Associazione Sportiva Dilettantistica in qualità di tesserato/a.`,
+      { align: 'center' }
     )
-    c.space(2)
+    c.keyword('DICHIARO')
     c.bullet('Di aver preso visione e di accettare lo Statuto e il Regolamento Associativo (comprese le condizioni delle polizze assicurative CSEN e FIPAV ivi richiamate).')
     c.bullet('Di impegnarmi al pagamento della quota di iscrizione annuale e delle quote mensili a seconda dell\'attività scelta.')
     c.bullet('Di autorizzare Magic Volley Adelfia Associazione Sportiva Dilettantistica al trattamento dei miei dati personali e all\'utilizzo delle mie immagini/video/fotografie, ai sensi del Regolamento UE 2016/679 come modificato dal D.Lgs. 101 del 10/08/2018.')
