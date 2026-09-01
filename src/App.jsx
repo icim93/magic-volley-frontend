@@ -46,6 +46,7 @@ const ActivateAccount = lazy(() => import('./pages/guardian/ActivateAccount'))
 const GuardianLayout = lazy(() => import('./pages/guardian/GuardianLayout'))
 const GuardianDashboard = lazy(() => import('./pages/guardian/GuardianDashboard'))
 const GuardianProfile = lazy(() => import('./pages/guardian/GuardianProfile'))
+const GuardianNotifications = lazy(() => import('./pages/guardian/GuardianNotifications'))
 
 function PublicLayout({ children }) {
   return (
@@ -95,6 +96,7 @@ export default function App() {
         >
           <Route index element={<GuardianDashboard />} />
           <Route path="profilo" element={<GuardianProfile />} />
+          <Route path="notifiche" element={<GuardianNotifications />} />
         </Route>
 
         {/* Pannello admin */}
