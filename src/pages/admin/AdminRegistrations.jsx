@@ -41,7 +41,13 @@ function isRegistrationMinor(birthDate) {
 
 function ApproveModal({ registration, onClose, onDone }) {
   const [teams, setTeams] = useState(null)
-  const guess = splitName(registration.parent_name)
+  const isMinor = isRegistrationMinor(registration.birth_date)
+  // Se l'atleta è maggiorenne l'account di accesso è il suo, non serve un
+  // "genitore": precompiliamo con i suoi stessi dati invece di indovinarli
+  // da un parent_name che per un maggiorenne non esiste nemmeno.
+  const guess = isMinor
+    ? splitName(registration.parent_name)
+    : { first: registration.first_name, last: registration.last_name }
   const [form, setForm] = useState({
     team_id: '',
     jersey_number: '',
@@ -95,7 +101,7 @@ function ApproveModal({ registration, onClose, onDone }) {
                   Email non inviata (servizio email non ancora configurato, oppure account già attivo).
                 </p>
                 <p className="text-xs text-navy-dark/60 mt-1">
-                  Copia questo link e invialo tu al genitore:
+                  Copia questo link e invialo tu {isMinor ? 'al genitore' : "all'atleta"}:
                 </p>
                 <input
                   readOnly
@@ -116,7 +122,9 @@ function ApproveModal({ registration, onClose, onDone }) {
           <form onSubmit={handleSubmit}>
             <h2 className="font-display font-bold text-lg text-navy-dark mb-1">Approva iscrizione</h2>
             <p className="text-sm text-navy-dark/60 mb-5">
-              Crea la giocatrice nella squadra scelta e l'account del genitore, che riceverà un'email per attivarlo.
+              {isMinor
+                ? "Crea la giocatrice nella squadra scelta e l'account del genitore, che riceverà un'email per attivarlo."
+                : "Crea la giocatrice nella squadra scelta e il suo account personale, che riceverà un'email per attivarlo."}
             </p>
 
             <div className="space-y-4">
@@ -135,17 +143,19 @@ function ApproveModal({ registration, onClose, onDone }) {
 
               <div className="grid grid-cols-2 gap-3">
                 <label className="block">
-                  <span className="text-sm font-semibold text-navy-dark">Nome genitore *</span>
+                  <span className="text-sm font-semibold text-navy-dark">{isMinor ? 'Nome genitore *' : 'Nome *'}</span>
                   <input required value={form.guardian_first_name} onChange={update('guardian_first_name')} className="input mt-1.5" />
                 </label>
                 <label className="block">
-                  <span className="text-sm font-semibold text-navy-dark">Cognome genitore *</span>
+                  <span className="text-sm font-semibold text-navy-dark">{isMinor ? 'Cognome genitore *' : 'Cognome *'}</span>
                   <input required value={form.guardian_last_name} onChange={update('guardian_last_name')} className="input mt-1.5" />
                 </label>
               </div>
 
               <label className="block">
-                <span className="text-sm font-semibold text-navy-dark">Email genitore (per l'accesso) *</span>
+                <span className="text-sm font-semibold text-navy-dark">
+                  {isMinor ? "Email genitore (per l'accesso) *" : "Email (per l'accesso) *"}
+                </span>
                 <input required type="email" value={form.guardian_email} onChange={update('guardian_email')} className="input mt-1.5" />
               </label>
             </div>
@@ -263,7 +273,7 @@ export default function AdminRegistrations() {
                       onClick={() => setApproving(item)}
                       className="text-xs font-semibold text-amber-dark hover:text-amber"
                     >
-                      Approva e crea account genitore →
+                      {isRegistrationMinor(item.birth_date) ? 'Approva e crea account genitore →' : 'Approva e crea account →'}
                     </button>
                   )}
                   <button
