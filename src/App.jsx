@@ -8,6 +8,7 @@ import ErrorBoundary from './components/ErrorBoundary'
 
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
+import InstallPrompt from './components/InstallPrompt'
 import { Loading } from './components/Feedback'
 
 import Home from './pages/Home'
@@ -52,6 +53,7 @@ function PublicLayout({ children }) {
       <Navbar />
       <main className="flex-1">{children}</main>
       <Footer />
+      <InstallPrompt />
     </div>
   )
 }
