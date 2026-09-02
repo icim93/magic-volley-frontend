@@ -29,8 +29,8 @@ export default function Contact() {
 
           <InfoBlock title="Social">
             <div className="flex gap-3 mt-1">
-              <SocialLink label="Instagram" href="#" />
-              <SocialLink label="Facebook" href="#" />
+              <SocialLink label="Instagram" href="https://www.instagram.com/magicvolleyadelfiaasd/" />
+              <SocialLink label="Facebook" href="https://www.facebook.com/magicvolleyadelfiaasd" />
             </div>
           </InfoBlock>
         </div>
@@ -65,6 +65,8 @@ function SocialLink({ label, href }) {
   return (
     <a
       href={href}
+      target="_blank"
+      rel="noreferrer"
       className="text-sm font-semibold border-2 border-navy-dark/15 hover:border-amber px-4 py-2 rounded-full transition-colors"
     >
       {label}
