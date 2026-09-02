@@ -50,7 +50,7 @@ export default function Sponsors() {
           Scrivici per scoprire come il tuo brand può crescere insieme alla nostra società.
         </p>
         <a
-          href="mailto:info@magicvolleyadelfia.it"
+          href="mailto:magicvolleyadelfia@gmail.com"
           className="inline-block mt-6 bg-amber hover:bg-amber-dark text-navy-dark font-display font-semibold px-6 py-3 rounded-full transition-colors"
         >
           Contattaci

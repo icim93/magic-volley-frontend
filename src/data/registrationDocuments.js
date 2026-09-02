@@ -347,7 +347,7 @@ Per quanto non espressamente previsto dal presente statuto si applicano le dispo
     text: `INFORMATIVA SUL TRATTAMENTO DEI DATI PERSONALI (Regolamento UE 2016/679 – GDPR) E AUTORIZZAZIONE ALL'UTILIZZO DELLE IMMAGINI
 
 Titolare del trattamento
-Il titolare del trattamento dei dati è Magic Volley Adelfia Associazione Sportiva Dilettantistica, con sede in Adelfia (BA), Via Guido Rossa n. 4C. Per qualsiasi richiesta relativa al trattamento dei dati personali è possibile scrivere a info@magicvolleyadelfia.it.
+Il titolare del trattamento dei dati è Magic Volley Adelfia Associazione Sportiva Dilettantistica, con sede in Adelfia (BA), Via Guido Rossa n. 4C. Per qualsiasi richiesta relativa al trattamento dei dati personali è possibile scrivere a magicvolleyadelfia@gmail.com.
 
 Dati raccolti e finalità del trattamento
 In fase di iscrizione vengono raccolti i dati anagrafici (nome, cognome, data di nascita), i dati di contatto (email, telefono) e, per gli atleti minorenni, i dati del genitore/tutore. In fase di tesseramento e nel corso della stagione possono inoltre essere richiesti il certificato medico sportivo e, ove necessaria, ulteriore documentazione sanitaria.
@@ -365,14 +365,14 @@ Il trattamento si basa sull'esecuzione del rapporto associativo/di tesseramento 
 Trattamento delle immagini e dei video
 Con l'iscrizione, l'atleta (o chi esercita la responsabilità genitoriale, per i minori) autorizza Magic Volley Adelfia Associazione Sportiva Dilettantistica a riprendere, fotografare e pubblicare immagini e video ritraenti l'atleta durante allenamenti, partite ed eventi sociali, per finalità sportive, promozionali e informative della società e/o di un suo sponsor, ai sensi del Regolamento UE 2016/679 così come modificato dal D.Lgs. 101 del 10/08/2018.
 Le immagini potranno essere utilizzate su: sito web ufficiale, canali social della società (Instagram, Facebook), materiale promozionale cartaceo o digitale.
-L'autorizzazione è concessa a titolo gratuito e può essere revocata in qualsiasi momento con comunicazione scritta a info@magicvolleyadelfia.it; la revoca non ha effetto retroattivo sul materiale già pubblicato prima della richiesta.
+L'autorizzazione è concessa a titolo gratuito e può essere revocata in qualsiasi momento con comunicazione scritta a magicvolleyadelfia@gmail.com; la revoca non ha effetto retroattivo sul materiale già pubblicato prima della richiesta.
 La società si impegna a non utilizzare le immagini in contesti lesivi della dignità o dell'immagine dell'atleta.
 
 Comunicazione e conservazione dei dati
 I dati non sono ceduti a terzi se non per obblighi di legge o verso la Federazione/l'ente di promozione sportiva cui l'Associazione è affiliata (FIPAV, CSEN) e verso il fornitore della copertura assicurativa. I dati possono essere conservati su infrastrutture informatiche gestite da fornitori terzi (hosting, database, storage) che agiscono in qualità di responsabili del trattamento, nel rispetto della normativa vigente. I dati sono conservati per il tempo necessario alle finalità sopra indicate e comunque nei limiti previsti dalla legge.
 
 Diritti dell'interessato
-L'interessato (o chi esercita la responsabilità genitoriale, per i minori) può in ogni momento richiedere accesso, rettifica, cancellazione o limitazione del trattamento dei propri dati, nonché opporsi al trattamento, scrivendo a info@magicvolleyadelfia.it.`,
+L'interessato (o chi esercita la responsabilità genitoriale, per i minori) può in ogni momento richiedere accesso, rettifica, cancellazione o limitazione del trattamento dei propri dati, nonché opporsi al trattamento, scrivendo a magicvolleyadelfia@gmail.com.`,
   },
   {
     key: 'safeguarding',

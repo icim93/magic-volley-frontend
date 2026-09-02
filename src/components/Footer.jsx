@@ -37,7 +37,7 @@ export default function Footer() {
           <p className="font-display text-sm uppercase tracking-wider text-amber mb-4">Contatti</p>
           <ul className="space-y-2 text-sm text-cream/80">
             <li>Adelfia, Puglia</li>
-            <li><a href="mailto:info@magicvolleyadelfia.it" className="hover:text-amber transition-colors">info@magicvolleyadelfia.it</a></li>
+            <li><a href="mailto:magicvolleyadelfia@gmail.com" className="hover:text-amber transition-colors">magicvolleyadelfia@gmail.com</a></li>
             <li><Link to="/contatti" className="hover:text-amber transition-colors">Modulo di contatto →</Link></li>
           </ul>
         </div>

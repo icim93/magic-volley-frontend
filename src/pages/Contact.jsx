@@ -15,8 +15,8 @@ export default function Contact() {
       <div className="grid md:grid-cols-2 gap-10 mt-12">
         <div className="space-y-6">
           <InfoBlock title="Email">
-            <a href="mailto:info@magicvolleyadelfia.it" className="text-amber-dark font-semibold">
-              info@magicvolleyadelfia.it
+            <a href="mailto:magicvolleyadelfia@gmail.com" className="text-amber-dark font-semibold">
+              magicvolleyadelfia@gmail.com
             </a>
           </InfoBlock>
 
