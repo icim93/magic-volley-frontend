@@ -1,7 +1,7 @@
 // Card + popup per mostrare un documento (Regolamento, Statuto, Privacy, Safe
 // Guarding...). Riusato sia nello step 2 del modulo iscrizioni (con conferma
 // di lettura obbligatoria) sia nella pagina pubblica /documenti (sola lettura).
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 export function DocumentCard({ doc, read, onOpen }) {
   return (
@@ -33,10 +33,23 @@ export function DocumentCard({ doc, read, onOpen }) {
 export function DocumentModal({ doc, onClose, onFullyRead }) {
   const [scrolledToBottom, setScrolledToBottom] = useState(false)
   const [clickedLinks, setClickedLinks] = useState(() => new Set())
+  const textRef = useRef(null)
 
   const links = doc.links?.filter((l) => l.url) || []
   const requiredLinks = links.filter((l) => l.required)
   const allRequiredClicked = requiredLinks.every((l) => clickedLinks.has(l.url))
+
+  // Se il testo è già interamente visibile (niente da scorrere), l'evento
+  // onScroll non scatterebbe mai — senza questo controllo la lettura non
+  // risulterebbe mai confermata per i documenti brevi (es. Polizze assicurative).
+  useEffect(() => {
+    const el = textRef.current
+    if (el && el.scrollHeight <= el.clientHeight + 12) {
+      setScrolledToBottom(true)
+      if (allRequiredClicked) onFullyRead?.()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const handleScroll = (e) => {
     const el = e.target
@@ -105,6 +118,7 @@ export function DocumentModal({ doc, onClose, onFullyRead }) {
           </button>
         </div>
         <div
+          ref={textRef}
           onScroll={handleScroll}
           className="overflow-y-auto px-6 py-5 text-sm text-navy-dark/80 whitespace-pre-line leading-relaxed"
         >
