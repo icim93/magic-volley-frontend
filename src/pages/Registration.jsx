@@ -323,9 +323,9 @@ export default function Registration() {
         <div>
           <h1 className="font-display font-bold text-3xl text-navy-dark">Documenti da leggere</h1>
           <p className="text-navy-dark/60 mt-3 text-sm">
-            Passo 2 di 3 — apri ogni documento e scorrilo fino in fondo per confermarne la lettura. Per Statuto,
-            Regolamento e Safe Guarding puoi anche consultare il PDF originale. Per le Polizze assicurative devi
-            anche aprire entrambi i link CSEN e FIPAV.
+            Passo 2 di 3 — apri ogni documento e scorrilo fino in fondo per confermarne la lettura. Per ognuno puoi
+            anche consultare il PDF originale collegato; per le due Polizze assicurative (CSEN e FIPAV) è
+            obbligatorio aprire anche il relativo documento.
           </p>
 
           <div className="mt-6 space-y-3">

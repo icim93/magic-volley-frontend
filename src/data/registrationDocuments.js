@@ -9,8 +9,9 @@
 // - privacy (include anche l'autorizzazione foto): bozza scritta da Claude in
 //   stile GDPR standard, in assenza di un documento ufficiale della società —
 //   falla verificare da un consulente/legale prima di considerarla definitiva.
-// Le assicurazioni CSEN/FIPAV sono un documento a sé (key "assicurazioni"),
-// separato dal Regolamento, con i link alle due polizze come lettura obbligatoria.
+// Le polizze assicurative CSEN e FIPAV sono due box separati (key
+// "assicurazione_csen" e "assicurazione_fipav"), ciascuno con il proprio link
+// come lettura obbligatoria, distinti dal Regolamento.
 
 // URL dei PDF originali su Supabase Storage (caricati con upload_source_documents.py
 // dalla cartella backend, che scrive gli URL reali — con nome file casuale — in
@@ -79,20 +80,34 @@ Ringraziandovi anticipatamente per la collaborazione, auguriamo a tutti i nostri
 Il rispetto del prossimo e di noi stessi`,
   },
   {
-    key: 'assicurazioni',
-    title: 'Polizze assicurative CSEN e FIPAV',
-    description: 'Condizioni delle polizze infortuni per gli atleti tesserati.',
+    key: 'assicurazione_csen',
+    title: 'Polizza infortuni CSEN',
+    description: 'Condizioni della polizza infortuni per i tesserati tramite CSEN.',
     links: [
-      { label: 'Polizza infortuni CSEN (PDF)', url: INSURANCE_URLS.csen, required: true },
-      { label: 'Polizza infortuni FIPAV (PDF)', url: INSURANCE_URLS.fipav, required: true },
+      { label: 'Documento originale (PDF)', url: INSURANCE_URLS.csen, required: true },
     ],
-    text: `Polizze assicurative CSEN e FIPAV
+    text: `Polizza infortuni CSEN
 
-Tutti gli associati tesserati sono coperti da una polizza infortuni base, stipulata tramite la Federazione Italiana Pallavolo (FIPAV) e/o l'ente di promozione sportiva CSEN a seconda dell'attività e della categoria di tesseramento. Le condizioni integrali delle polizze — massimali, esclusioni, modalità di denuncia sinistro — sono consultabili nei due documenti ufficiali collegati qui sopra: apri entrambi i link prima di proseguire.
+Gli associati tesserati tramite l'ente di promozione sportiva CSEN (Centro Sportivo Educativo Nazionale) sono coperti da una polizza infortuni base stipulata dall'ente stesso. Le condizioni integrali della polizza — massimali, esclusioni, modalità di denuncia sinistro — sono consultabili nel documento ufficiale collegato qui sopra: aprilo prima di proseguire.
 
-Con l'iscrizione, l'associato (o chi esercita la responsabilità genitoriale, per i minori) dichiara di aver preso visione delle condizioni di entrambe le polizze e ne accetta i termini, sollevando Magic Volley Adelfia Associazione Sportiva Dilettantistica da ogni pretesa risarcitoria eccedente i limiti in esse descritti.
+Con l'iscrizione, l'associato (o chi esercita la responsabilità genitoriale, per i minori) dichiara di aver preso visione delle condizioni della polizza CSEN e ne accetta i termini, sollevando Magic Volley Adelfia Associazione Sportiva Dilettantistica da ogni pretesa risarcitoria eccedente i limiti in essa descritti.
 
 Eventuali infortuni devono essere segnalati tempestivamente all'allenatore e alla segreteria societaria, poiché la denuncia formale va effettuata entro trenta giorni dall'evento. È possibile stipulare polizze integrative facoltative, con costo a carico dell'associato, da richiedere alla dirigenza all'atto dell'iscrizione.`,
+  },
+  {
+    key: 'assicurazione_fipav',
+    title: 'Polizza infortuni FIPAV',
+    description: 'Condizioni della polizza infortuni per i tesserati alla Federazione.',
+    links: [
+      { label: 'Documento originale (PDF)', url: INSURANCE_URLS.fipav, required: true },
+    ],
+    text: `Polizza infortuni FIPAV
+
+Tutti gli allievi tesserati alla Federazione Italiana Pallavolo (FIPAV) sono assicurati con la specifica polizza base Federale della Compagnia Allianz Assicurazioni SpA. Le condizioni integrali della polizza — massimali, esclusioni, modalità di denuncia sinistro — sono consultabili nel documento ufficiale collegato qui sopra e sul sito www.federvolley.it (sezione Documenti → Assicurazioni): apri il link prima di proseguire.
+
+Con l'iscrizione, il socio accetta i termini e le condizioni previste dalla polizza FIPAV e libera espressamente l'Associazione Magic Volley Adelfia a.s.d. da ogni pretesa risarcitoria eccedente i limiti descritti nella suddetta polizza.
+
+Eventuali infortuni devono essere segnalati tempestivamente verbalmente e, entro il giorno seguente, per iscritto, tramite il dirigente e la segreteria, poiché la denuncia deve essere effettuata entro trenta giorni dall'infortunio. È possibile stipulare polizze integrative facoltative, con costo a carico dell'associato, da richiedere alla dirigenza all'atto dell'iscrizione.`,
   },
   {
     key: 'statuto',
