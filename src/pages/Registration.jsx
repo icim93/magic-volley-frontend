@@ -323,8 +323,8 @@ export default function Registration() {
         <div>
           <h1 className="font-display font-bold text-3xl text-navy-dark">Documenti da leggere</h1>
           <p className="text-navy-dark/60 mt-3 text-sm">
-            Passo 2 di 3 — apri ogni documento e scorrilo fino in fondo per confermarne la lettura. Per ognuno puoi
-            anche consultare il PDF originale collegato.
+            Passo 2 di 3 — apri ogni documento: per Regolamento, Statuto, Privacy e Safe Guarding scorri il testo
+            fino in fondo, per le due Polizze assicurative spunta la casella dopo averle lette.
           </p>
 
           <div className="mt-6 space-y-3">

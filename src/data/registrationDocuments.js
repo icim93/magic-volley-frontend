@@ -10,12 +10,13 @@
 //   stile GDPR standard, in assenza di un documento ufficiale della società —
 //   falla verificare da un consulente/legale prima di considerarla definitiva.
 // Le polizze assicurative CSEN e FIPAV sono due box separati (key
-// "assicurazione_csen" e "assicurazione_fipav"), con il testo integrale della
-// polizza da scorrere (come per Regolamento/Statuto/Safeguarding) — il PDF
-// originale è linkato solo come riferimento facoltativo, non va più aperto
-// per forza. Testo CSEN trascritto via OCR (il PDF originale è scansionato,
-// senza livello testo); testo FIPAV trascritto dal PDF originale (livello
-// testo nativo).
+// "assicurazione_csen" e "assicurazione_fipav") che mostrano il PDF
+// originale incorporato (campo "pdfUrl", gestito da DocumentModal) invece di
+// un testo trascritto: sono documenti di terzi (Allianz/Unipol/FIPAV/CSEN),
+// e una trascrizione — per quanto accurata — introduce un rischio legale che
+// il PDF originale, mostrato direttamente, non ha. La conferma di lettura lì
+// è una checkbox ("Ho letto il documento"), non lo scroll, perché lo scroll
+// dentro un PDF incorporato non è tracciabile dal codice della pagina.
 
 // URL dei PDF originali su Supabase Storage (caricati con upload_source_documents.py
 // dalla cartella backend, che scrive gli URL reali — con nome file casuale — in
@@ -87,132 +88,19 @@ Il rispetto del prossimo e di noi stessi`,
     key: 'assicurazione_csen',
     title: 'Polizza infortuni CSEN',
     description: 'Condizioni della polizza infortuni per i tesserati tramite CSEN.',
+    pdfUrl: INSURANCE_URLS.csen,
     links: [
-      { label: 'Documento originale (PDF)', url: INSURANCE_URLS.csen },
+      { label: 'Apri in una nuova scheda', url: INSURANCE_URLS.csen },
     ],
-    text: `Polizza infortuni CSEN — Estratto Polizza Infortuni Base
-Tesseramento 2025/2026 — Polizza n. 1/60659/77/163533968, stipulata con Unipol Assicurazioni S.p.A.
-
-Premesso che l'Ente Contraente della presente polizza è il Centro Sportivo Educativo Nazionale (CSEN), quale Ente di promozione sportiva riconosciuto dal CONI e soggetto al controllo di quest'ultimo, e considerata la vigenza del Decreto sull'assicurazione obbligatoria per gli sportivi dilettanti (D.Lgs. 15236 del 10 novembre 2010) cui la presente polizza è in perfetta aderenza, di comune accordo tra le parti si conviene quanto segue.
-
-CONDIZIONI PARTICOLARI DI POLIZZA
-
-Le garanzie si intendono prestate in favore di tutti gli iscritti al CSEN per gli infortuni accaduti:
-1) durante la pratica di attività sportive e del tempo libero (non pericolose, ludiche e non competitive, svolte a livello collettivo) previste fra le finalità statutarie del CSEN, organizzate o partecipate dal Contraente o da Associazioni e Società sportive ad esso affiliate, così risultanti dalla tessera personale di ciascun iscritto;
-2) durante gare, allenamenti o prove, sia in forma singola che collettiva, organizzati dalle Associazioni e Società sportive di appartenenza, effettuati in presenza di istruttori-tecnici delle stesse società e, ove possibile, utilizzando impianti e strutture sportive per cui sia stato autorizzato l'uso;
-3) in occasione della frequentazione delle Sedi Sociali e durante la partecipazione attiva a manifestazioni sportive e del tempo libero organizzate dall'Associazione.
-
-Operatività della Garanzia
-
-L'assicurazione opera senza limiti di età e per il mondo intero, a condizione che le attività sportive e del tempo libero previste fra le finalità statutarie del CSEN siano svolte sotto l'egida del Contraente, in occasione e in circostanze previste dai regolamenti sportivi, dai calendari o da accordi delle Associazioni, purché definiti in data certa antecedente all'evento che ha generato l'infortunio.
-
-Per gare, stage, campionati italiani, eventi, seminari, collegiali, ritiri sportivi e allenamenti presso altre palestre sotto l'egida di Enti di promozione sportiva diversi da CSEN, la copertura non è operativa.
-
-Tipologia di tessere
-
-TESSERA BASE (emessa prima del 31/08/2025): Euro 80.000,00 per il caso di MORTE; Euro 80.000,00 per il caso di INVALIDITÀ PERMANENTE. Franchigia fissa ed assoluta del 6% per le attività sportive non pericolose e del tempo libero, del 9% per le specialità pericolose (elenco allegato al documento originale). Forfait di Euro 150,00 per frattura del setto nasale; Euro 100,00 forfait per fratture ricadenti in franchigia per tesserati fino a 14 anni di età nella pratica di specialità non pericolose; Euro 100,00 forfait rimborso occhiali. La tessera resta valida fino alla sua naturale scadenza (365 giorni dalla data di emissione).
-
-TESSERA SILVER: stessi massimali e franchigie della Tessera Base (Euro 80.000,00 per morte e per invalidità permanente, franchigie 6%/9%) ed Euro 150,00 forfait per frattura del setto nasale.
-
-TESSERA GOLD (non cumulabile con le integrative A/B/SOFTAIR): Euro 80.000,00 per il caso di MORTE; Euro 80.000,00 per il caso di INVALIDITÀ PERMANENTE con franchigia fissa ed assoluta dell'8%. Euro 100,00 forfait rimborso occhiali; Euro 500,00 rimborso spese mediche (attivabile al superamento del 3% di invalidità permanente); Euro 20,00 diaria da gesso, massimo 10 giorni (attivabile al superamento del 3% di invalidità permanente). Le tessere Gold e Silver sostituiscono, in caso di sinistro, eventuali tessere precedenti in corso di validità.
-
-TESSERA DIRETTORE DI GARA: vedere Tessera Silver/Gold. TESSERA VOLONTARIO SPORTIVO: vedere sezione Terzo Settore.
-
-Determinazione dell'Invalidità Permanente
-
-Nel caso in cui l'infortunio residui postumi invalidanti di natura permanente, questi vengono determinati secondo la Tabella Lesioni annessa al Decreto, detratta la franchigia operante per la specialità sportiva praticata. In caso di lesioni non classificate nella Tabella allegata al Decreto si fa riferimento alla valutazione presente nella Tabella ANIA.
-
-Indennizzo per prestazioni aggiuntive
-
-Nel caso di morte di un soggetto assicurato genitore, il capitale spettante ai figli minorenni conviventi è aumentato del 50%. Ai figli minorenni sono equiparati i figli maggiorenni che siano già portatori di invalidità permanente pari o superiore al 50%.
-
-Decorrenza della garanzia
-
-Per avere titolo alle prestazioni assicurative è necessario essere tesserati in data certa antecedente all'infortunio. Nel caso di tesseramento on-line, fa fede la data e l'ora di emissione della tessera riportata dal portale utilizzato. Nel caso di tesseramento manuale, la decorrenza opera dalle ore 24 del giorno di emissione della tessera; la durata della copertura è pari a 365 giorni da quello dell'emissione, a condizione che la polizza sia in quel momento in piena vigenza e che la ASD di appartenenza dell'infortunato sia ancora affiliata all'Ente Contraente.
-
-Periodo di mora: 45 giorni (in deroga ai 15 giorni previsti dalle Condizioni Generali di Assicurazione).
-
-Denuncia di Infortunio
-
-La denuncia di infortunio deve essere presentata su apposito modulo entro e non oltre il trentesimo giorno dall'accadimento, accompagnata da una dichiarazione resa dal legale rappresentante dell'organismo sportivo per il quale il soggetto assicurato è tesserato, che attesti la veridicità di quanto dichiarato.
-
-Clausola catastrofale
-
-Nel caso di infortunio che colpisca contemporaneamente più persone assicurate, l'esborso massimo complessivo a carico di Unipol S.p.A. non potrà comunque superare l'importo di Euro 2.000.000,00. Qualora gli indennizzi liquidabili eccedano nel loro complesso tale importo, gli stessi verranno proporzionalmente ridotti.
-
-Compagnia assicuratrice: Unipol Assicurazioni S.p.A., Sede Legale Via Stalingrado 45, 40128 Bologna.
-
-Nota: al documento originale collegato qui sopra è allegato anche l'elenco completo delle discipline sportive classificate come "pericolose" (soggette alla franchigia del 9% anziché del 6%) — la pallavolo non vi rientra.
-
-Con l'iscrizione, l'associato (o chi esercita la responsabilità genitoriale, per i minori) dichiara di aver preso visione delle condizioni della polizza CSEN e ne accetta i termini, sollevando Magic Volley Adelfia Associazione Sportiva Dilettantistica da ogni pretesa risarcitoria eccedente i limiti in essa descritti. È possibile stipulare polizze integrative facoltative, con costo a carico dell'associato, da richiedere alla dirigenza all'atto dell'iscrizione.`,
   },
   {
     key: 'assicurazione_fipav',
     title: 'Polizza infortuni FIPAV',
     description: 'Condizioni della polizza infortuni per i tesserati alla Federazione.',
+    pdfUrl: INSURANCE_URLS.fipav,
     links: [
-      { label: 'Documento originale (PDF)', url: INSURANCE_URLS.fipav },
+      { label: 'Apri in una nuova scheda', url: INSURANCE_URLS.fipav },
     ],
-    text: `Polizza infortuni FIPAV — Condizioni Generali
-Estratto da Polizza Infortuni e Rimborso Spese Mediche per Atleti Indoor, Beach Volley, Sitting Volley, Snow Volley e Volley S3, aderenti, allenatori, ufficiali di gara, massaggiatori e componenti dei comitati periferici. Polizza n. 50558669, stipulata tra la Federazione Italiana Pallavolo (FIPAV) e Allianz S.p.A. Decorrenza 30/06/2026, scadenza 30/06/2027.
-
-Definizioni
-
-Assicurato: la persona garantita dalla copertura assicurativa. Contraente: la Federazione Italiana Pallavolo (FIPAV). Tesserato: ogni soggetto iscritto o aderente alla Contraente. Infortunio: ogni evento improvviso, indipendente dalla volontà dell'assicurato, che si verifichi nell'esercizio dell'attività sportiva (agonistica, non agonistica, amatoriale o ludica) e produca lesioni corporali obiettivamente constatabili che abbiano per conseguenza la morte, l'invalidità permanente o un'inabilità temporanea. Franchigia: l'importo che, in caso di danno, resta a carico dell'assicurato e viene dedotto dall'indennizzo. Massimale: l'importo massimo della prestazione dovuta dalla Società. Sinistro: il verificarsi del fatto dannoso per cui è prestata la garanzia. Indennizzo: la somma dovuta dalla Società in caso di sinistro.
-
-1. Oggetto del rischio
-
-L'assicurazione vale per gli infortuni che l'Assicurato subisca nello svolgimento dell'attività sportiva, ricreativa e culturale organizzata sotto l'egida della Federazione Italiana Pallavolo — compresi allenamenti, competizioni, gare, ritiri e stage di preparazione — anche se svolti in impianti nella disponibilità di terzi. L'operatività della copertura è subordinata, ove richiesto all'atto del tesseramento, alla presentazione del certificato di idoneità sportiva.
-
-Le garanzie coprono inoltre gli infortuni occorsi durante il tragitto casa-palestra (o luogo di lavoro-palestra) nel giorno di gara o allenamento, con il percorso più breve e diretto, entro 2 ore dall'inizio o dal termine della gara oppure entro 1 ora dall'inizio o dal termine dell'allenamento, e durante le trasferte per gare, ritiri e allenamenti fuori sede, a condizione che alla guida vi sia persona abilitata e in regola con le disposizioni vigenti.
-
-2. Estensioni di garanzia
-
-Sono compresi in garanzia anche: l'asfissia non di origine morbosa; le infezioni conseguenti a infortunio e gli avvelenamenti acuti da ingestione o assorbimento involontario di sostanze; gli infortuni causati da morsi di animali, aracnidi e insetti; l'annegamento; l'assideramento e il congelamento; i colpi di sole e di calore; gli infortuni subiti in stato di malore o incoscienza; gli infortuni derivanti da imperizia, imprudenza o negligenza grave; le lesioni da sforzo muscolare di carattere traumatico e le ernie direttamente collegate all'evento traumatico; le conseguenze di strappi muscolari e le rotture sottocutanee, tendinee e muscolari.
-
-3. Esclusioni
-
-Sono esclusi dall'assicurazione gli infortuni causati, tra l'altro, da: guida senza l'abilitazione prescritta; uso di deltaplani, ultraleggeri, parapendio e sport aerei in genere (salvo il rischio volo di cui al punto 13); ubriachezza, abuso di psicofarmaci, uso di stupefacenti e allucinogeni; operazioni chirurgiche o cure mediche non rese necessarie da infortunio; uso di veicoli o natanti a motore in gare e competizioni; partecipazione a delitti dolosi commessi o tentati dall'Assicurato; guerra e insurrezioni; contaminazioni biologiche o chimiche da atti di terrorismo; malaria, malattie tropicali e carbonchio; trasformazioni energetiche dell'atomo, naturali o provocate.
-
-4-9. Altre condizioni generali
-
-Contraente e Assicurati sono esonerati dal denunciare infermità o difetti fisici preesistenti e dall'obbligo di denunciare altre polizze stipulate per i medesimi rischi. Non sono assicurabili le persone affette da alcolismo, tossicodipendenza, infezione da HIV o da specifiche infermità mentali indicate in polizza; il manifestarsi di tali condizioni nel corso del contratto consente alla Società di recedere limitatamente alla persona interessata. Sono comunque compresi in garanzia gli infortuni causati da colpa grave dell'Assicurato e quelli causati da tumulti popolari ai quali l'Assicurato non abbia partecipato, nonché quelli causati da movimenti tellurici, inondazioni ed eruzioni vulcaniche. In caso di evento con pluralità di infortuni, l'indennizzo complessivo dovuto dalla Società non può superare Euro 6.000.000,00.
-
-10-12. Validità territoriale, limiti di età, criteri di indennizzabilità
-
-L'assicurazione è valida in tutto il mondo (valutazione e liquidazione dei danni in Italia, pagamento in Euro) e senza limiti di età. La Società corrisponde l'indennizzo per le conseguenze dirette, esclusive ed obiettivamente constatabili dell'infortunio, indipendenti da condizioni fisiche o patologiche preesistenti. In caso di morte avvenuta in occasione di una manifestazione sportiva ufficiale, la prestazione è dovuta anche se il decesso è conseguenza indiretta dell'infortunio.
-
-13. Rischio volo
-
-L'assicurazione vale anche per gli infortuni subiti durante i viaggi in aereo di trasferimento come passeggero, entro i limiti di Euro 5.200.000,00 per il caso morte, Euro 5.200.000,00 per invalidità permanente ed Euro 5.200,00 al giorno per inabilità temporanea.
-
-14. Prestazioni
-
-In caso di morte, la Società corrisponde la somma assicurata ai beneficiari designati o, in mancanza, agli eredi in parti uguali; l'indennizzo per morte non è cumulabile con quello per invalidità permanente. In caso di morte presunta (corpo non ritrovato), la liquidazione avviene non prima di 6 mesi dalla presentazione dell'istanza. Per l'invalidità permanente, gli indennizzi seguono la tabella allegata al Decreto Ministeriale 3 novembre 2010 (assicurazione obbligatoria per gli sportivi dilettanti), con il miglioramento per cui gli indennizzi sono riconosciuti anche in assenza di intervento chirurgico. Seguono precisazioni tecniche su fratture, lussazioni, amputazioni, coma post-traumatico, rottura dei denti e ustioni, riportate integralmente nel documento originale collegato qui sopra.
-
-15-18. Controversie, anticipo indennizzo, franchigie
-
-Le controversie sulla natura, causa ed entità delle lesioni sono decise da un Collegio di tre medici. Trascorsi tre mesi dal termine delle cure, se è prevedibile un'invalidità permanente pari o superiore al 25%, la Società corrisponde un anticipo del 50%. Non si corrisponde alcun indennizzo se il grado di invalidità permanente non supera l'8% (franchigia assoluta); se l'invalidità permanente è pari o superiore al 60%, l'indennità viene liquidata al 100% del capitale assicurato.
-
-19-20. Pagamento ed estensioni speciali
-
-Il pagamento dell'indennità è effettuato in Euro, in Italia. In caso di perdita dell'anno scolastico a causa delle lesioni, l'indennizzo è incrementato del 20%. In caso di morte di un tesserato genitore, l'indennità spettante ai figli minorenni conviventi è aumentata del 100%. È inoltre prevista una garanzia limitata per il rischio guerra (14 giorni dallo scoppio delle ostilità, per chi si trovi già all'estero), il rimpatrio della salma (fino a Euro 5.000,00), il rientro sanitario (fino a Euro 5.000,00) e il rimborso spese per morsi di animali, avvelenamenti, assideramento/congelamento e danno estetico da chirurgia ricostruttiva.
-
-21. Denuncia degli infortuni
-
-In caso di sinistro, il Contraente e/o l'Assicurato devono darne avviso scritto alla Società entro 30 giorni lavorativi dall'evento, corredato da certificato medico (Pronto Soccorso o specialistico, redatto entro 72 ore dal sinistro) con l'indicazione di luogo, giorno, ora e modalità dell'accadimento, documentare il decorso delle lesioni con ulteriori certificati e, in caso di ricovero, trasmettere copia della cartella clinica.
-
-22-24. Surrogazione, rimborso spese mediche, condizioni particolari
-
-La Società rinuncia al diritto di surrogazione verso i terzi responsabili dell'infortunio. È previsto il rimborso delle spese mediche sostenute a seguito di infortunio (intervento chirurgico anche in day hospital, applicazione di gesso o tutore, onorari medici, rette di degenza, trasporto in ambulanza, medicinali, assistenza e trattamenti fisioterapici), nei limiti indicati nelle condizioni particolari, al netto di scoperto e franchigia applicati una sola volta sul totale delle prestazioni.
-
-Condizioni particolari per gli atleti Indoor, Beach, Sitting Volley e Minivolley
-
-Per gli atleti indoor e beach in attività agonistica (età superiore a 13 anni), gli atleti in attività non agonistica (fino a 13 anni), allenatori, ufficiali di gara, massaggiatori e componenti dei comitati territoriali: Euro 100.000,00 per il caso di MORTE; Euro 100.000,00 per il caso di INVALIDITÀ PERMANENTE, con franchigia dell'8% per tutti i distretti anatomici. Rimborso Spese Mediche: massimale Euro 1.000,00 (sottolimite di Euro 500,00 per fisioterapia), scoperto 10% con minimo di Euro 250,00. Il rimborso spese mediche è riconosciuto al solo verificarsi dell'infortunio, indipendentemente da un postumo invalidante, per le spese connesse a intervento chirurgico (anche in day hospital/ambulatoriale) e/o applicazione di gesso o tutore equivalente.
-
-Compagnia assicuratrice: Allianz S.p.A., Sede Legale Piazza Tre Torri 3, 20145 Milano.
-
-Con l'iscrizione, il socio accetta i termini e le condizioni previste dalla polizza FIPAV e libera espressamente l'Associazione Magic Volley Adelfia a.s.d. da ogni pretesa risarcitoria eccedente i limiti descritti nella suddetta polizza. È possibile stipulare polizze integrative facoltative, con costo a carico dell'associato, da richiedere alla dirigenza all'atto dell'iscrizione.`,
   },
   {
     key: 'statuto',

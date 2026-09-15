@@ -26,13 +26,17 @@ export function DocumentCard({ doc, read, onOpen }) {
   )
 }
 
-// onFullyRead (opzionale) scatta solo quando l'utente ha SIA scorso il testo
-// fino in fondo SIA aperto tutti i link marcati come "required" (es. le
-// polizze assicurative citate nel Regolamento) — un'accettazione tracciata,
-// non solo sottintesa nel testo.
+// onFullyRead (opzionale) scatta quando l'utente conferma di aver letto il
+// documento: per i testi trascritti, scorrendo fino in fondo (ed aprendo gli
+// eventuali link "required"); per i documenti mostrati come PDF incorporato
+// (doc.pdfUrl — es. le polizze assicurative, mostrate come PDF originale per
+// evitare i rischi legali di una trascrizione), spuntando la casella "Ho
+// letto il documento", perché lo scroll dentro un PDF incorporato non è
+// tracciabile dal codice della pagina.
 export function DocumentModal({ doc, onClose, onFullyRead }) {
   const [scrolledToBottom, setScrolledToBottom] = useState(false)
   const [clickedLinks, setClickedLinks] = useState(() => new Set())
+  const [pdfConfirmed, setPdfConfirmed] = useState(false)
   const textRef = useRef(null)
 
   const links = doc.links?.filter((l) => l.url) || []
@@ -41,8 +45,9 @@ export function DocumentModal({ doc, onClose, onFullyRead }) {
 
   // Se il testo è già interamente visibile (niente da scorrere), l'evento
   // onScroll non scatterebbe mai — senza questo controllo la lettura non
-  // risulterebbe mai confermata per i documenti brevi (es. Polizze assicurative).
+  // risulterebbe mai confermata per i documenti brevi.
   useEffect(() => {
+    if (doc.pdfUrl) return
     const el = textRef.current
     if (el && el.scrollHeight <= el.clientHeight + 12) {
       setScrolledToBottom(true)
@@ -73,6 +78,12 @@ export function DocumentModal({ doc, onClose, onFullyRead }) {
     handleLinkClick(url)
     const nowAllClicked = requiredLinks.every((l) => l.url === url || clickedLinks.has(l.url))
     if (scrolledToBottom && nowAllClicked) onFullyRead?.()
+  }
+
+  const handlePdfConfirm = (e) => {
+    const checked = e.target.checked
+    setPdfConfirmed(checked)
+    if (checked) onFullyRead?.()
   }
 
   return (
@@ -117,13 +128,34 @@ export function DocumentModal({ doc, onClose, onFullyRead }) {
             </svg>
           </button>
         </div>
-        <div
-          ref={textRef}
-          onScroll={handleScroll}
-          className="overflow-y-auto px-6 py-5 text-sm text-navy-dark/80 whitespace-pre-line leading-relaxed"
-        >
-          {doc.text}
-        </div>
+        {doc.pdfUrl ? (
+          <>
+            <iframe
+              src={doc.pdfUrl}
+              title={doc.title}
+              className="flex-1 w-full border-0 min-h-[55vh]"
+            />
+            {onFullyRead && (
+              <label className="flex items-center gap-2.5 px-6 py-4 border-t border-navy-dark/10 shrink-0 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={pdfConfirmed}
+                  onChange={handlePdfConfirm}
+                  className="w-5 h-5 accent-amber"
+                />
+                <span className="text-sm font-semibold text-navy-dark">Ho letto il documento</span>
+              </label>
+            )}
+          </>
+        ) : (
+          <div
+            ref={textRef}
+            onScroll={handleScroll}
+            className="overflow-y-auto px-6 py-5 text-sm text-navy-dark/80 whitespace-pre-line leading-relaxed"
+          >
+            {doc.text}
+          </div>
+        )}
       </div>
     </div>
   )
