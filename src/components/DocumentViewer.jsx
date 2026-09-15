@@ -30,13 +30,13 @@ export function DocumentCard({ doc, read, onOpen }) {
 // documento: per i testi trascritti, scorrendo fino in fondo (ed aprendo gli
 // eventuali link "required"); per i documenti mostrati come PDF incorporato
 // (doc.pdfUrl — es. le polizze assicurative, mostrate come PDF originale per
-// evitare i rischi legali di una trascrizione), spuntando la casella "Ho
-// letto il documento", perché lo scroll dentro un PDF incorporato non è
-// tracciabile dal codice della pagina.
+// evitare i rischi legali di una trascrizione), semplicemente aprendo il box
+// — il PDF è già interamente visibile e navigabile lì dentro (pagine,
+// zoom, scroll nativi del visualizzatore del browser), quindi non serve
+// un'ulteriore conferma manuale.
 export function DocumentModal({ doc, onClose, onFullyRead }) {
   const [scrolledToBottom, setScrolledToBottom] = useState(false)
   const [clickedLinks, setClickedLinks] = useState(() => new Set())
-  const [pdfConfirmed, setPdfConfirmed] = useState(false)
   const textRef = useRef(null)
 
   const links = doc.links?.filter((l) => l.url) || []
@@ -47,7 +47,10 @@ export function DocumentModal({ doc, onClose, onFullyRead }) {
   // onScroll non scatterebbe mai — senza questo controllo la lettura non
   // risulterebbe mai confermata per i documenti brevi.
   useEffect(() => {
-    if (doc.pdfUrl) return
+    if (doc.pdfUrl) {
+      onFullyRead?.()
+      return
+    }
     const el = textRef.current
     if (el && el.scrollHeight <= el.clientHeight + 12) {
       setScrolledToBottom(true)
@@ -78,12 +81,6 @@ export function DocumentModal({ doc, onClose, onFullyRead }) {
     handleLinkClick(url)
     const nowAllClicked = requiredLinks.every((l) => l.url === url || clickedLinks.has(l.url))
     if (scrolledToBottom && nowAllClicked) onFullyRead?.()
-  }
-
-  const handlePdfConfirm = (e) => {
-    const checked = e.target.checked
-    setPdfConfirmed(checked)
-    if (checked) onFullyRead?.()
   }
 
   return (
@@ -129,24 +126,11 @@ export function DocumentModal({ doc, onClose, onFullyRead }) {
           </button>
         </div>
         {doc.pdfUrl ? (
-          <>
-            <iframe
-              src={doc.pdfUrl}
-              title={doc.title}
-              className="flex-1 w-full border-0 min-h-[55vh]"
-            />
-            {onFullyRead && (
-              <label className="flex items-center gap-2.5 px-6 py-4 border-t border-navy-dark/10 shrink-0 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={pdfConfirmed}
-                  onChange={handlePdfConfirm}
-                  className="w-5 h-5 accent-amber"
-                />
-                <span className="text-sm font-semibold text-navy-dark">Ho letto il documento</span>
-              </label>
-            )}
-          </>
+          <iframe
+            src={doc.pdfUrl}
+            title={doc.title}
+            className="flex-1 w-full border-0 min-h-[65vh]"
+          />
         ) : (
           <div
             ref={textRef}
