@@ -159,12 +159,17 @@ export default function Registration() {
 
   const downloadPdf = () => generateRegistrationPdf(form, isMinor)
 
+  // Il download del modulo e l'invio della richiesta sono un'unica azione:
+  // prima si registrava la richiesta solo con un pulsante separato "Invia",
+  // e molte famiglie scaricavano il PDF senza mai cliccarlo, restando così
+  // invisibili nel sistema pur avendo il modulo firmato in mano.
   const handleSubmit = async () => {
     setStatus('sending')
     setErrorMsg('')
     try {
       await api.post('/api/registrations', { ...form, documents_accepted: allDocsRead })
       setStatus('done')
+      downloadPdf()
     } catch (err) {
       setStatus('error')
       setErrorMsg(
@@ -364,7 +369,8 @@ export default function Registration() {
         <div>
           <h1 className="font-display font-bold text-3xl text-navy-dark">Riepilogo</h1>
           <p className="text-navy-dark/60 mt-3 text-sm">
-            Passo 3 di 3 — controlla i dati, scarica il modulo, firmalo e portalo in palestra. Poi invia la richiesta.
+            Passo 3 di 3 — controlla i dati, poi invia la richiesta: verrà registrata subito e si scaricherà
+            anche il modulo da firmare e portare in palestra.
           </p>
 
           <div className="mt-6">
@@ -379,18 +385,11 @@ export default function Registration() {
             </button>
             <button
               type="button"
-              onClick={downloadPdf}
-              className="border-2 border-navy-dark/20 hover:border-navy-dark text-navy-dark font-display font-semibold px-6 py-3 rounded-full transition-colors"
-            >
-              Scarica il modulo (PDF)
-            </button>
-            <button
-              type="button"
               disabled={status === 'sending'}
               onClick={handleSubmit}
               className="flex-1 bg-amber hover:bg-amber-dark disabled:opacity-60 text-navy-dark font-display font-semibold py-3 rounded-full transition-colors"
             >
-              {status === 'sending' ? 'Invio in corso…' : 'Invia la richiesta di iscrizione'}
+              {status === 'sending' ? 'Invio in corso…' : 'Invia la richiesta e scarica il modulo (PDF)'}
             </button>
           </div>
         </div>
