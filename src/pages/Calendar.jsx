@@ -12,7 +12,7 @@ const statusLabel = {
 
 function MatchRow({ match }) {
   const date = new Date(match.match_date)
-  const giornata = match.notes?.match(/Giornata (\\d+)/)?.[1]
+  const giornata = match.notes?.match(/Giornata (\d+)/)?.[1]
   return (
     <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 bg-white border-2 border-navy-dark/10 rounded-xl p-5">
       <div className="scoreboard text-center sm:w-20 shrink-0">
