@@ -12,6 +12,7 @@ const statusLabel = {
 
 function MatchRow({ match }) {
   const date = new Date(match.match_date)
+  const giornata = match.notes?.match(/Giornata (\\d+)/)?.[1]
   return (
     <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 bg-white border-2 border-navy-dark/10 rounded-xl p-5">
       <div className="scoreboard text-center sm:w-20 shrink-0">
@@ -20,11 +21,17 @@ function MatchRow({ match }) {
       </div>
 
       <div className="flex-1">
+        <div className="flex flex-wrap gap-2 mb-1.5">
+          {giornata && <span className="text-[11px] font-bold uppercase tracking-wide text-navy-light">{giornata}ª giornata</span>}
+          <span className={`text-[11px] font-bold uppercase tracking-wide ${match.is_home ? 'text-amber-dark' : 'text-navy-dark/50'}`}>
+            {match.is_home ? 'In casa' : 'Trasferta'}
+          </span>
+        </div>
         <p className="font-body font-semibold text-navy-dark">
           {match.home_team_name} <span className="text-navy-light">vs</span> {match.away_team_name}
         </p>
         <p className="text-xs text-navy-dark/50 mt-1">
-          {date.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' })}
+          {date.toLocaleDateString('it-IT', { weekday: 'long' })} · {date.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' })}
           {match.location && ` · ${match.location}`}
         </p>
       </div>
