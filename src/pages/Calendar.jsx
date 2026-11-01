@@ -43,14 +43,17 @@ function MatchRow({ match }) {
 }
 
 export default function Calendar() {
-  const [tab, setTab] = useState('upcoming')
+  const [tab, setTab] = useState('season')
   const [matches, setMatches] = useState(null)
   const [error, setError] = useState(false)
 
   useEffect(() => {
     setMatches(null)
+    setError(false)
     const request =
-      tab === 'upcoming'
+      tab === 'season'
+        ? api.get('/api/matches')
+        : tab === 'upcoming'
         ? api.get('/api/matches', { params: { upcoming_only: true } })
         : api.get('/api/matches/results')
 
@@ -69,6 +72,7 @@ export default function Calendar() {
 
       <div className="flex gap-2 mt-8 border-b-2 border-navy-dark/10">
         {[
+          { key: 'season', label: 'Calendario completo' },
           { key: 'upcoming', label: 'Prossime partite' },
           { key: 'results', label: 'Risultati' },
         ].map((t) => (
@@ -89,7 +93,7 @@ export default function Calendar() {
         {!matches && !error && <Loading label="Carico il calendario…" />}
         {matches?.length === 0 && (
           <EmptyState
-            title={tab === 'upcoming' ? 'Nessuna partita in programma' : 'Nessun risultato disponibile'}
+            title={tab === 'season' ? 'Nessuna partita nel calendario' : tab === 'upcoming' ? 'Nessuna partita in programma' : 'Nessun risultato disponibile'}
             description="Il calendario viene aggiornato dallo staff nel pannello gestionale."
           />
         )}
