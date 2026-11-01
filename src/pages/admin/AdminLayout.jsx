@@ -5,6 +5,7 @@ const navItems = [
   { to: '/admin', label: 'Panoramica', end: true },
   { to: '/admin/squadre', label: 'Squadre' },
   { to: '/admin/giocatrici', label: 'Giocatrici' },
+  { to: '/admin/giocatrici-duplicate', label: 'Unisci duplicati', minRole: 'admin' },
   { to: '/admin/staff', label: 'Staff e Organigramma' },
   { to: '/admin/partite', label: 'Partite' },
   { to: '/admin/news', label: 'News' },
