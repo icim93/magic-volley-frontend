@@ -37,8 +37,13 @@ function MatchRow({ match }) {
       </div>
 
       {match.status === 'played' && match.home_sets != null ? (
-        <div className="scoreboard text-lg font-bold text-navy-dark bg-amber/15 px-4 py-1.5 rounded-full">
-          {match.home_sets} – {match.away_sets}
+        <div className="text-center sm:text-right shrink-0">
+          <div className="scoreboard text-lg font-bold text-navy-dark bg-amber/15 px-4 py-1.5 rounded-full">
+            {match.home_sets} – {match.away_sets}
+          </div>
+          {match.set_scores && (
+            <p className="text-xs text-navy-dark/60 mt-2">Set: {match.set_scores}</p>
+          )}
         </div>
       ) : (
         <span className="text-xs font-semibold uppercase tracking-wide text-navy-light">
