@@ -6,12 +6,46 @@ const fields = [
   ['role', 'Ruolo'], ['height_cm', 'Altezza'], ['bio', 'Bio'], ['photo_url', 'Foto'],
 ]
 
+// Se il backend della fusione non è ancora attivo, almeno il confronto resta visibile
+// usando le API pubbliche esistenti. In questa modalità nessuna scrittura è consentita.
+const identity = (value) => (value || '').normalize('NFKD')
+  .replace(/[\u0300-\u036f]/g, '').trim().toLowerCase().replace(/\s+/g, ' ')
+
+const compareFields = (players) => fields.filter(([key]) => {
+  const values = players.map(p => p[key]).filter(value =>
+    value !== null && value !== undefined && value !== '')
+  return new Set(values.map(String)).size > 1
+}).map(([key]) => key)
+
+const previewFromLegacyApi = (players, teams) => {
+  const byTeam = new Map(teams.map(t => [t.id, t]))
+  const grouped = new Map()
+  players.forEach(player => {
+    const key = [player.team_id, identity(player.first_name), identity(player.last_name)].join(':')
+    if (!grouped.has(key)) grouped.set(key, [])
+    grouped.get(key).push(player)
+  })
+  return [...grouped.values()].filter(group => group.length > 1).map(group => {
+    const team = byTeam.get(group[0].team_id)
+    return {
+      team_id: group[0].team_id,
+      team_name: team?.name || '',
+      category: team?.category || '',
+      season: team?.season || '',
+      name: group[0].first_name + ' ' + group[0].last_name,
+      conflicts: compareFields(group),
+      players: group,
+    }
+  }).sort((a, b) => a.name.localeCompare(b.name, 'it'))
+}
+
 export default function AdminPlayerDuplicates() {
   const [groups, setGroups] = useState(null)
   const [selected, setSelected] = useState({})
   const [error, setError] = useState('')
   const [notice, setNotice] = useState('')
   const [busy, setBusy] = useState(false)
+  const [readOnly, setReadOnly] = useState(false)
 
   const errorMessage = (err) => {
     const code = err.response?.status
@@ -32,6 +66,7 @@ export default function AdminPlayerDuplicates() {
 
   const load = async () => {
     setError('')
+    setReadOnly(false)
     try {
       const { data } = await api.get('/api/player-duplicates', {
         headers: { 'Cache-Control': 'no-cache' },
@@ -41,6 +76,24 @@ export default function AdminPlayerDuplicates() {
       }
       setGroups(data)
     } catch (err) {
+      // Un backend non ancora distribuito (404) o con errore lato server (5xx)
+      // non deve lasciare completamente vuoto il pannello.
+      const status = err.response?.status
+      if (status === 404 || (status >= 500 && status < 600)) {
+        try {
+          const [playersResult, teamsResult] = await Promise.all([
+            api.get('/api/players'),
+            api.get('/api/teams'),
+          ])
+          if (Array.isArray(playersResult.data) && Array.isArray(teamsResult.data)) {
+            setGroups(previewFromLegacyApi(playersResult.data, teamsResult.data))
+            setReadOnly(true)
+            return
+          }
+        } catch {
+          // Mostra l'errore originale, non quello del tentativo di ripiego.
+        }
+      }
       setGroups(null)
       setError(err.message && !err.response && err.message.startsWith('La risposta')
         ? err.message : errorMessage(err))
@@ -54,7 +107,7 @@ export default function AdminPlayerDuplicates() {
   const merge = async (group, source) => {
     const key = group.team_id + ':' + group.name
     const keepId = Number(selected[key])
-    if (!keepId || keepId === source.id) return
+    if (readOnly || !keepId || keepId === source.id) return
     if (!window.confirm('Archiviare la scheda #' + source.id +
         ' e unire i suoi dati nella scheda #' + keepId + '?')) return
     setBusy(true)
@@ -92,8 +145,14 @@ export default function AdminPlayerDuplicates() {
         </div>
       )}
       {notice && <p role="status">{notice}</p>}
+      {readOnly && (
+        <p role="status" className="rounded-xl border border-amber/50 bg-white p-4 text-sm text-navy-dark">
+          Modalità consultazione: l'API di fusione non risponde correttamente.
+          Puoi confrontare le schede attive, ma non unirle finché il backend non sarà aggiornato e verificato.
+        </p>
+      )}
       {!groups && !error && <p>Caricamento…</p>}
-      {groups?.length === 0 && <p>Nessun gruppo di omonime trovato.</p>}
+      {groups?.length === 0 && <p>Nessuna omonimia rilevata tra le schede disponibili.</p>}
       {groups?.map(group => {
         const key = group.team_id + ':' + group.name
         const keepId = Number(selected[key])
@@ -133,7 +192,7 @@ export default function AdminPlayerDuplicates() {
               </select>
             </label>
             {keepId > 0 && group.players.filter(p => p.id !== keepId).map(p =>
-              <button key={p.id} disabled={busy || group.conflicts.length > 0}
+              <button key={p.id} disabled={busy || readOnly || group.conflicts.length > 0}
                 onClick={() => merge(group, p)}
                 className="bg-amber text-navy-dark px-4 py-2 rounded-lg disabled:opacity-40 mr-2">
                 Unisci #{p.id} nella #{keepId}
