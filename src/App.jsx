@@ -30,6 +30,7 @@ const AdminLayout = lazy(() => import('./pages/admin/AdminLayout'))
 const Dashboard = lazy(() => import('./pages/admin/Dashboard'))
 const AdminTeams = lazy(() => import('./pages/admin/AdminTeams'))
 const AdminPlayers = lazy(() => import('./pages/admin/AdminPlayers'))
+const AdminPlayerDuplicates = lazy(() => import('./pages/admin/AdminPlayerDuplicates'))
 const AdminStaff = lazy(() => import('./pages/admin/AdminStaff'))
 const AdminMatches = lazy(() => import('./pages/admin/AdminMatches'))
 const AdminNews = lazy(() => import('./pages/admin/AdminNews'))
@@ -112,6 +113,7 @@ export default function App() {
           <Route index element={<Dashboard />} />
           <Route path="squadre" element={<AdminTeams />} />
           <Route path="giocatrici" element={<AdminPlayers />} />
+          <Route path="giocatrici-duplicate" element={<AdminPlayerDuplicates />} />
           <Route path="staff" element={<AdminStaff />} />
           <Route path="partite" element={<AdminMatches />} />
           <Route path="news" element={<AdminNews />} />
